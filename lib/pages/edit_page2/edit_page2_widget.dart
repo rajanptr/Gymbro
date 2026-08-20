@@ -1,10 +1,12 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
-import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'edit_page2_model.dart';
 export 'edit_page2_model.dart';
@@ -827,7 +829,7 @@ class _EditPage2WidgetState extends State<EditPage2Widget> {
                                     FlutterFlowTheme.of(context).alternate,
                               ),
                               child: Checkbox(
-                                value: _model.checkboxValue ??= true,
+                                value: _model.checkboxValue ??= false,
                                 onChanged: (newValue) async {
                                   safeSetState(
                                       () => _model.checkboxValue = newValue!);
@@ -847,26 +849,69 @@ class _EditPage2WidgetState extends State<EditPage2Widget> {
                               ),
                             ),
                             Text(
-                              'Hello World',
+                              'I agree to the Terms & Conditions',
                               style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
+                                  .bodySmall
                                   .override(
                                     font: GoogleFonts.urbanist(
                                       fontWeight: FlutterFlowTheme.of(context)
-                                          .bodyMedium
+                                          .bodySmall
                                           .fontWeight,
                                       fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
+                                          .bodySmall
                                           .fontStyle,
                                     ),
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryText,
                                     letterSpacing: 0.0,
                                     fontWeight: FlutterFlowTheme.of(context)
-                                        .bodyMedium
+                                        .bodySmall
                                         .fontWeight,
                                     fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
+                                        .bodySmall
                                         .fontStyle,
                                   ),
+                            ),
+                            Align(
+                              alignment: AlignmentDirectional(1.0, 0.0),
+                              child: FFButtonWidget(
+                                onPressed: () async {
+                                  HapticFeedback.selectionClick();
+                                  await launchURL(
+                                      'https://thegymbroclub.framer.website/terms_conditions');
+                                },
+                                text: 'Read T&C',
+                                icon: Icon(
+                                  Icons.arrow_drop_up_rounded,
+                                  size: 16.0,
+                                ),
+                                options: FFButtonOptions(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      10.0, 0.0, 10.0, 0.0),
+                                  iconAlignment: IconAlignment.end,
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  iconColor:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  color: Color(0x00191918),
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .bodySmall
+                                      .override(
+                                        font: GoogleFonts.urbanist(
+                                          fontWeight: FontWeight.w600,
+                                          fontStyle: FontStyle.italic,
+                                        ),
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w600,
+                                        fontStyle: FontStyle.italic,
+                                      ),
+                                  elevation: 0.0,
+                                  borderRadius: BorderRadius.circular(120.0),
+                                ),
+                                showLoadingIndicator: false,
+                              ),
                             ),
                           ],
                         ),
@@ -875,70 +920,74 @@ class _EditPage2WidgetState extends State<EditPage2Widget> {
                         padding: EdgeInsetsDirectional.fromSTEB(
                             15.0, 10.0, 15.0, 36.0),
                         child: FFButtonWidget(
-                          onPressed: () async {
-                            await ProfilesTable().update(
-                              data: {
-                                'height_cm': double.tryParse(
-                                    _model.nameTextController1.text),
-                                'weight_kg': double.tryParse(
-                                    _model.nameTextController2.text),
-                                'preferred_unit': 'kg',
-                              },
-                              matchingRows: (rows) => rows.eqOrNull(
-                                'id',
-                                currentUserUid,
-                              ),
-                            );
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                  'Profile Created',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        font: GoogleFonts.urbanist(
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
-                                        ),
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FlutterFlowTheme.of(context)
+                          onPressed: (_model.checkboxValue == false)
+                              ? null
+                              : () async {
+                                  await ProfilesTable().update(
+                                    data: {
+                                      'height_cm': double.tryParse(
+                                          _model.nameTextController1.text),
+                                      'weight_kg': double.tryParse(
+                                          _model.nameTextController2.text),
+                                      'preferred_unit': 'kg',
+                                    },
+                                    matchingRows: (rows) => rows.eqOrNull(
+                                      'id',
+                                      currentUserUid,
+                                    ),
+                                  );
+                                  await actions.loginOneSignalUser(
+                                    currentUserUid,
+                                  );
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Profile created succesfully',
+                                        style: FlutterFlowTheme.of(context)
                                             .bodyMedium
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
+                                            .override(
+                                              font: GoogleFonts.urbanist(
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryBackground,
+                                              letterSpacing: 0.0,
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
                                       ),
-                                ),
-                                duration: Duration(milliseconds: 4000),
-                                backgroundColor:
-                                    FlutterFlowTheme.of(context).primaryText,
-                              ),
-                            );
-                            await Future.delayed(
-                              Duration(
-                                milliseconds: 6000,
-                              ),
-                            );
+                                      duration: Duration(milliseconds: 4000),
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                    ),
+                                  );
 
-                            context.goNamed(
-                              HabitPageWidget.routeName,
-                              extra: <String, dynamic>{
-                                '__transition_info__': TransitionInfo(
-                                  hasTransition: true,
-                                  transitionType: PageTransitionType.fade,
-                                  duration: Duration(milliseconds: 0),
-                                ),
-                              },
-                            );
-                          },
+                                  context.goNamed(
+                                    HabitPageWidget.routeName,
+                                    extra: <String, dynamic>{
+                                      '__transition_info__': TransitionInfo(
+                                        hasTransition: true,
+                                        transitionType: PageTransitionType.fade,
+                                        duration: Duration(milliseconds: 0),
+                                      ),
+                                    },
+                                  );
+                                },
                           text: 'CREATE',
                           options: FFButtonOptions(
                             width: double.infinity,
@@ -971,6 +1020,9 @@ class _EditPage2WidgetState extends State<EditPage2Widget> {
                                 ),
                             elevation: 0.0,
                             borderRadius: BorderRadius.circular(120.0),
+                            disabledColor: FlutterFlowTheme.of(context).accent3,
+                            disabledTextColor:
+                                FlutterFlowTheme.of(context).secondaryText,
                           ),
                         ),
                       ),

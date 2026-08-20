@@ -1,7 +1,7 @@
 // Automatic FlutterFlow imports
 import '/backend/schema/structs/index.dart';
 import '/backend/supabase/supabase.dart';
-import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/widgets/index.dart'; // Imports other custom widgets
 import '/custom_code/actions/index.dart'; // Imports custom actions
@@ -17,7 +17,7 @@ class DurationPicker extends StatefulWidget {
     super.key,
     this.width,
     this.height,
-    this.initialMinutes = 0,
+    this.initialMinutes = 1,
     this.initialSeconds = 0,
     this.onDurationChanged,
   });
@@ -45,8 +45,13 @@ class _DurationPickerState extends State<DurationPicker> {
   void initState() {
     super.initState();
 
-    selectedMinutes = widget.initialMinutes.clamp(0, 180);
-    selectedSeconds = widget.initialSeconds.clamp(0, 59);
+    // Clamp initial duration between 00:01 and 15:00.
+    int totalSeconds = (widget.initialMinutes * 60) + widget.initialSeconds;
+
+    totalSeconds = totalSeconds.clamp(1, 15 * 60);
+
+    selectedMinutes = totalSeconds ~/ 60;
+    selectedSeconds = totalSeconds % 60;
 
     minutesController = FixedExtentScrollController(
       initialItem: selectedMinutes,
@@ -71,6 +76,66 @@ class _DurationPickerState extends State<DurationPicker> {
         selectedSeconds,
       );
     }
+  }
+
+  void _updateMinutes(int value) {
+    int newMinutes = value;
+    int newSeconds = selectedSeconds;
+
+    // Maximum allowed duration is 15:00.
+    if (newMinutes == 15) {
+      newSeconds = 0;
+
+      if (secondsController.hasClients) {
+        secondsController.jumpToItem(0);
+      }
+    }
+
+    // Minimum allowed duration is 00:01.
+    if (newMinutes == 0 && newSeconds == 0) {
+      newSeconds = 1;
+
+      if (secondsController.hasClients) {
+        secondsController.jumpToItem(1);
+      }
+    }
+
+    setState(() {
+      selectedMinutes = newMinutes;
+      selectedSeconds = newSeconds;
+    });
+
+    _sendValue();
+  }
+
+  void _updateSeconds(int value) {
+    int newMinutes = selectedMinutes;
+    int newSeconds = value;
+
+    // 15:xx is not allowed.
+    if (newMinutes == 15) {
+      newSeconds = 0;
+
+      if (secondsController.hasClients) {
+        secondsController.jumpToItem(0);
+      }
+    }
+
+    // 00:00 is not allowed.
+    if (newMinutes == 0 && newSeconds == 0) {
+      newSeconds = 1;
+
+      if (secondsController.hasClients) {
+        secondsController.jumpToItem(1);
+      }
+    }
+
+    setState(() {
+      selectedMinutes = newMinutes;
+      selectedSeconds = newSeconds;
+    });
+
+    _sendValue();
   }
 
   Widget _buildPicker({
@@ -119,7 +184,7 @@ class _DurationPickerState extends State<DurationPicker> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text(
-            'Duration',
+            'REST DURATION',
             style: TextStyle(
               color: Colors.white,
               fontSize: 16,
@@ -132,18 +197,14 @@ class _DurationPickerState extends State<DurationPicker> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                // MINUTES
                 _buildPicker(
                   controller: minutesController,
-                  itemCount: 181,
+                  itemCount: 16, // 00 → 15
                   selectedValue: selectedMinutes,
-                  onChanged: (value) {
-                    setState(() {
-                      selectedMinutes = value;
-                    });
-
-                    _sendValue();
-                  },
+                  onChanged: _updateMinutes,
                 ),
+
                 const Text(
                   ':',
                   style: TextStyle(
@@ -152,17 +213,13 @@ class _DurationPickerState extends State<DurationPicker> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
+
+                // SECONDS
                 _buildPicker(
                   controller: secondsController,
-                  itemCount: 60,
+                  itemCount: 60, // 00 → 59
                   selectedValue: selectedSeconds,
-                  onChanged: (value) {
-                    setState(() {
-                      selectedSeconds = value;
-                    });
-
-                    _sendValue();
-                  },
+                  onChanged: _updateSeconds,
                 ),
               ],
             ),
@@ -203,5 +260,3 @@ class _DurationPickerState extends State<DurationPicker> {
     );
   }
 }
-// Set your widget name, define your parameter, and then add the
-// boilerplate code using the `</>` button on the right!

@@ -16,3 +16,5 @@ export '/pages/add_workout/add_workout_widget.dart' show AddWorkoutWidget;
 export '/pages/home_page/home_page_widget.dart' show HomePageWidget;
 export '/pages/create_template_page/create_template_page_widget.dart'
     show CreateTemplatePageWidget;
+export '/pages/update_password/update_password_widget.dart'
+    show UpdatePasswordWidget;

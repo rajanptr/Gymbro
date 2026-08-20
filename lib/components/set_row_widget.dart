@@ -1,10 +1,8 @@
 import '/backend/supabase/supabase.dart';
 import '/components/rest_timer_widget.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:async';
-import 'package:cupertino_time_picker_hiuzb7/app_state.dart'
-    as cupertino_time_picker_hiuzb7_app_state;
-import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -64,7 +62,6 @@ class _SetRowWidgetState extends State<SetRowWidget> {
   @override
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
-    context.watch<cupertino_time_picker_hiuzb7_app_state.FFAppState>();
 
     return FutureBuilder<List<ExerciseSetsRow>>(
       future: (_model.requestCompleter ??= Completer<List<ExerciseSetsRow>>()

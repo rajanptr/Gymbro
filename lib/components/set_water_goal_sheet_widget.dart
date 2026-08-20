@@ -1,9 +1,9 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -67,23 +67,35 @@ class _SetWaterGoalSheetWidgetState extends State<SetWaterGoalSheetWidget> {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          Text(
-            valueOrDefault<String>(
-              functions.capitalize('Every Sip Counts'),
-              'Every Sip Counts',
-            ),
-            style: FlutterFlowTheme.of(context).titleLarge.override(
-                  font: GoogleFonts.urbanist(
-                    fontWeight:
-                        FlutterFlowTheme.of(context).titleLarge.fontWeight,
-                    fontStyle:
-                        FlutterFlowTheme.of(context).titleLarge.fontStyle,
-                  ),
-                  letterSpacing: 0.0,
-                  fontWeight:
-                      FlutterFlowTheme.of(context).titleLarge.fontWeight,
-                  fontStyle: FlutterFlowTheme.of(context).titleLarge.fontStyle,
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.water_drop_outlined,
+                color: FlutterFlowTheme.of(context).primaryText,
+                size: 24.0,
+              ),
+              Text(
+                valueOrDefault<String>(
+                  functions.capitalize('Every Sip Counts'),
+                  'Every Sip Counts',
                 ),
+                style: FlutterFlowTheme.of(context).titleLarge.override(
+                      font: GoogleFonts.urbanist(
+                        fontWeight:
+                            FlutterFlowTheme.of(context).titleLarge.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).titleLarge.fontStyle,
+                      ),
+                      letterSpacing: 0.0,
+                      fontWeight:
+                          FlutterFlowTheme.of(context).titleLarge.fontWeight,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).titleLarge.fontStyle,
+                    ),
+              ),
+            ].divide(SizedBox(width: 10.0)),
           ),
           Divider(
             height: 1.0,

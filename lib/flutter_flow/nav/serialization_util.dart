@@ -6,8 +6,8 @@ import '/backend/schema/structs/index.dart';
 
 import '/backend/supabase/supabase.dart';
 
-import 'package:ff_commons/flutter_flow/place.dart';
-import 'package:ff_commons/flutter_flow/uploaded_file.dart';
+import '../../flutter_flow/place.dart';
+import '../../flutter_flow/uploaded_file.dart';
 
 /// SERIALIZATION HELPERS
 

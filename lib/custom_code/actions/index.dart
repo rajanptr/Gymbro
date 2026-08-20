@@ -12,3 +12,12 @@ export '/custom_code/actions/verify_email_with_token.dart'
 export '/custom_code/actions/reorder_exercises.dart' show reorderExercises;
 export '/custom_code/actions/reorder_workout_exercises.dart'
     show reorderWorkoutExercises;
+export '/custom_code/actions/sign_in_with_otp.dart' show signInWithOtp;
+export '/custom_code/actions/show_local_workout_notification.dart'
+    show showLocalWorkoutNotification;
+export '/custom_code/actions/initialize_one_signal.dart'
+    show initializeOneSignal;
+export '/custom_code/actions/login_one_signal_user.dart'
+    show loginOneSignalUser;
+export '/custom_code/actions/logout_one_signal_user.dart'
+    show logoutOneSignalUser;

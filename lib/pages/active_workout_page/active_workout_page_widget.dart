@@ -3,16 +3,15 @@ import '/components/add_exercise_bottom_sheet_widget.dart';
 import '/components/empty_exercise_widget.dart';
 import '/components/finish_workout_widget.dart';
 import '/components/strength_exercise_card_widget.dart';
+import '/components/workout_settings_widget.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_timer.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
-import 'package:cupertino_time_picker_hiuzb7/app_state.dart'
-    as cupertino_time_picker_hiuzb7_app_state;
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:easy_debounce/easy_debounce.dart';
-import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -71,7 +70,6 @@ class _ActiveWorkoutPageWidgetState extends State<ActiveWorkoutPageWidget> {
   @override
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
-    context.watch<cupertino_time_picker_hiuzb7_app_state.FFAppState>();
 
     return FutureBuilder<List<WorkoutSessionsRow>>(
       future: (_model.requestCompleter ??= Completer<List<WorkoutSessionsRow>>()
@@ -198,6 +196,88 @@ class _ActiveWorkoutPageWidgetState extends State<ActiveWorkoutPageWidget> {
                                       ),
                                 ),
                               ],
+                            ),
+                          ),
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              HapticFeedback.selectionClick();
+                              await showModalBottomSheet(
+                                isScrollControlled: true,
+                                backgroundColor: Color(0xA6000000),
+                                isDismissible: false,
+                                enableDrag: false,
+                                useSafeArea: true,
+                                context: context,
+                                builder: (context) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      FocusScope.of(context).unfocus();
+                                      FocusManager.instance.primaryFocus
+                                          ?.unfocus();
+                                    },
+                                    child: Padding(
+                                      padding: MediaQuery.viewInsetsOf(context),
+                                      child: Container(
+                                        height:
+                                            MediaQuery.sizeOf(context).height *
+                                                0.85,
+                                        child: WorkoutSettingsWidget(),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ).then((value) => safeSetState(() {}));
+                            },
+                            child: Container(
+                              height: 44.0,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4.0),
+                              ),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.settings_outlined,
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryText,
+                                    size: 16.0,
+                                  ),
+                                  Text(
+                                    'Settings',
+                                    textAlign: TextAlign.center,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodySmall
+                                        .override(
+                                          font: GoogleFonts.urbanist(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodySmall
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodySmall
+                                                    .fontStyle,
+                                          ),
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                          letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodySmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodySmall
+                                                  .fontStyle,
+                                        ),
+                                  ),
+                                ].divide(SizedBox(height: 5.0)),
+                              ),
                             ),
                           ),
                           SizedBox(
@@ -580,81 +660,65 @@ class _ActiveWorkoutPageWidgetState extends State<ActiveWorkoutPageWidget> {
                                   thickness: 0.5,
                                   color: FlutterFlowTheme.of(context).alternate,
                                 ),
-                                Align(
-                                  alignment: AlignmentDirectional(0.0, 1.0),
-                                  child: FFButtonWidget(
-                                    onPressed: () async {
-                                      await showModalBottomSheet(
-                                        isScrollControlled: true,
-                                        backgroundColor: Color(0x98000000),
-                                        enableDrag: false,
-                                        useSafeArea: true,
-                                        context: context,
-                                        builder: (context) {
-                                          return GestureDetector(
-                                            onTap: () {
-                                              FocusScope.of(context).unfocus();
-                                              FocusManager.instance.primaryFocus
-                                                  ?.unfocus();
-                                            },
-                                            child: Padding(
-                                              padding: MediaQuery.viewInsetsOf(
-                                                  context),
-                                              child: Container(
-                                                height:
-                                                    MediaQuery.sizeOf(context)
-                                                            .height *
-                                                        0.8,
-                                                child:
-                                                    AddExerciseBottomSheetWidget(
-                                                  workoutId: '',
-                                                  isEdit: false,
-                                                ),
+                                FFButtonWidget(
+                                  onPressed: () async {
+                                    await showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      backgroundColor: Color(0x98000000),
+                                      enableDrag: false,
+                                      useSafeArea: true,
+                                      context: context,
+                                      builder: (context) {
+                                        return GestureDetector(
+                                          onTap: () {
+                                            FocusScope.of(context).unfocus();
+                                            FocusManager.instance.primaryFocus
+                                                ?.unfocus();
+                                          },
+                                          child: Padding(
+                                            padding: MediaQuery.viewInsetsOf(
+                                                context),
+                                            child: Container(
+                                              height: MediaQuery.sizeOf(context)
+                                                      .height *
+                                                  0.8,
+                                              child:
+                                                  AddExerciseBottomSheetWidget(
+                                                workoutId: widget.workoutId!,
+                                                isEdit: false,
                                               ),
                                             ),
-                                          );
-                                        },
-                                      ).then((value) => safeSetState(() {}));
+                                          ),
+                                        );
+                                      },
+                                    ).then((value) => safeSetState(() {}));
 
-                                      safeSetState(
-                                          () => _model.requestCompleter = null);
-                                      await _model.waitForRequestCompleted();
-                                      FFAppState().selectedExerciseId = '';
-                                      safeSetState(() {});
-                                    },
-                                    text: 'ADD EXERCISES',
-                                    icon: Icon(
-                                      Icons.add,
-                                      size: 20.0,
-                                    ),
-                                    options: FFButtonOptions(
-                                      width: double.infinity,
-                                      height: 44.0,
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          20.0, 0.0, 20.0, 0.0),
-                                      iconPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
-                                              0.0, 0.0, 0.0, 0.0),
-                                      iconColor: FlutterFlowTheme.of(context)
-                                          .primaryBackground,
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .override(
-                                            font: GoogleFonts.urbanist(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .fontStyle,
-                                            ),
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryBackground,
-                                            letterSpacing: 0.0,
+                                    safeSetState(
+                                        () => _model.requestCompleter = null);
+                                    await _model.waitForRequestCompleted();
+                                    FFAppState().selectedExerciseId = '';
+                                    safeSetState(() {});
+                                  },
+                                  text: 'ADD EXERCISES',
+                                  icon: Icon(
+                                    Icons.add,
+                                    size: 20.0,
+                                  ),
+                                  options: FFButtonOptions(
+                                    width: double.infinity,
+                                    height: 44.0,
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        20.0, 0.0, 20.0, 0.0),
+                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    iconColor: FlutterFlowTheme.of(context)
+                                        .primaryBackground,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .override(
+                                          font: GoogleFonts.urbanist(
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .titleSmall
@@ -664,10 +728,20 @@ class _ActiveWorkoutPageWidgetState extends State<ActiveWorkoutPageWidget> {
                                                     .titleSmall
                                                     .fontStyle,
                                           ),
-                                      elevation: 0.0,
-                                      borderRadius:
-                                          BorderRadius.circular(120.0),
-                                    ),
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryBackground,
+                                          letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontStyle,
+                                        ),
+                                    elevation: 0.0,
+                                    borderRadius: BorderRadius.circular(120.0),
                                   ),
                                 ),
                                 Align(

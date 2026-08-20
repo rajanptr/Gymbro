@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'finish_workout_widget.dart' show FinishWorkoutWidget;
@@ -14,6 +15,8 @@ class FinishWorkoutModel extends FlutterFlowModel<FinishWorkoutWidget> {
   List<ExerciseSetsRow>? exerciseSets;
   // Stores action output result for [Backend Call - Insert Row] action in Button widget.
   CompletedWorkoutsRow? dataInserted;
+  // Stores action output result for [Backend Call - API (AIWorkoutAnalysis)] action in Button widget.
+  ApiCallResponse? aIWorkoutAnalysis;
 
   @override
   void initState(BuildContext context) {}

@@ -1,9 +1,11 @@
 import '/auth/supabase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/backend/supabase/supabase.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/backend/schema/structs/index.dart';
 import '/index.dart';
-import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -194,13 +196,18 @@ class _FinishWorkoutWidgetState extends State<FinishWorkoutWidget> {
                         );
                         _model.exerciseSets =
                             await ExerciseSetsTable().queryRows(
-                          queryFn: (q) => q.inFilterOrNull(
-                            'workout_exercise_id',
-                            _model.workoutExercises
-                                ?.map((e) => e.id)
-                                .withoutNulls
-                                .toList(),
-                          ),
+                          queryFn: (q) => q
+                              .inFilterOrNull(
+                                'workout_exercise_id',
+                                _model.workoutExercises
+                                    ?.map((e) => e.id)
+                                    .withoutNulls
+                                    .toList(),
+                              )
+                              .eqOrNull(
+                                'completed',
+                                true,
+                              ),
                         );
                         _model.dataInserted =
                             await CompletedWorkoutsTable().insert({
@@ -246,6 +253,11 @@ class _FinishWorkoutWidgetState extends State<FinishWorkoutWidget> {
                           'user_id': currentUserUid,
                         });
                         HapticFeedback.lightImpact();
+                        _model.aIWorkoutAnalysis =
+                            await AIWorkoutAnalysisCall.call(
+                          workoutId: widget.currentWorkoutId,
+                          authToken: currentJwtToken,
+                        );
 
                         context.goNamed(
                           WorkoutSummaryWidget.routeName,
@@ -253,6 +265,13 @@ class _FinishWorkoutWidgetState extends State<FinishWorkoutWidget> {
                             'workoutId': serializeParam(
                               widget.currentWorkoutId,
                               ParamType.String,
+                            ),
+                            'aiAnalysis': serializeParam(
+                              WorkoutAIResponseStruct.maybeFromMap(
+                                      (_model.aIWorkoutAnalysis?.jsonBody ??
+                                          ''))
+                                  ?.analysis,
+                              ParamType.DataStruct,
                             ),
                           }.withoutNulls,
                         );

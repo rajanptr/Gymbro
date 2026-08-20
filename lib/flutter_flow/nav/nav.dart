@@ -11,8 +11,6 @@ import '/auth/base_auth_user_provider.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 import '/index.dart';
-import 'package:cupertino_time_picker_hiuzb7/index.dart'
-    as $cupertino_time_picker_hiuzb7;
 
 export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
@@ -74,131 +72,129 @@ class AppStateNotifier extends ChangeNotifier {
   }
 }
 
-GoRouter createRouter(AppStateNotifier appStateNotifier) {
-  $cupertino_time_picker_hiuzb7.initializeRoutes(
-    homePageWidgetName: 'cupertino_time_picker_hiuzb7.HomePage',
-    homePageWidgetPath: 'homePage_cupertino-time-picker-hiuzb7',
-  );
-
-  return GoRouter(
-    initialLocation: '/',
-    debugLogDiagnostics: true,
-    refreshListenable: appStateNotifier,
-    navigatorKey: appNavigatorKey,
-    errorBuilder: (context, state) =>
-        appStateNotifier.loggedIn ? HomePageWidget() : AuthenticationWidget(),
-    routes: [
-      FFRoute(
-        name: '_initialize',
-        path: '/',
-        builder: (context, _) => appStateNotifier.loggedIn
-            ? HomePageWidget()
-            : AuthenticationWidget(),
-        routes: [
-          FFRoute(
-            name: HistoryPageWidget.routeName,
-            path: HistoryPageWidget.routePath,
-            builder: (context, params) => HistoryPageWidget(),
-          ),
-          FFRoute(
-            name: HabitPageWidget.routeName,
-            path: HabitPageWidget.routePath,
-            builder: (context, params) => HabitPageWidget(),
-          ),
-          FFRoute(
-            name: AuthenticationWidget.routeName,
-            path: AuthenticationWidget.routePath,
-            builder: (context, params) => AuthenticationWidget(),
-          ),
-          FFRoute(
-            name: ActiveWorkoutPageWidget.routeName,
-            path: ActiveWorkoutPageWidget.routePath,
-            builder: (context, params) => ActiveWorkoutPageWidget(
-              workoutId: params.getParam(
-                'workoutId',
-                ParamType.String,
+GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
+      initialLocation: '/',
+      debugLogDiagnostics: true,
+      refreshListenable: appStateNotifier,
+      navigatorKey: appNavigatorKey,
+      errorBuilder: (context, state) =>
+          appStateNotifier.loggedIn ? HomePageWidget() : AuthenticationWidget(),
+      routes: [
+        FFRoute(
+          name: '_initialize',
+          path: '/',
+          builder: (context, _) => appStateNotifier.loggedIn
+              ? HomePageWidget()
+              : AuthenticationWidget(),
+          routes: [
+            FFRoute(
+              name: HistoryPageWidget.routeName,
+              path: HistoryPageWidget.routePath,
+              builder: (context, params) => HistoryPageWidget(),
+            ),
+            FFRoute(
+              name: HabitPageWidget.routeName,
+              path: HabitPageWidget.routePath,
+              builder: (context, params) => HabitPageWidget(),
+            ),
+            FFRoute(
+              name: AuthenticationWidget.routeName,
+              path: AuthenticationWidget.routePath,
+              builder: (context, params) => AuthenticationWidget(),
+            ),
+            FFRoute(
+              name: ActiveWorkoutPageWidget.routeName,
+              path: ActiveWorkoutPageWidget.routePath,
+              builder: (context, params) => ActiveWorkoutPageWidget(
+                workoutId: params.getParam(
+                  'workoutId',
+                  ParamType.String,
+                ),
               ),
             ),
-          ),
-          FFRoute(
-            name: WorkoutSummaryWidget.routeName,
-            path: WorkoutSummaryWidget.routePath,
-            builder: (context, params) => WorkoutSummaryWidget(
-              workoutId: params.getParam(
-                'workoutId',
-                ParamType.String,
+            FFRoute(
+              name: WorkoutSummaryWidget.routeName,
+              path: WorkoutSummaryWidget.routePath,
+              builder: (context, params) => WorkoutSummaryWidget(
+                workoutId: params.getParam(
+                  'workoutId',
+                  ParamType.String,
+                ),
+                aiAnalysis: params.getParam(
+                  'aiAnalysis',
+                  ParamType.DataStruct,
+                  isList: false,
+                  structBuilder: WorkoutAIAnalysisStruct.fromSerializableMap,
+                ),
               ),
             ),
-          ),
-          FFRoute(
-            name: AllExercisesWidget.routeName,
-            path: AllExercisesWidget.routePath,
-            builder: (context, params) => AllExercisesWidget(),
-          ),
-          FFRoute(
-            name: ProfilePageWidget.routeName,
-            path: ProfilePageWidget.routePath,
-            builder: (context, params) => ProfilePageWidget(),
-          ),
-          FFRoute(
-            name: EditProfileWidget.routeName,
-            path: EditProfileWidget.routePath,
-            builder: (context, params) => EditProfileWidget(),
-          ),
-          FFRoute(
-            name: EditPage2Widget.routeName,
-            path: EditPage2Widget.routePath,
-            builder: (context, params) => EditPage2Widget(),
-          ),
-          FFRoute(
-            name: VerifyMailWidget.routeName,
-            path: VerifyMailWidget.routePath,
-            builder: (context, params) => VerifyMailWidget(
-              email: params.getParam(
-                'email',
-                ParamType.String,
+            FFRoute(
+              name: AllExercisesWidget.routeName,
+              path: AllExercisesWidget.routePath,
+              builder: (context, params) => AllExercisesWidget(),
+            ),
+            FFRoute(
+              name: ProfilePageWidget.routeName,
+              path: ProfilePageWidget.routePath,
+              builder: (context, params) => ProfilePageWidget(),
+            ),
+            FFRoute(
+              name: EditProfileWidget.routeName,
+              path: EditProfileWidget.routePath,
+              builder: (context, params) => EditProfileWidget(),
+            ),
+            FFRoute(
+              name: EditPage2Widget.routeName,
+              path: EditPage2Widget.routePath,
+              builder: (context, params) => EditPage2Widget(),
+            ),
+            FFRoute(
+              name: VerifyMailWidget.routeName,
+              path: VerifyMailWidget.routePath,
+              builder: (context, params) => VerifyMailWidget(
+                email: params.getParam(
+                  'email',
+                  ParamType.String,
+                ),
               ),
             ),
-          ),
-          FFRoute(
-            name: AddWorkoutWidget.routeName,
-            path: AddWorkoutWidget.routePath,
-            builder: (context, params) => AddWorkoutWidget(),
-          ),
-          FFRoute(
-            name: HomePageWidget.routeName,
-            path: HomePageWidget.routePath,
-            builder: (context, params) => HomePageWidget(),
-          ),
-          FFRoute(
-            name: CreateTemplatePageWidget.routeName,
-            path: CreateTemplatePageWidget.routePath,
-            builder: (context, params) => CreateTemplatePageWidget(
-              isEdit: params.getParam(
-                'isEdit',
-                ParamType.bool,
-              ),
-              templateId: params.getParam(
-                'templateId',
-                ParamType.String,
-              ),
-              name: params.getParam(
-                'name',
-                ParamType.String,
+            FFRoute(
+              name: AddWorkoutWidget.routeName,
+              path: AddWorkoutWidget.routePath,
+              builder: (context, params) => AddWorkoutWidget(),
+            ),
+            FFRoute(
+              name: HomePageWidget.routeName,
+              path: HomePageWidget.routePath,
+              builder: (context, params) => HomePageWidget(),
+            ),
+            FFRoute(
+              name: CreateTemplatePageWidget.routeName,
+              path: CreateTemplatePageWidget.routePath,
+              builder: (context, params) => CreateTemplatePageWidget(
+                isEdit: params.getParam(
+                  'isEdit',
+                  ParamType.bool,
+                ),
+                templateId: params.getParam(
+                  'templateId',
+                  ParamType.String,
+                ),
+                name: params.getParam(
+                  'name',
+                  ParamType.String,
+                ),
               ),
             ),
-          ),
-          FFRoute(
-            name: $cupertino_time_picker_hiuzb7.HomePageWidget.routeName,
-            path: $cupertino_time_picker_hiuzb7.HomePageWidget.routePath,
-            builder: (context, params) =>
-                $cupertino_time_picker_hiuzb7.HomePageWidget(),
-          )
-        ].map((r) => r.toRoute(appStateNotifier)).toList(),
-      ),
-    ].map((r) => r.toRoute(appStateNotifier)).toList(),
-  );
-}
+            FFRoute(
+              name: UpdatePasswordWidget.routeName,
+              path: UpdatePasswordWidget.routePath,
+              builder: (context, params) => UpdatePasswordWidget(),
+            )
+          ].map((r) => r.toRoute(appStateNotifier)).toList(),
+        ),
+      ].map((r) => r.toRoute(appStateNotifier)).toList(),
+    );
 
 extension NavParamExtensions on Map<String, String?> {
   Map<String, String> get withoutNulls => Map.fromEntries(
@@ -274,18 +270,9 @@ extension _GoRouterStateExtensions on GoRouterState {
     ..addAll(pathParameters)
     ..addAll(uri.queryParameters)
     ..addAll(extraMap);
-  TransitionInfo get transitionInfo {
-    final possibleKeys = [
-      '__transition_info__',
-      '__transition_info__cupertino_time_picker_hiuzb7'
-    ];
-    for (final key in possibleKeys) {
-      if (extraMap.containsKey(key)) {
-        return extraMap[key] as TransitionInfo;
-      }
-    }
-    return TransitionInfo.appDefault();
-  }
+  TransitionInfo get transitionInfo => extraMap.containsKey(kTransitionInfoKey)
+      ? extraMap[kTransitionInfoKey] as TransitionInfo
+      : TransitionInfo.appDefault();
 }
 
 class FFParameters {

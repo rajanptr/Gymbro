@@ -1,12 +1,10 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/index.dart';
-import 'package:cupertino_time_picker_hiuzb7/app_state.dart'
-    as cupertino_time_picker_hiuzb7_app_state;
 import 'package:easy_debounce/easy_debounce.dart';
-import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -49,7 +47,6 @@ class _WorkoutStartWidgetState extends State<WorkoutStartWidget> {
   @override
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
-    context.watch<cupertino_time_picker_hiuzb7_app_state.FFAppState>();
 
     return Container(
       width: double.infinity,
@@ -71,7 +68,9 @@ class _WorkoutStartWidgetState extends State<WorkoutStartWidget> {
                 onChanged: (_) => EasyDebounce.debounce(
                   '_model.workoutNameControllerTextController',
                   Duration(milliseconds: 2000),
-                  () => safeSetState(() {}),
+                  () async {
+                    safeSetState(() {});
+                  },
                 ),
                 autofocus: true,
                 enabled: true,
@@ -142,6 +141,7 @@ class _WorkoutStartWidgetState extends State<WorkoutStartWidget> {
                       ? InkWell(
                           onTap: () async {
                             _model.workoutNameControllerTextController?.clear();
+                            safeSetState(() {});
                             safeSetState(() {});
                           },
                           child: Icon(

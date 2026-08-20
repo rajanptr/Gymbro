@@ -1,9 +1,7 @@
+import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_timer.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'package:cupertino_time_picker_hiuzb7/app_state.dart'
-    as cupertino_time_picker_hiuzb7_app_state;
 import 'package:stop_watch_timer/stop_watch_timer.dart';
-import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -58,7 +56,6 @@ class _RestTimerWidgetState extends State<RestTimerWidget> {
   @override
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
-    context.watch<cupertino_time_picker_hiuzb7_app_state.FFAppState>();
 
     return Align(
       alignment: AlignmentDirectional(0.0, 1.0),
@@ -203,15 +200,16 @@ class _RestTimerWidgetState extends State<RestTimerWidget> {
                           FFAppState().restRemaining = 0;
                           safeSetState(() {});
                           HapticFeedback.vibrate();
-                          _model.soundPlayer ??= AudioPlayer();
-                          if (_model.soundPlayer!.playing) {
-                            await _model.soundPlayer!.stop();
+                          if (FFAppState().restTimerSound == true) {
+                            _model.soundPlayer ??= AudioPlayer();
+                            if (_model.soundPlayer!.playing) {
+                              await _model.soundPlayer!.stop();
+                            }
+                            _model.soundPlayer!.setVolume(1.0);
+                            await _model.soundPlayer!
+                                .setAsset('assets/audios/timer_out.mp3')
+                                .then((_) => _model.soundPlayer!.play());
                           }
-                          _model.soundPlayer!.setVolume(1.0);
-                          await _model.soundPlayer!
-                              .setAsset('assets/audios/timer_out.mp3')
-                              .then((_) => _model.soundPlayer!.play());
-
                           Navigator.pop(context);
                         },
                         textAlign: TextAlign.center,

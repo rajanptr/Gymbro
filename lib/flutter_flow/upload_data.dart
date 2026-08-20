@@ -8,12 +8,42 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mime_type/mime_type.dart';
 import 'package:video_player/video_player.dart';
 
-import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow_util.dart';
-import 'package:ff_commons/flutter_flow/upload_data_class.dart';
-export 'package:ff_commons/flutter_flow/upload_data_class.dart';
 
 const allowedFormats = {'image/png', 'image/jpeg', 'video/mp4', 'image/gif'};
+
+class SelectedFile {
+  const SelectedFile({
+    this.storagePath = '',
+    this.filePath,
+    required this.bytes,
+    this.dimensions,
+    this.blurHash,
+    this.originalFilename = '',
+  });
+  final String storagePath;
+  final String? filePath;
+  final Uint8List bytes;
+  final MediaDimensions? dimensions;
+  final String? blurHash;
+  final String originalFilename;
+}
+
+class MediaDimensions {
+  const MediaDimensions({
+    this.height,
+    this.width,
+  });
+  final double? height;
+  final double? width;
+}
+
+enum MediaSource {
+  photoGallery,
+  videoGallery,
+  camera,
+}
 
 Future<List<SelectedFile>?> selectMediaWithSourceBottomSheet({
   required BuildContext context,

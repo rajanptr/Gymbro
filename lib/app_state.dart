@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FFAppState extends ChangeNotifier {
   static FFAppState _instance = FFAppState._internal();
@@ -13,12 +14,22 @@ class FFAppState extends ChangeNotifier {
     _instance = FFAppState._internal();
   }
 
-  Future initializePersistedState() async {}
+  Future initializePersistedState() async {
+    prefs = await SharedPreferences.getInstance();
+    _safeInit(() {
+      _restDuration = prefs.getInt('ff_restDuration') ?? _restDuration;
+    });
+    _safeInit(() {
+      _restTimerSound = prefs.getBool('ff_restTimerSound') ?? _restTimerSound;
+    });
+  }
 
   void update(VoidCallback callback) {
     callback();
     notifyListeners();
   }
+
+  late SharedPreferences prefs;
 
   String _currentWorkoutId = '';
   String get currentWorkoutId => _currentWorkoutId;
@@ -42,6 +53,7 @@ class FFAppState extends ChangeNotifier {
   int get restDuration => _restDuration;
   set restDuration(int value) {
     _restDuration = value;
+    prefs.setInt('ff_restDuration', value);
   }
 
   int _restRemaining = 60000;
@@ -108,4 +120,23 @@ class FFAppState extends ChangeNotifier {
   set displayedMonth(DateTime? value) {
     _displayedMonth = value;
   }
+
+  bool _restTimerSound = true;
+  bool get restTimerSound => _restTimerSound;
+  set restTimerSound(bool value) {
+    _restTimerSound = value;
+    prefs.setBool('ff_restTimerSound', value);
+  }
+}
+
+void _safeInit(Function() initializeField) {
+  try {
+    initializeField();
+  } catch (_) {}
+}
+
+Future _safeInitAsync(Function() initializeField) async {
+  try {
+    await initializeField();
+  } catch (_) {}
 }

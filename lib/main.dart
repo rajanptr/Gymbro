@@ -1,3 +1,4 @@
+import '/custom_code/actions/index.dart' as actions;
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
@@ -8,17 +9,18 @@ import 'auth/supabase_auth/supabase_user_provider.dart';
 import 'auth/supabase_auth/auth_util.dart';
 
 import '/backend/supabase/supabase.dart';
-import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
-
-import 'package:cupertino_time_picker_hiuzb7/app_state.dart'
-    as cupertino_time_picker_hiuzb7_app_state;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   GoRouter.optionURLReflectsImperativeAPIs = true;
   usePathUrlStrategy();
+
+  // Start initial custom actions code
+  await actions.initializeOneSignal();
+  // End initial custom actions code
 
   await SupaFlow.initialize();
 
@@ -27,19 +29,8 @@ void main() async {
   final appState = FFAppState(); // Initialize FFAppState
   await appState.initializePersistedState();
 
-  final cupertino_time_picker_hiuzb7AppState =
-      cupertino_time_picker_hiuzb7_app_state.FFAppState();
-  await cupertino_time_picker_hiuzb7AppState.initializePersistedState();
-
-  runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider(
-        create: (context) => appState,
-      ),
-      ChangeNotifierProvider(
-        create: (context) => cupertino_time_picker_hiuzb7AppState,
-      ),
-    ],
+  runApp(ChangeNotifierProvider(
+    create: (context) => appState,
     child: MyApp(),
   ));
 }
