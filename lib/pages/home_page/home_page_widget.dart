@@ -217,7 +217,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                               child: Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
-                                                        32.0, 12.0, 12.0, 12.0),
+                                                        36.0, 15.0, 15.0, 15.0),
                                                 child: Text(
                                                   '${valueOrDefault<String>(
                                                         formatNumber(

@@ -50,4 +50,20 @@ class ExerciseLibraryRow extends SupabaseDataRow {
 
   String? get videoUrl => getField<String>('video_url');
   set videoUrl(String? value) => setField<String>('video_url', value);
+
+  String? get recommendedSets => getField<String>('recommended_sets');
+  set recommendedSets(String? value) =>
+      setField<String>('recommended_sets', value);
+
+  String? get recommendedRepsOrDuration =>
+      getField<String>('recommended_reps_or_duration');
+  set recommendedRepsOrDuration(String? value) =>
+      setField<String>('recommended_reps_or_duration', value);
+
+  String? get howToDo => getField<String>('how_to_do');
+  set howToDo(String? value) => setField<String>('how_to_do', value);
+
+  String? get injuryPrevention => getField<String>('injury_prevention');
+  set injuryPrevention(String? value) =>
+      setField<String>('injury_prevention', value);
 }

@@ -1,6 +1,7 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
 import '/components/bottom_nav_widget.dart';
+import '/components/edit_historysheet_widget.dart';
 import '/components/no_workout_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -8,6 +9,7 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -78,11 +80,12 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Expanded(
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              ClipRRect(
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: ClipRRect(
                                 borderRadius: BorderRadius.circular(8.0),
                                 child: Image.asset(
                                   Theme.of(context).brightness ==
@@ -91,12 +94,74 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                       : 'assets/images/logo_light.png',
                                   height: 36.0,
                                   fit: BoxFit.contain,
+                                  alignment: Alignment(-1.0, 0.0),
                                 ),
                               ),
-                            ]
-                                .divide(SizedBox(width: 15.0))
-                                .around(SizedBox(width: 15.0)),
-                          ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(120.0),
+                                border: Border.all(
+                                  color: FlutterFlowTheme.of(context).alternate,
+                                  width: 0.5,
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      HapticFeedback.selectionClick();
+                                    },
+                                    child: Container(
+                                      width: 44.0,
+                                      height: 44.0,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(120.0),
+                                      ),
+                                      child: Icon(
+                                        Icons.settings_outlined,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                        size: 20.0,
+                                      ),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      HapticFeedback.selectionClick();
+                                    },
+                                    child: Container(
+                                      width: 44.0,
+                                      height: 44.0,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(120.0),
+                                      ),
+                                      child: Icon(
+                                        Icons.filter_list,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                        size: 20.0,
+                                      ),
+                                    ),
+                                  ),
+                                ].divide(SizedBox(width: 10.0)),
+                              ),
+                            ),
+                          ]
+                              .divide(SizedBox(width: 10.0))
+                              .addToStart(SizedBox(width: 15.0))
+                              .addToEnd(SizedBox(width: 15.0)),
                         ),
                       ],
                     ),
@@ -273,52 +338,132 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                             CrossAxisAlignment
                                                                 .start,
                                                         children: [
-                                                          Text(
-                                                            valueOrDefault<
-                                                                String>(
-                                                              historyPastItem
-                                                                              .workoutName !=
-                                                                          ''
-                                                                  ? functions.capitalize(
-                                                                      historyPastItem
-                                                                          .workoutName)
-                                                                  : functions
-                                                                      .capitalize(
-                                                                          'Workout Title'),
-                                                              'Workout Title',
-                                                            ),
-                                                            textAlign:
-                                                                TextAlign.start,
-                                                            maxLines: 2,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .titleLarge
-                                                                .override(
-                                                                  font: GoogleFonts
-                                                                      .urbanist(
-                                                                    fontWeight: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .titleLarge
-                                                                        .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .titleLarge
-                                                                        .fontStyle,
-                                                                  ),
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleLarge
-                                                                      .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleLarge
-                                                                      .fontStyle,
+                                                          Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: [
+                                                              Text(
+                                                                valueOrDefault<
+                                                                    String>(
+                                                                  historyPastItem.workoutName !=
+                                                                              ''
+                                                                      ? functions.capitalize(
+                                                                          historyPastItem
+                                                                              .workoutName)
+                                                                      : functions
+                                                                          .capitalize(
+                                                                              'Workout Title'),
+                                                                  'Workout Title',
                                                                 ),
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .start,
+                                                                maxLines: 2,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleLarge
+                                                                    .override(
+                                                                      font: GoogleFonts
+                                                                          .urbanist(
+                                                                        fontWeight: FlutterFlowTheme.of(context)
+                                                                            .titleLarge
+                                                                            .fontWeight,
+                                                                        fontStyle: FlutterFlowTheme.of(context)
+                                                                            .titleLarge
+                                                                            .fontStyle,
+                                                                      ),
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .titleLarge
+                                                                          .fontWeight,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .titleLarge
+                                                                          .fontStyle,
+                                                                    ),
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                              ),
+                                                              InkWell(
+                                                                splashColor: Colors
+                                                                    .transparent,
+                                                                focusColor: Colors
+                                                                    .transparent,
+                                                                hoverColor: Colors
+                                                                    .transparent,
+                                                                highlightColor:
+                                                                    Colors
+                                                                        .transparent,
+                                                                onTap:
+                                                                    () async {
+                                                                  await showModalBottomSheet(
+                                                                    isScrollControlled:
+                                                                        true,
+                                                                    backgroundColor:
+                                                                        Color(
+                                                                            0xA5000000),
+                                                                    enableDrag:
+                                                                        false,
+                                                                    useSafeArea:
+                                                                        true,
+                                                                    context:
+                                                                        context,
+                                                                    builder:
+                                                                        (context) {
+                                                                      return GestureDetector(
+                                                                        onTap:
+                                                                            () {
+                                                                          FocusScope.of(context)
+                                                                              .unfocus();
+                                                                          FocusManager
+                                                                              .instance
+                                                                              .primaryFocus
+                                                                              ?.unfocus();
+                                                                        },
+                                                                        child:
+                                                                            Padding(
+                                                                          padding:
+                                                                              MediaQuery.viewInsetsOf(context),
+                                                                          child:
+                                                                              Container(
+                                                                            height:
+                                                                                120.0,
+                                                                            child:
+                                                                                EditHistorysheetWidget(
+                                                                              iD: historyPastItem.id!,
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      );
+                                                                    },
+                                                                  ).then((value) =>
+                                                                      safeSetState(
+                                                                          () {}));
+                                                                },
+                                                                child:
+                                                                    Container(
+                                                                  width: 36.0,
+                                                                  height: 36.0,
+                                                                  decoration:
+                                                                      BoxDecoration(),
+                                                                  child: Icon(
+                                                                    Icons
+                                                                        .keyboard_control,
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryText,
+                                                                    size: 20.0,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
                                                           ),
                                                           if (historyPastItem
                                                                       .notes !=
@@ -357,8 +502,7 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                                   TextOverflow
                                                                       .ellipsis,
                                                             ),
-                                                        ].divide(SizedBox(
-                                                            height: 5.0)),
+                                                        ],
                                                       ),
                                                       Divider(
                                                         height: 1.0,

@@ -160,7 +160,7 @@ class _DeleteAccountWidgetState extends State<DeleteAccountWidget> {
                     padding:
                         EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                     child: Text(
-                      'Type \"/DELETE\" to confirm.',
+                      'Type \"/${currentUserEmail}\" to confirm.',
                       style: FlutterFlowTheme.of(context).bodyLarge.override(
                             font: GoogleFonts.urbanist(
                               fontWeight: FlutterFlowTheme.of(context)
@@ -215,7 +215,7 @@ class _DeleteAccountWidgetState extends State<DeleteAccountWidget> {
                                       .bodyLarge
                                       .fontStyle,
                                 ),
-                        hintText: ' /DELETE ',
+                        hintText: '/${currentUserEmail}',
                         hintStyle: FlutterFlowTheme.of(context)
                             .bodyLarge
                             .override(
@@ -298,13 +298,6 @@ class _DeleteAccountWidgetState extends State<DeleteAccountWidget> {
                                 .bodyLarge
                                 .fontStyle,
                           ),
-                      maxLength: 7,
-                      maxLengthEnforcement: MaxLengthEnforcement.enforced,
-                      buildCounter: (context,
-                              {required currentLength,
-                              required isFocused,
-                              maxLength}) =>
-                          null,
                       cursorColor: FlutterFlowTheme.of(context).primaryText,
                       enableInteractiveSelection: true,
                       validator: _model.deleteTextControllerValidator
@@ -348,7 +341,8 @@ class _DeleteAccountWidgetState extends State<DeleteAccountWidget> {
                         FFButtonWidget(
                           onPressed: () async {
                             Function() _navigate = () {};
-                            if (_model.deleteTextController.text == '/DELETE') {
+                            if (_model.deleteTextController.text ==
+                                '/${currentUserEmail}') {
                               _model.deleteAccount =
                                   await DeleteAccountCall.call(
                                 authToken: currentJwtToken,
@@ -478,7 +472,7 @@ class _DeleteAccountWidgetState extends State<DeleteAccountWidget> {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(
-                                    'Please type /DELETE to confirm.',
+                                    'Please type /${currentUserEmail} to confirm.',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -510,12 +504,12 @@ class _DeleteAccountWidgetState extends State<DeleteAccountWidget> {
                                 ),
                               );
                             } else if (_model.deleteTextController.text !=
-                                '/DELETE') {
+                                '/${currentUserEmail}') {
                               Navigator.pop(context);
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(
-                                    'Please enter /DELETE exactly to confirm.',
+                                    'Please enter /${currentUserEmail}  exactly to confirm.',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -590,7 +584,7 @@ class _DeleteAccountWidgetState extends State<DeleteAccountWidget> {
                           },
                           text: 'DELETE ACCOUNT',
                           options: FFButtonOptions(
-                            height: 34.0,
+                            height: 40.0,
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 20.0, 0.0, 20.0, 0.0),
                             iconPadding: EdgeInsetsDirectional.fromSTEB(

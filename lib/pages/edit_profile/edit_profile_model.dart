@@ -11,10 +11,10 @@ class EditProfileModel extends FlutterFlowModel<EditProfileWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  bool isDataUploading_profilePicture = false;
-  FFUploadedFile uploadedLocalFile_profilePicture =
+  bool isDataUploading_profile = false;
+  FFUploadedFile uploadedLocalFile_profile =
       FFUploadedFile(bytes: Uint8List.fromList([]), originalFilename: '');
-  String uploadedFileUrl_profilePicture = '';
+  String uploadedFileUrl_profile = '';
 
   // State field(s) for Name widget.
   FocusNode? nameFocusNode;

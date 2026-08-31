@@ -53,6 +53,7 @@ class _WorkoutStartWidgetState extends State<WorkoutStartWidget> {
       height: double.infinity,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
+        borderRadius: BorderRadius.circular(4.0),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.max,
@@ -68,10 +69,11 @@ class _WorkoutStartWidgetState extends State<WorkoutStartWidget> {
                 onChanged: (_) => EasyDebounce.debounce(
                   '_model.workoutNameControllerTextController',
                   Duration(milliseconds: 2000),
-                  () async {
-                    safeSetState(() {});
-                  },
+                  () => safeSetState(() {}),
                 ),
+                onFieldSubmitted: (_) async {
+                  safeSetState(() {});
+                },
                 autofocus: true,
                 enabled: true,
                 textCapitalization: TextCapitalization.characters,
@@ -99,6 +101,7 @@ class _WorkoutStartWidgetState extends State<WorkoutStartWidget> {
                           fontStyle:
                               FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                         ),
+                        color: FlutterFlowTheme.of(context).secondaryText,
                         letterSpacing: 0.0,
                         fontWeight:
                             FlutterFlowTheme.of(context).bodyLarge.fontWeight,
@@ -141,7 +144,6 @@ class _WorkoutStartWidgetState extends State<WorkoutStartWidget> {
                       ? InkWell(
                           onTap: () async {
                             _model.workoutNameControllerTextController?.clear();
-                            safeSetState(() {});
                             safeSetState(() {});
                           },
                           child: Icon(
@@ -280,6 +282,7 @@ class _WorkoutStartWidgetState extends State<WorkoutStartWidget> {
                               );
 
                               HapticFeedback.selectionClick();
+                              Navigator.pop(context);
 
                               safeSetState(() {});
                             },

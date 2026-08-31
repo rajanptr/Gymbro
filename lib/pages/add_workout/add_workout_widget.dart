@@ -752,7 +752,7 @@ class _AddWorkoutWidgetState extends State<AddWorkoutWidget> {
                                                           EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
-                                                                  15.0,
+                                                                  20.0,
                                                                   15.0,
                                                                   0.0),
                                                       child: Builder(
@@ -764,18 +764,29 @@ class _AddWorkoutWidgetState extends State<AddWorkoutWidget> {
                                                                   .take(3)
                                                                   .toList();
 
-                                                          return ListView
-                                                              .builder(
-                                                            padding:
-                                                                EdgeInsets.zero,
-                                                            primary: false,
-                                                            shrinkWrap: true,
-                                                            scrollDirection:
-                                                                Axis.vertical,
-                                                            itemCount: exercises
-                                                                .length,
-                                                            itemBuilder: (context,
-                                                                exercisesIndex) {
+                                                          return Wrap(
+                                                            spacing: 10.0,
+                                                            runSpacing: 10.0,
+                                                            alignment:
+                                                                WrapAlignment
+                                                                    .start,
+                                                            crossAxisAlignment:
+                                                                WrapCrossAlignment
+                                                                    .start,
+                                                            direction:
+                                                                Axis.horizontal,
+                                                            runAlignment:
+                                                                WrapAlignment
+                                                                    .start,
+                                                            verticalDirection:
+                                                                VerticalDirection
+                                                                    .down,
+                                                            clipBehavior:
+                                                                Clip.none,
+                                                            children: List.generate(
+                                                                exercises
+                                                                    .length,
+                                                                (exercisesIndex) {
                                                               final exercisesItem =
                                                                   exercises[
                                                                       exercisesIndex];
@@ -831,64 +842,121 @@ class _AddWorkoutWidgetState extends State<AddWorkoutWidget> {
                                                                               context)
                                                                           .secondaryBackground,
                                                                     ),
-                                                                    child: Text(
-                                                                      valueOrDefault<
-                                                                          String>(
-                                                                        containerExerciseLibraryRow
-                                                                            ?.name,
-                                                                        'name',
-                                                                      ),
-                                                                      maxLines:
-                                                                          1,
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .titleSmall
-                                                                          .override(
-                                                                            font:
-                                                                                GoogleFonts.urbanist(
-                                                                              fontWeight: FontWeight.w500,
-                                                                              fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
-                                                                            ),
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).secondaryText,
-                                                                            letterSpacing:
-                                                                                0.0,
-                                                                            fontWeight:
-                                                                                FontWeight.w500,
-                                                                            fontStyle:
-                                                                                FlutterFlowTheme.of(context).titleSmall.fontStyle,
-                                                                            lineHeight:
-                                                                                1.0,
+                                                                    child: Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .min,
+                                                                      children:
+                                                                          [
+                                                                        Text(
+                                                                          valueOrDefault<
+                                                                              String>(
+                                                                            containerExerciseLibraryRow?.name,
+                                                                            'name',
                                                                           ),
-                                                                      overflow:
-                                                                          TextOverflow
-                                                                              .ellipsis,
+                                                                          maxLines:
+                                                                              1,
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .titleSmall
+                                                                              .override(
+                                                                                font: GoogleFonts.urbanist(
+                                                                                  fontWeight: FontWeight.w500,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                                                                                ),
+                                                                                color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                letterSpacing: 0.0,
+                                                                                fontWeight: FontWeight.w500,
+                                                                                fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                                                                                lineHeight: 1.0,
+                                                                              ),
+                                                                          overflow:
+                                                                              TextOverflow.ellipsis,
+                                                                        ),
+                                                                        SizedBox(
+                                                                          height:
+                                                                              10.0,
+                                                                          child:
+                                                                              VerticalDivider(
+                                                                            width:
+                                                                                1.0,
+                                                                            thickness:
+                                                                                0.5,
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).alternate,
+                                                                          ),
+                                                                        ),
+                                                                      ].divide(SizedBox(
+                                                                              width: 6.0)),
                                                                     ),
                                                                   );
                                                                 },
                                                               );
-                                                            },
+                                                            }),
                                                           );
                                                         },
                                                       ),
                                                     ),
-                                                    if (((int var1) {
-                                                          return var1 > 3
-                                                              ? var1 - 3
-                                                              : 0;
-                                                        }(containerRoutineExercisesRowList
-                                                                .length))
-                                                            .toString() !=
-                                                        '0')
-                                                      Text(
-                                                        '+${((containerRoutineExercisesRowList.length - 3)).toString()} more',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyLarge
-                                                                .override(
-                                                                  font: GoogleFonts
-                                                                      .urbanist(
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  10.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      120.0),
+                                                          border: Border.all(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .alternate,
+                                                            width: 0.5,
+                                                          ),
+                                                        ),
+                                                        child: Visibility(
+                                                          visible: ((int var1) {
+                                                                return var1 > 3
+                                                                    ? var1 - 3
+                                                                    : 0;
+                                                              }(containerRoutineExercisesRowList
+                                                                      .length))
+                                                                  .toString() !=
+                                                              '0',
+                                                          child: Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        12.0,
+                                                                        6.0,
+                                                                        12.0,
+                                                                        6.0),
+                                                            child: Text(
+                                                              '+${((containerRoutineExercisesRowList.length - 3)).toString()} more exercises',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyLarge
+                                                                  .override(
+                                                                    font: GoogleFonts
+                                                                        .urbanist(
+                                                                      fontWeight: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyLarge
+                                                                          .fontWeight,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyLarge
+                                                                          .fontStyle,
+                                                                    ),
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondaryText,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyLarge
@@ -898,21 +966,11 @@ class _AddWorkoutWidgetState extends State<AddWorkoutWidget> {
                                                                         .bodyLarge
                                                                         .fontStyle,
                                                                   ),
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondaryText,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyLarge
-                                                                      .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyLarge
-                                                                      .fontStyle,
-                                                                ),
+                                                            ),
+                                                          ),
+                                                        ),
                                                       ),
+                                                    ),
                                                     Padding(
                                                       padding:
                                                           EdgeInsetsDirectional

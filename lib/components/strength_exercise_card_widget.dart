@@ -2,6 +2,7 @@ import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
 import '/components/card_edit_widget.dart';
 import '/components/set_row_widget.dart';
+import '/components/specific_exercise_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -171,57 +172,103 @@ class _StrengthExerciseCardWidgetState
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Container(
-                                    width: 44.0,
-                                    height: 44.0,
-                                    decoration: BoxDecoration(
-                                      color:
-                                          FlutterFlowTheme.of(context).accent3,
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Stack(
-                                      children: [
-                                        if (cardContainerExerciseLibraryRow
-                                                        ?.imageUrl ==
-                                                    null ||
-                                                cardContainerExerciseLibraryRow
-                                                        ?.imageUrl ==
-                                                    ''
-                                            ? true
-                                            : false)
-                                          Align(
-                                            alignment:
-                                                AlignmentDirectional(0.0, 0.0),
-                                            child: Text(
-                                              (String name) {
-                                                return name
-                                                            .trim()
-                                                            .split(' ')
-                                                            .length ==
-                                                        1
-                                                    ? name
-                                                        .trim()
-                                                        .substring(0, 2)
-                                                        .toUpperCase()
-                                                    : (name
-                                                                .trim()
-                                                                .split(' ')[0]
-                                                                .substring(
-                                                                    0, 1) +
-                                                            name
-                                                                .trim()
-                                                                .split(' ')[1]
-                                                                .substring(
-                                                                    0, 1))
-                                                        .toUpperCase();
-                                              }(cardContainerExerciseLibraryRow!
-                                                  .name),
-                                              textAlign: TextAlign.center,
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .titleMedium
-                                                  .override(
-                                                    font: GoogleFonts.urbanist(
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      await showModalBottomSheet(
+                                        isScrollControlled: true,
+                                        backgroundColor: Colors.transparent,
+                                        isDismissible: false,
+                                        enableDrag: false,
+                                        context: context,
+                                        builder: (context) {
+                                          return Padding(
+                                            padding: MediaQuery.viewInsetsOf(
+                                                context),
+                                            child: Container(
+                                              height: MediaQuery.sizeOf(context)
+                                                      .height *
+                                                  0.8,
+                                              child:
+                                                  SpecificExerciseComponentWidget(
+                                                iD: widget.exerciseId!,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ).then((value) => safeSetState(() {}));
+                                    },
+                                    child: Container(
+                                      width: 44.0,
+                                      height: 44.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .accent3,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Stack(
+                                        children: [
+                                          if (cardContainerExerciseLibraryRow
+                                                          ?.imageUrl ==
+                                                      null ||
+                                                  cardContainerExerciseLibraryRow
+                                                          ?.imageUrl ==
+                                                      ''
+                                              ? true
+                                              : false)
+                                            Align(
+                                              alignment: AlignmentDirectional(
+                                                  0.0, 0.0),
+                                              child: Text(
+                                                (String name) {
+                                                  return name
+                                                              .trim()
+                                                              .split(' ')
+                                                              .length ==
+                                                          1
+                                                      ? name
+                                                          .trim()
+                                                          .substring(0, 2)
+                                                          .toUpperCase()
+                                                      : (name
+                                                                  .trim()
+                                                                  .split(' ')[0]
+                                                                  .substring(
+                                                                      0, 1) +
+                                                              name
+                                                                  .trim()
+                                                                  .split(' ')[1]
+                                                                  .substring(
+                                                                      0, 1))
+                                                          .toUpperCase();
+                                                }(cardContainerExerciseLibraryRow!
+                                                    .name),
+                                                textAlign: TextAlign.center,
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .titleMedium
+                                                    .override(
+                                                      font:
+                                                          GoogleFonts.urbanist(
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleMedium
+                                                                .fontStyle,
+                                                      ),
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondaryText,
+                                                      letterSpacing: 0.0,
                                                       fontWeight:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -233,46 +280,33 @@ class _StrengthExerciseCardWidgetState
                                                               .titleMedium
                                                               .fontStyle,
                                                     ),
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondaryText,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .titleMedium
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .titleMedium
-                                                            .fontStyle,
-                                                  ),
-                                            ),
-                                          ),
-                                        if (cardContainerExerciseLibraryRow
-                                                        ?.imageUrl ==
-                                                    null ||
-                                                cardContainerExerciseLibraryRow
-                                                        ?.imageUrl ==
-                                                    ''
-                                            ? false
-                                            : true)
-                                          Opacity(
-                                            opacity: 0.3,
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(200.0),
-                                              child: Image.network(
-                                                cardContainerExerciseLibraryRow!
-                                                    .imageUrl!,
-                                                width: 44.0,
-                                                height: 44.0,
-                                                fit: BoxFit.cover,
                                               ),
                                             ),
-                                          ),
-                                      ],
+                                          if (cardContainerExerciseLibraryRow
+                                                          ?.imageUrl ==
+                                                      null ||
+                                                  cardContainerExerciseLibraryRow
+                                                          ?.imageUrl ==
+                                                      ''
+                                              ? false
+                                              : true)
+                                            Opacity(
+                                              opacity: 0.3,
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        200.0),
+                                                child: Image.network(
+                                                  cardContainerExerciseLibraryRow!
+                                                      .imageUrl!,
+                                                  width: 44.0,
+                                                  height: 44.0,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                   Expanded(

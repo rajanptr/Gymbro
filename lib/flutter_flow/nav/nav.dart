@@ -190,10 +190,26 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: UpdatePasswordWidget.routeName,
               path: UpdatePasswordWidget.routePath,
               builder: (context, params) => UpdatePasswordWidget(),
+            ),
+            FFRoute(
+              name: SpecificExerciseWidget.routeName,
+              path: SpecificExerciseWidget.routePath,
+              builder: (context, params) => SpecificExerciseWidget(
+                iD: params.getParam(
+                  'iD',
+                  ParamType.String,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: AccountSettingsWidget.routeName,
+              path: AccountSettingsWidget.routePath,
+              builder: (context, params) => AccountSettingsWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
+      observers: [routeObserver],
     );
 
 extension NavParamExtensions on Map<String, String?> {

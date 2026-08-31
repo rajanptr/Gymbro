@@ -1,7 +1,9 @@
 import '/backend/supabase/supabase.dart';
+import '/components/specific_exercise_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -829,78 +831,125 @@ class _ExercisePickerSheetWidgetState extends State<ExercisePickerSheetWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Container(
-                                    width: 44.0,
-                                    height: 44.0,
-                                    decoration: BoxDecoration(
-                                      color:
-                                          FlutterFlowTheme.of(context).accent3,
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Stack(
-                                      children: [
-                                        if (listViewExerciseLibraryRow
-                                                        .imageUrl ==
-                                                    null ||
-                                                listViewExerciseLibraryRow
-                                                        .imageUrl ==
-                                                    ''
-                                            ? false
-                                            : true)
-                                          Container(
-                                            width: 44.0,
-                                            height: 44.0,
-                                            clipBehavior: Clip.antiAlias,
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      await showModalBottomSheet(
+                                        isScrollControlled: true,
+                                        backgroundColor: Colors.transparent,
+                                        isDismissible: false,
+                                        enableDrag: false,
+                                        context: context,
+                                        builder: (context) {
+                                          return Padding(
+                                            padding: MediaQuery.viewInsetsOf(
+                                                context),
+                                            child: Container(
+                                              height: MediaQuery.sizeOf(context)
+                                                      .height *
+                                                  0.85,
+                                              child:
+                                                  SpecificExerciseComponentWidget(
+                                                iD: listViewExerciseLibraryRow
+                                                    .id!,
+                                              ),
                                             ),
-                                            child: Image.network(
-                                              listViewExerciseLibraryRow
-                                                  .imageUrl!,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        if (listViewExerciseLibraryRow
-                                                        .imageUrl !=
-                                                    null &&
+                                          );
+                                        },
+                                      ).then((value) => safeSetState(() {}));
+                                    },
+                                    child: Container(
+                                      width: 44.0,
+                                      height: 44.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .accent3,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Stack(
+                                        children: [
+                                          if (listViewExerciseLibraryRow
+                                                          .imageUrl ==
+                                                      null ||
+                                                  listViewExerciseLibraryRow
+                                                          .imageUrl ==
+                                                      ''
+                                              ? false
+                                              : true)
+                                            Container(
+                                              width: 44.0,
+                                              height: 44.0,
+                                              clipBehavior: Clip.antiAlias,
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                              ),
+                                              child: Image.network(
                                                 listViewExerciseLibraryRow
-                                                        .imageUrl !=
-                                                    ''
-                                            ? false
-                                            : true)
-                                          Align(
-                                            alignment:
-                                                AlignmentDirectional(0.0, 0.0),
-                                            child: Text(
-                                              (String name) {
-                                                return name
-                                                            .trim()
-                                                            .split(' ')
-                                                            .length ==
-                                                        1
-                                                    ? name
-                                                        .trim()
-                                                        .substring(0, 2)
-                                                        .toUpperCase()
-                                                    : (name
-                                                                .trim()
-                                                                .split(' ')[0]
-                                                                .substring(
-                                                                    0, 1) +
-                                                            name
-                                                                .trim()
-                                                                .split(' ')[1]
-                                                                .substring(
-                                                                    0, 1))
-                                                        .toUpperCase();
-                                              }(listViewExerciseLibraryRow
-                                                  .name),
-                                              textAlign: TextAlign.center,
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .titleMedium
-                                                  .override(
-                                                    font: GoogleFonts.urbanist(
+                                                    .imageUrl!,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          if (listViewExerciseLibraryRow
+                                                          .imageUrl !=
+                                                      null &&
+                                                  listViewExerciseLibraryRow
+                                                          .imageUrl !=
+                                                      ''
+                                              ? false
+                                              : true)
+                                            Align(
+                                              alignment: AlignmentDirectional(
+                                                  0.0, 0.0),
+                                              child: Text(
+                                                (String name) {
+                                                  return name
+                                                              .trim()
+                                                              .split(' ')
+                                                              .length ==
+                                                          1
+                                                      ? name
+                                                          .trim()
+                                                          .substring(0, 2)
+                                                          .toUpperCase()
+                                                      : (name
+                                                                  .trim()
+                                                                  .split(' ')[0]
+                                                                  .substring(
+                                                                      0, 1) +
+                                                              name
+                                                                  .trim()
+                                                                  .split(' ')[1]
+                                                                  .substring(
+                                                                      0, 1))
+                                                          .toUpperCase();
+                                                }(listViewExerciseLibraryRow
+                                                    .name),
+                                                textAlign: TextAlign.center,
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .titleMedium
+                                                    .override(
+                                                      font:
+                                                          GoogleFonts.urbanist(
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleMedium
+                                                                .fontStyle,
+                                                      ),
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondaryText,
+                                                      letterSpacing: 0.0,
                                                       fontWeight:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -912,24 +961,10 @@ class _ExercisePickerSheetWidgetState extends State<ExercisePickerSheetWidget> {
                                                               .titleMedium
                                                               .fontStyle,
                                                     ),
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondaryText,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .titleMedium
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .titleMedium
-                                                            .fontStyle,
-                                                  ),
+                                              ),
                                             ),
-                                          ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
                                   Expanded(
@@ -942,33 +977,37 @@ class _ExercisePickerSheetWidgetState extends State<ExercisePickerSheetWidget> {
                                       children: [
                                         Text(
                                           valueOrDefault<String>(
-                                            listViewExerciseLibraryRow.name,
+                                            functions.capitalize(
+                                                valueOrDefault<String>(
+                                              listViewExerciseLibraryRow.name,
+                                              'Name',
+                                            )),
                                             'Name',
                                           ),
                                           maxLines: 3,
                                           style: FlutterFlowTheme.of(context)
-                                              .titleMedium
+                                              .titleSmall
                                               .override(
                                                 font: GoogleFonts.urbanist(
                                                   fontWeight:
                                                       FlutterFlowTheme.of(
                                                               context)
-                                                          .titleMedium
+                                                          .titleSmall
                                                           .fontWeight,
                                                   fontStyle:
                                                       FlutterFlowTheme.of(
                                                               context)
-                                                          .titleMedium
+                                                          .titleSmall
                                                           .fontStyle,
                                                 ),
                                                 letterSpacing: 0.0,
                                                 fontWeight:
                                                     FlutterFlowTheme.of(context)
-                                                        .titleMedium
+                                                        .titleSmall
                                                         .fontWeight,
                                                 fontStyle:
                                                     FlutterFlowTheme.of(context)
-                                                        .titleMedium
+                                                        .titleSmall
                                                         .fontStyle,
                                               ),
                                           overflow: TextOverflow.ellipsis,

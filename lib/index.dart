@@ -18,3 +18,7 @@ export '/pages/create_template_page/create_template_page_widget.dart'
     show CreateTemplatePageWidget;
 export '/pages/update_password/update_password_widget.dart'
     show UpdatePasswordWidget;
+export '/pages/specific_exercise/specific_exercise_widget.dart'
+    show SpecificExerciseWidget;
+export '/pages/account_settings/account_settings_widget.dart'
+    show AccountSettingsWidget;

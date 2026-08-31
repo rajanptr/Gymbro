@@ -9,9 +9,6 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-import '/custom_code/actions/index.dart';
-import '/flutter_flow/custom_functions.dart';
-
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 Future showLocalWorkoutNotification() async {
@@ -56,6 +53,8 @@ Future showLocalWorkoutNotification() async {
     print(
       'GYMBRO: Notification plugin failed to initialize',
     );
+
+    // Do NOT block the app flow.
     return;
   }
 
@@ -76,6 +75,8 @@ Future showLocalWorkoutNotification() async {
     print(
       'GYMBRO: iOS notification permission: $permission',
     );
+
+    // Permission denied does NOT stop the app flow.
   }
 
   // --------------------------------------------------
@@ -86,8 +87,14 @@ Future showLocalWorkoutNotification() async {
       AndroidFlutterLocalNotificationsPlugin>();
 
   if (androidPlugin != null) {
-    await androidPlugin.requestNotificationsPermission();
+    // Request permission, but don't block the app if denied.
+    final permission = await androidPlugin.requestNotificationsPermission();
 
+    print(
+      'GYMBRO: Android notification permission: $permission',
+    );
+
+    // Create the notification channel regardless of permission result.
     const AndroidNotificationChannel channel = AndroidNotificationChannel(
       'gymbro_workout',
       'Workout Notifications',
@@ -148,5 +155,3 @@ Future showLocalWorkoutNotification() async {
     'GYMBRO: Local workout notification sent successfully',
   );
 }
-// Set your action name, define your arguments and return parameter,
-// and then add the boilerplate code using the `</>` button on the right!

@@ -81,12 +81,19 @@ class _EditPage2WidgetState extends State<EditPage2Widget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
+                              HapticFeedback.lightImpact();
                               context.safePop();
                             },
                             child: Container(
                               width: 44.0,
                               height: 44.0,
-                              decoration: BoxDecoration(),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(120.0),
+                                border: Border.all(
+                                  color: FlutterFlowTheme.of(context).alternate,
+                                  width: 0.5,
+                                ),
+                              ),
                               child: Icon(
                                 Icons.arrow_back,
                                 color: FlutterFlowTheme.of(context).primaryText,

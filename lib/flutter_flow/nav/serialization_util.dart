@@ -270,8 +270,6 @@ dynamic deserializeParam<T>(
             return RoutineSetsRow(data);
           case RoutineTemplatesRow:
             return RoutineTemplatesRow(data);
-          case SavedRoutinesRow:
-            return SavedRoutinesRow(data);
           case WaterGoalsRow:
             return WaterGoalsRow(data);
           case WaterLogsRow:

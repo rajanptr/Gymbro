@@ -154,7 +154,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                         width: 86.0,
                                         height: 86.0,
                                         decoration: BoxDecoration(
-                                          color: _model.uploadedFileUrl_profilePicture ==
+                                          color: _model.uploadedFileUrl_profile ==
                                                       ''
                                               ? FlutterFlowTheme.of(context)
                                                   .accent3
@@ -185,18 +185,18 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                                 AlignmentDirectional(0.0, 0.0),
                                             child: Stack(
                                               children: [
-                                                if (_model.uploadedFileUrl_profilePicture !=
+                                                if (_model.uploadedFileUrl_profile !=
                                                         '')
                                                   ClipRRect(
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             200.0),
                                                     child: Image.network(
-                                                      _model.uploadedFileUrl_profilePicture ==
+                                                      _model.uploadedFileUrl_profile ==
                                                                   ''
                                                           ? ''
                                                           : _model
-                                                              .uploadedFileUrl_profilePicture,
+                                                              .uploadedFileUrl_profile,
                                                       width: 80.0,
                                                       height: 80.0,
                                                       fit: BoxFit.cover,
@@ -233,6 +233,14 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                                         storageFolderPath:
                                                             currentUserUid,
                                                         allowPhoto: true,
+                                                        backgroundColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryText,
+                                                        textColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryBackground,
                                                         pickerFontFamily:
                                                             'Urbanist',
                                                       );
@@ -243,7 +251,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                                                   m.storagePath,
                                                                   context))) {
                                                         safeSetState(() => _model
-                                                                .isDataUploading_profilePicture =
+                                                                .isDataUploading_profile =
                                                             true);
                                                         var selectedUploadedFiles =
                                                             <FFUploadedFile>[];
@@ -290,7 +298,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                                           ScaffoldMessenger.of(
                                                                   context)
                                                               .hideCurrentSnackBar();
-                                                          _model.isDataUploading_profilePicture =
+                                                          _model.isDataUploading_profile =
                                                               false;
                                                         }
                                                         if (selectedUploadedFiles
@@ -302,10 +310,10 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                                                 selectedMedia
                                                                     .length) {
                                                           safeSetState(() {
-                                                            _model.uploadedLocalFile_profilePicture =
+                                                            _model.uploadedLocalFile_profile =
                                                                 selectedUploadedFiles
                                                                     .first;
-                                                            _model.uploadedFileUrl_profilePicture =
+                                                            _model.uploadedFileUrl_profile =
                                                                 downloadUrls
                                                                     .first;
                                                           });
@@ -325,18 +333,14 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                                       width: 36.0,
                                                       height: 36.0,
                                                       decoration: BoxDecoration(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryText,
+                                                        color: Colors.white,
                                                         shape: BoxShape.circle,
                                                       ),
                                                       child: Icon(
                                                         Icons
                                                             .file_upload_outlined,
-                                                        color: FlutterFlowTheme
-                                                                .of(context)
-                                                            .primaryBackground,
+                                                        color:
+                                                            Color(0xFF121212),
                                                         size: 20.0,
                                                       ),
                                                     ),
@@ -362,7 +366,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                           alignment:
                                               AlignmentDirectional(0.0, 0.0),
                                           children: [
-                                            if (_model.uploadedFileUrl_profilePicture ==
+                                            if (_model.uploadedFileUrl_profile ==
                                                     '')
                                               Padding(
                                                 padding: EdgeInsets.all(10.0),
@@ -408,7 +412,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                                   ],
                                                 ),
                                               ),
-                                            if (_model.uploadedFileUrl_profilePicture !=
+                                            if (_model.uploadedFileUrl_profile !=
                                                     '')
                                               Padding(
                                                 padding: EdgeInsets.all(10.0),
@@ -1336,10 +1340,11 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                   'gender': _model.gender,
                                   'birth_date': supaSerialize<DateTime>(
                                       _model.datePicked2),
-                                  'avatar_url': _model.uploadedFileUrl_profilePicture ==
-                                              ''
-                                      ? ''
-                                      : _model.uploadedFileUrl_profilePicture,
+                                  'avatar_url':
+                                      _model.uploadedFileUrl_profile ==
+                                                  ''
+                                          ? ''
+                                          : _model.uploadedFileUrl_profile,
                                 });
 
                                 context.pushNamed(

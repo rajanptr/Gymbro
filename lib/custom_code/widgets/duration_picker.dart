@@ -10,6 +10,10 @@ import 'package:flutter/material.dart';
 // Begin custom widget code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
+import '/custom_code/widgets/index.dart';
+import '/custom_code/actions/index.dart';
+import '/flutter_flow/custom_functions.dart';
+
 import 'package:flutter/cupertino.dart';
 
 class DurationPicker extends StatefulWidget {
@@ -20,6 +24,12 @@ class DurationPicker extends StatefulWidget {
     this.initialMinutes = 1,
     this.initialSeconds = 0,
     this.onDurationChanged,
+
+    // Editable colors
+    this.primaryColor,
+    this.secondaryColor,
+    this.selectedBackgroundColor,
+    this.unselectedBackgroundColor,
   });
 
   final double? width;
@@ -29,6 +39,15 @@ class DurationPicker extends StatefulWidget {
   final int initialSeconds;
 
   final Future Function(int minutes, int seconds)? onDurationChanged;
+
+  // ==================================================
+  // EDITABLE COLORS
+  // ==================================================
+
+  final Color? primaryColor;
+  final Color? secondaryColor;
+  final Color? selectedBackgroundColor;
+  final Color? unselectedBackgroundColor;
 
   @override
   State<DurationPicker> createState() => _DurationPickerState();
@@ -45,7 +64,6 @@ class _DurationPickerState extends State<DurationPicker> {
   void initState() {
     super.initState();
 
-    // Clamp initial duration between 00:01 and 15:00.
     int totalSeconds = (widget.initialMinutes * 60) + widget.initialSeconds;
 
     totalSeconds = totalSeconds.clamp(1, 15 * 60);
@@ -82,7 +100,7 @@ class _DurationPickerState extends State<DurationPicker> {
     int newMinutes = value;
     int newSeconds = selectedSeconds;
 
-    // Maximum allowed duration is 15:00.
+    // Maximum duration = 15:00
     if (newMinutes == 15) {
       newSeconds = 0;
 
@@ -91,7 +109,7 @@ class _DurationPickerState extends State<DurationPicker> {
       }
     }
 
-    // Minimum allowed duration is 00:01.
+    // Minimum duration = 00:01
     if (newMinutes == 0 && newSeconds == 0) {
       newSeconds = 1;
 
@@ -112,7 +130,7 @@ class _DurationPickerState extends State<DurationPicker> {
     int newMinutes = selectedMinutes;
     int newSeconds = value;
 
-    // 15:xx is not allowed.
+    // 15:xx is not allowed
     if (newMinutes == 15) {
       newSeconds = 0;
 
@@ -121,7 +139,7 @@ class _DurationPickerState extends State<DurationPicker> {
       }
     }
 
-    // 00:00 is not allowed.
+    // 00:00 is not allowed
     if (newMinutes == 0 && newSeconds == 0) {
       newSeconds = 1;
 
@@ -157,15 +175,40 @@ class _DurationPickerState extends State<DurationPicker> {
         onSelectedItemChanged: onChanged,
         childCount: itemCount,
         itemBuilder: (context, index) {
-          final isSelected = index == selectedValue;
+          final bool isSelected = index == selectedValue;
 
           return Center(
-            child: Text(
-              index.toString().padLeft(2, '0'),
-              style: TextStyle(
-                fontSize: isSelected ? 24 : 20,
-                fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-                color: isSelected ? Colors.white : Colors.white54,
+            child: Container(
+              width: 68,
+              height: 44,
+
+              // ==========================================
+              // EDITABLE BACKGROUND COLOR
+              // ==========================================
+
+              decoration: BoxDecoration(
+                color: isSelected
+                    ? (widget.selectedBackgroundColor ?? Colors.transparent)
+                    : (widget.unselectedBackgroundColor ?? Colors.transparent),
+                borderRadius: BorderRadius.circular(8),
+              ),
+
+              alignment: Alignment.center,
+
+              child: Text(
+                index.toString().padLeft(2, '0'),
+
+                // ========================================
+                // EDITABLE TEXT COLOR
+                // ========================================
+
+                style: TextStyle(
+                  fontSize: isSelected ? 24 : 20,
+                  fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+                  color: isSelected
+                      ? (widget.primaryColor ?? Colors.white)
+                      : (widget.secondaryColor ?? Colors.white54),
+                ),
               ),
             ),
           );
@@ -176,6 +219,8 @@ class _DurationPickerState extends State<DurationPicker> {
 
   @override
   Widget build(BuildContext context) {
+    final Color primary = widget.primaryColor ?? Colors.white;
+
     return Container(
       width: widget.width,
       height: widget.height ?? 210,
@@ -183,15 +228,25 @@ class _DurationPickerState extends State<DurationPicker> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text(
+          // ==============================================
+          // REST DURATION
+          // ==============================================
+
+          Text(
             'REST DURATION',
             style: TextStyle(
-              color: Colors.white,
+              color: primary,
               fontSize: 16,
               fontWeight: FontWeight.w500,
             ),
           ),
+
           const SizedBox(height: 8),
+
+          // ==============================================
+          // PICKERS
+          // ==============================================
+
           SizedBox(
             height: 150,
             child: Row(
@@ -200,15 +255,16 @@ class _DurationPickerState extends State<DurationPicker> {
                 // MINUTES
                 _buildPicker(
                   controller: minutesController,
-                  itemCount: 16, // 00 → 15
+                  itemCount: 16,
                   selectedValue: selectedMinutes,
                   onChanged: _updateMinutes,
                 ),
 
-                const Text(
+                // COLON
+                Text(
                   ':',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: primary,
                     fontSize: 26,
                     fontWeight: FontWeight.w600,
                   ),
@@ -217,15 +273,21 @@ class _DurationPickerState extends State<DurationPicker> {
                 // SECONDS
                 _buildPicker(
                   controller: secondsController,
-                  itemCount: 60, // 00 → 59
+                  itemCount: 60,
                   selectedValue: selectedSeconds,
                   onChanged: _updateSeconds,
                 ),
               ],
             ),
           ),
+
           const SizedBox(height: 4),
-          const Row(
+
+          // ==============================================
+          // MIN / SEC
+          // ==============================================
+
+          Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
@@ -234,20 +296,20 @@ class _DurationPickerState extends State<DurationPicker> {
                   child: Text(
                     'MIN',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: primary,
                       fontSize: 14,
                     ),
                   ),
                 ),
               ),
-              SizedBox(width: 20),
+              const SizedBox(width: 20),
               SizedBox(
                 width: 90,
                 child: Center(
                   child: Text(
                     'SEC',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: primary,
                       fontSize: 14,
                     ),
                   ),

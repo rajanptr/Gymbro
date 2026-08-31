@@ -3,6 +3,7 @@ import '/components/no_result_error_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import '/index.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -114,7 +115,14 @@ class _AllExercisesWidgetState extends State<AllExercisesWidget> {
                               child: Container(
                                 width: 44.0,
                                 height: 44.0,
-                                decoration: BoxDecoration(),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(120.0),
+                                  border: Border.all(
+                                    color:
+                                        FlutterFlowTheme.of(context).alternate,
+                                    width: 0.5,
+                                  ),
+                                ),
                                 child: Icon(
                                   Icons.arrow_back,
                                   color:
@@ -219,7 +227,7 @@ class _AllExercisesWidgetState extends State<AllExercisesWidget> {
                                                   .text;
                                               safeSetState(() {});
                                             },
-                                            autofocus: true,
+                                            autofocus: false,
                                             enabled: true,
                                             obscureText: false,
                                             decoration: InputDecoration(
@@ -967,72 +975,103 @@ class _AllExercisesWidgetState extends State<AllExercisesWidget> {
                                         final exercisesLibraryItem =
                                             exercisesLibrary[
                                                 exercisesLibraryIndex];
-                                        return Container(
-                                          width: double.infinity,
-                                          decoration: BoxDecoration(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                            borderRadius:
-                                                BorderRadius.circular(4.0),
-                                          ),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsets.all(12.0),
-                                                child: Container(
-                                                  width: 44.0,
-                                                  height: 44.0,
-                                                  decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .accent3,
-                                                    shape: BoxShape.circle,
-                                                  ),
-                                                  child: Stack(
-                                                    children: [
-                                                      if (exercisesLibraryItem
-                                                                      .imageUrl !=
-                                                                  null &&
-                                                              exercisesLibraryItem
-                                                                      .imageUrl !=
-                                                                  ''
-                                                          ? false
-                                                          : true)
-                                                        Align(
-                                                          alignment:
-                                                              AlignmentDirectional(
-                                                                  0.0, 0.0),
-                                                          child: Text(
-                                                            (String name) {
-                                                              return name
-                                                                          .trim()
-                                                                          .split(
-                                                                              ' ')
-                                                                          .length ==
-                                                                      1
-                                                                  ? name
-                                                                      .trim()
-                                                                      .substring(
-                                                                          0, 2)
-                                                                      .toUpperCase()
-                                                                  : (name.trim().split(' ')[0].substring(
-                                                                              0,
-                                                                              1) +
-                                                                          name.trim().split(' ')[1].substring(
-                                                                              0,
-                                                                              1))
-                                                                      .toUpperCase();
-                                                            }(exercisesLibraryItem
-                                                                .name),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .titleMedium
-                                                                .override(
-                                                                  font: GoogleFonts
-                                                                      .urbanist(
+                                        return InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            context.pushNamed(
+                                              SpecificExerciseWidget.routeName,
+                                              queryParameters: {
+                                                'iD': serializeParam(
+                                                  exercisesLibraryItem.id,
+                                                  ParamType.String,
+                                                ),
+                                              }.withoutNulls,
+                                            );
+                                          },
+                                          child: Container(
+                                            width: double.infinity,
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                              borderRadius:
+                                                  BorderRadius.circular(4.0),
+                                            ),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsets.all(12.0),
+                                                  child: Container(
+                                                    width: 44.0,
+                                                    height: 44.0,
+                                                    decoration: BoxDecoration(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .accent3,
+                                                      shape: BoxShape.circle,
+                                                    ),
+                                                    child: Stack(
+                                                      children: [
+                                                        if (exercisesLibraryItem
+                                                                        .imageUrl !=
+                                                                    null &&
+                                                                exercisesLibraryItem
+                                                                        .imageUrl !=
+                                                                    ''
+                                                            ? false
+                                                            : true)
+                                                          Align(
+                                                            alignment:
+                                                                AlignmentDirectional(
+                                                                    0.0, 0.0),
+                                                            child: Text(
+                                                              (String name) {
+                                                                return name
+                                                                            .trim()
+                                                                            .split(
+                                                                                ' ')
+                                                                            .length ==
+                                                                        1
+                                                                    ? name
+                                                                        .trim()
+                                                                        .substring(
+                                                                            0,
+                                                                            2)
+                                                                        .toUpperCase()
+                                                                    : (name.trim().split(' ')[0].substring(0,
+                                                                                1) +
+                                                                            name.trim().split(' ')[1].substring(0,
+                                                                                1))
+                                                                        .toUpperCase();
+                                                              }(exercisesLibraryItem
+                                                                  .name),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .titleMedium
+                                                                  .override(
+                                                                    font: GoogleFonts
+                                                                        .urbanist(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w600,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .titleMedium
+                                                                          .fontStyle,
+                                                                    ),
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondaryText,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w600,
@@ -1041,147 +1080,145 @@ class _AllExercisesWidgetState extends State<AllExercisesWidget> {
                                                                         .titleMedium
                                                                         .fontStyle,
                                                                   ),
+                                                            ),
+                                                          ),
+                                                        if (exercisesLibraryItem
+                                                                        .imageUrl ==
+                                                                    null ||
+                                                                exercisesLibraryItem
+                                                                        .imageUrl ==
+                                                                    ''
+                                                            ? false
+                                                            : true)
+                                                          Container(
+                                                            width: 44.0,
+                                                            height: 44.0,
+                                                            clipBehavior:
+                                                                Clip.antiAlias,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                            ),
+                                                            child:
+                                                                Image.network(
+                                                              exercisesLibraryItem
+                                                                  .imageUrl!,
+                                                              fit: BoxFit.cover,
+                                                            ),
+                                                          ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        valueOrDefault<String>(
+                                                          functions.capitalize(
+                                                              exercisesLibraryItem
+                                                                  .name),
+                                                          'Name',
+                                                        ),
+                                                        maxLines: 2,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleSmall
+                                                                .override(
+                                                                  font: GoogleFonts
+                                                                      .urbanist(
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .titleSmall
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .titleSmall
+                                                                        .fontStyle,
+                                                                  ),
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleSmall
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleSmall
+                                                                      .fontStyle,
+                                                                ),
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                      ),
+                                                      Text(
+                                                        valueOrDefault<String>(
+                                                          exercisesLibraryItem
+                                                              .muscleGroup,
+                                                          'Muscle Group',
+                                                        ),
+                                                        maxLines: 1,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  font: GoogleFonts
+                                                                      .urbanist(
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
+                                                                  ),
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
                                                                       .secondaryText,
                                                                   letterSpacing:
                                                                       0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontWeight,
                                                                   fontStyle: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .titleMedium
+                                                                      .bodyMedium
                                                                       .fontStyle,
                                                                 ),
-                                                          ),
-                                                        ),
-                                                      if (exercisesLibraryItem
-                                                                      .imageUrl ==
-                                                                  null ||
-                                                              exercisesLibraryItem
-                                                                      .imageUrl ==
-                                                                  ''
-                                                          ? false
-                                                          : true)
-                                                        Container(
-                                                          width: 44.0,
-                                                          height: 44.0,
-                                                          clipBehavior:
-                                                              Clip.antiAlias,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            shape:
-                                                                BoxShape.circle,
-                                                          ),
-                                                          child: Image.network(
-                                                            exercisesLibraryItem
-                                                                .imageUrl!,
-                                                            fit: BoxFit.cover,
-                                                          ),
-                                                        ),
-                                                    ],
+                                                      ),
+                                                    ].divide(
+                                                        SizedBox(height: 5.0)),
                                                   ),
                                                 ),
-                                              ),
-                                              Expanded(
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      valueOrDefault<String>(
-                                                        functions.capitalize(
-                                                            exercisesLibraryItem
-                                                                .name),
-                                                        'Name',
-                                                      ),
-                                                      maxLines: 2,
-                                                      style:
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 10.0, 0.0),
+                                                  child: Container(
+                                                    width: 36.0,
+                                                    height: 36.0,
+                                                    decoration: BoxDecoration(),
+                                                    child: Icon(
+                                                      Icons.chevron_right_sharp,
+                                                      color:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .titleSmall
-                                                              .override(
-                                                                font: GoogleFonts
-                                                                    .urbanist(
-                                                                  fontWeight: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleSmall
-                                                                      .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleSmall
-                                                                      .fontStyle,
-                                                                ),
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleSmall
-                                                                    .fontWeight,
-                                                                fontStyle: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleSmall
-                                                                    .fontStyle,
-                                                              ),
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
+                                                              .alternate,
+                                                      size: 20.0,
                                                     ),
-                                                    Text(
-                                                      valueOrDefault<String>(
-                                                        exercisesLibraryItem
-                                                            .muscleGroup,
-                                                        'Muscle Group',
-                                                      ),
-                                                      maxLines: 1,
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                font: GoogleFonts
-                                                                    .urbanist(
-                                                                  fontWeight: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .fontStyle,
-                                                                ),
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryText,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontWeight,
-                                                                fontStyle: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontStyle,
-                                                              ),
-                                                    ),
-                                                  ].divide(
-                                                      SizedBox(height: 5.0)),
+                                                  ),
                                                 ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsets.all(20.0),
-                                                child: Icon(
-                                                  Icons.chevron_right_sharp,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryBackground,
-                                                  size: 20.0,
-                                                ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
                                         );
                                       }).divide(SizedBox(height: 10.0)),

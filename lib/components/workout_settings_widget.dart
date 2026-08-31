@@ -144,6 +144,10 @@ class _WorkoutSettingsWidgetState extends State<WorkoutSettingsWidget> {
                                     FFAppState().restDuration ~/ 60000,
                                 initialSeconds:
                                     (FFAppState().restDuration % 60000) ~/ 1000,
+                                primaryColor:
+                                    FlutterFlowTheme.of(context).primaryText,
+                                secondaryColor:
+                                    FlutterFlowTheme.of(context).secondaryText,
                                 onDurationChanged: (minutes, seconds) async {
                                   _model.selectedMinutes = minutes;
                                   _model.selectedSeconds = seconds;

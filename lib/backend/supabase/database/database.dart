@@ -15,7 +15,6 @@ export 'tables/profiles.dart';
 export 'tables/routine_exercises.dart';
 export 'tables/routine_sets.dart';
 export 'tables/routine_templates.dart';
-export 'tables/saved_routines.dart';
 export 'tables/water_goals.dart';
 export 'tables/water_logs.dart';
 export 'tables/water_today_summary.dart';

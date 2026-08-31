@@ -1,4 +1,5 @@
 import '/backend/supabase/supabase.dart';
+import '/components/drag_widget.dart';
 import '/components/empty_exercise_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -151,7 +152,7 @@ class _ReorderExercisesPageWidgetState
                     return ReorderableListView.builder(
                       padding: EdgeInsets.fromLTRB(
                         0,
-                        15.0,
+                        10.0,
                         0,
                         156.0,
                       ),
@@ -165,18 +166,16 @@ class _ReorderExercisesPageWidgetState
                       itemBuilder: (context, reorderExerciselistIndex) {
                         final reorderExerciselistItem =
                             reorderExerciselist[reorderExerciselistIndex];
-                        return MouseRegion(
+                        return Stack(
                           key: ValueKey("ListView_rle0v50z" +
                               '_' +
                               reorderExerciselistIndex.toString()),
-                          cursor: SystemMouseCursors.grab,
-                          child: ReorderableDragStartListener(
-                            index: reorderExerciselistIndex,
-                            child: Align(
+                          children: [
+                            Align(
                               alignment: AlignmentDirectional(0.0, -1.0),
                               child: Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    15.0, 0.0, 15.0, 10.0),
+                                    15.0, 5.0, 15.0, 5.0),
                                 child: FutureBuilder<List<ExerciseLibraryRow>>(
                                   future: ExerciseLibraryTable().querySingleRow(
                                     queryFn: (q) => q.eqOrNull(
@@ -423,18 +422,6 @@ class _ReorderExercisesPageWidgetState
                                                 ].divide(SizedBox(height: 5.0)),
                                               ),
                                             ),
-                                            Container(
-                                              width: 44.0,
-                                              height: 44.0,
-                                              decoration: BoxDecoration(),
-                                              child: Icon(
-                                                Icons.drag_handle_sharp,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryText,
-                                                size: 20.0,
-                                              ),
-                                            ),
                                           ].divide(SizedBox(width: 10.0)),
                                         ),
                                       ),
@@ -443,7 +430,19 @@ class _ReorderExercisesPageWidgetState
                                 ),
                               ),
                             ),
-                          ),
+                            Positioned.fill(
+                              child: Align(
+                                alignment: AlignmentDirectional.centerEnd,
+                                child: MouseRegion(
+                                  cursor: SystemMouseCursors.grab,
+                                  child: ReorderableDragStartListener(
+                                    index: reorderExerciselistIndex,
+                                    child: DragWidget(),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         );
                       },
                       onReorder: (int reorderableOldIndex,
@@ -507,20 +506,6 @@ class _ReorderExercisesPageWidgetState
                                       'id',
                                       currentLoop1Item.id,
                                     ),
-                                  );
-                                  await RoutineExercisesTable().update(
-                                    data: {
-                                      'order_index': loop1Index,
-                                    },
-                                    matchingRows: (rows) => rows
-                                        .eqOrNull(
-                                          'exercise_id',
-                                          currentLoop1Item.exerciseId,
-                                        )
-                                        .eqOrNull(
-                                          'template_id',
-                                          currentLoop1Item.id,
-                                        ),
                                   );
                                 }
                                 Navigator.pop(context);

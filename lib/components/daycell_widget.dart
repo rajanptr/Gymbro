@@ -44,9 +44,6 @@ class _DaycellWidgetState extends State<DaycellWidget> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: widget.calendarDay?.isToday == true
-            ? FlutterFlowTheme.of(context).accent3
-            : Color(0x00000000),
         borderRadius: BorderRadius.circular(200.0),
       ),
       child: Padding(
@@ -60,6 +57,8 @@ class _DaycellWidgetState extends State<DaycellWidget> {
                 return FlutterFlowTheme.of(context).primaryText;
               } else if (widget.calendarDay?.isEmpty == true) {
                 return Color(0x00000000);
+              } else if (widget.calendarDay?.hasWorkout == true) {
+                return FlutterFlowTheme.of(context).accent3;
               } else {
                 return Color(0x00000000);
               }
@@ -105,7 +104,7 @@ class _DaycellWidgetState extends State<DaycellWidget> {
               ),
               if (widget.calendarDay?.hasWorkout == true)
                 Container(
-                  width: 10.0,
+                  width: 15.0,
                   height: 6.0,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).primary,

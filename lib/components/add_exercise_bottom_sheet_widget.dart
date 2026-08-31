@@ -1,7 +1,9 @@
 import '/backend/supabase/supabase.dart';
+import '/components/specific_exercise_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
@@ -615,14 +617,49 @@ class _AddExerciseBottomSheetWidgetState
                                         Align(
                                           alignment:
                                               AlignmentDirectional(0.0, -1.0),
-                                          child: Container(
-                                            width: 44.0,
-                                            height: 44.0,
-                                            decoration: BoxDecoration(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .accent3,
-                                              shape: BoxShape.circle,
+                                          child: InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              await showModalBottomSheet(
+                                                isScrollControlled: true,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                isDismissible: false,
+                                                enableDrag: false,
+                                                context: context,
+                                                builder: (context) {
+                                                  return Padding(
+                                                    padding:
+                                                        MediaQuery.viewInsetsOf(
+                                                            context),
+                                                    child: Container(
+                                                      height: MediaQuery.sizeOf(
+                                                                  context)
+                                                              .height *
+                                                          0.85,
+                                                      child:
+                                                          SpecificExerciseComponentWidget(
+                                                        iD: listViewExerciseLibraryRow
+                                                            .id!,
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              ).then((value) =>
+                                                  safeSetState(() {}));
+                                            },
+                                            child: Container(
+                                              width: 44.0,
+                                              height: 44.0,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .accent3,
+                                                shape: BoxShape.circle,
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -636,38 +673,42 @@ class _AddExerciseBottomSheetWidgetState
                                             children: [
                                               Text(
                                                 valueOrDefault<String>(
-                                                  listViewExerciseLibraryRow
-                                                      .name,
+                                                  functions.capitalize(
+                                                      valueOrDefault<String>(
+                                                    listViewExerciseLibraryRow
+                                                        .name,
+                                                    'Name',
+                                                  )),
                                                   'Name',
                                                 ),
                                                 maxLines: 3,
                                                 style: FlutterFlowTheme.of(
                                                         context)
-                                                    .titleMedium
+                                                    .titleSmall
                                                     .override(
                                                       font:
                                                           GoogleFonts.urbanist(
                                                         fontWeight:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .titleMedium
+                                                                .titleSmall
                                                                 .fontWeight,
                                                         fontStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .titleMedium
+                                                                .titleSmall
                                                                 .fontStyle,
                                                       ),
                                                       letterSpacing: 0.0,
                                                       fontWeight:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .titleMedium
+                                                              .titleSmall
                                                               .fontWeight,
                                                       fontStyle:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .titleMedium
+                                                              .titleSmall
                                                               .fontStyle,
                                                     ),
                                                 overflow: TextOverflow.ellipsis,
