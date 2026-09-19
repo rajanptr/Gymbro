@@ -265,20 +265,52 @@ It's to build what actually makes the product better.
 
 ## About the Project
 
-GYMBRO is designed and developed by **Rajan Patra**.
+GYMBRO started with a simple idea:
 
-A UI/UX designer who thought:
+> **Make tracking a workout feel less like managing data and more like actually training.**
 
-> *"Maybe designing the app isn't enough."*
+The goal was never to build another app filled with endless numbers, charts, and buttons.
 
-So he decided to build it too.
+It was to create something that helps answer the things that actually matter:
 
-Now we're here.
+**Did I train?  
+What did I do?  
+Am I getting stronger?  
+Am I staying consistent?**
 
-Designing.  
-Building.  
-Debugging.  
-Repeating.
+That's the product.
+
+Simple enough to use every workout.
+
+Useful enough to keep coming back to.
+
+And hopefully motivating enough that you don't start negotiating with yourself about skipping leg day.
+
+---
+
+## About Me
+
+Hey, I'm **Rajan Patra**.
+
+I'm a UI/UX designer who likes turning ideas into things people can actually use.
+
+GYMBRO started as a design project.
+
+Then I made the slightly questionable decision to build the whole thing myself.
+
+So now I get to work across:
+
+**UX → UI → Prototyping → Development → Backend → Debugging**
+
+Which is a surprisingly effective way to discover that *"just one small feature"* is never just one small feature.
+
+I'm interested in product design, interaction design, emerging technology, and building things that are actually fun to use.
+
+If you want to see what else I've been making:
+
+### 👋 Come say hi.
+
+**[Find me here →](https://portfolio.byrajan.design/)**
 
 ---
 
