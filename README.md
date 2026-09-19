@@ -1,107 +1,93 @@
-# GYMBRO 💪
+# GYMBRO
 
-> Your workout. Your progress. Your excuses.  
+> **Your workout. Your progress. Your excuses.**  
 > We track the first two. The last one is on you.
 
-GYMBRO is a workout tracking app built around one simple idea:
+GYMBRO is a workout tracking app built to make training easier to log, easier to understand, and a little more fun.
 
-**Make training easier to track, easier to understand, and a little more fun.**
-
-Because going to the gym is already hard enough. You don't need your workout app acting like your accountant.
-
-![GYMBRO](./assets/images/logo_dark.png)
+Because the gym is already hard enough. Your app doesn't need to be.
 
 ---
 
-## 🏋️ So... What Can GYMBRO Do?
+## So... What Can GYMBRO Do?
 
-### "Hey, I just want to track my workouts."
+### "I just want to track my workouts."
 
-Cool. Start there.
+Yep. Start there.
 
-Log your exercises, sets, reps, weight, and workout duration.
-
-No spreadsheet energy.  
-No unnecessary forms.  
-No PhD required.
+Log exercises, sets, reps, weight, and workout duration.
 
 **Exercise → Sets → Reps → Weight → Done.**
 
----
+No spreadsheet energy. No unnecessary forms. No PhD required.
 
-### "Okay... but how do I know if I'm actually getting stronger?"
+### "Okay... but am I actually getting stronger?"
 
-Ah. Now we're getting somewhere.
+Now we're talking.
 
-GYMBRO remembers the numbers so you don't have to.
-
-Track your:
+GYMBRO keeps track of the numbers so you don't have to.
 
 - 🏆 Personal records
 - 📈 Workout volume
-- 💪 Reps
-- 🏋️ Weight
+- 💪 Reps & weight
 - ⏱️ Workout duration
+- ❤️ Consistency
 
-Because saying *"I think I'm getting stronger"* is nice.
+Because *"I think I'm getting stronger"* is nice.
 
-Having the numbers to prove it is better.
+Having the numbers is better.
 
-And yes...
+And that exercise you've been doing with the same weight for six months?
 
-That one exercise you've been doing with the same weight for six months?
-
-**We noticed. 👀**
+**We noticed.**
 
 ---
 
-## 🔥 "Wait... I want a streak."
+## Build a Routine. Stay Consistent.
 
-Of course you do.
+Getting stronger isn't about one great workout.
 
-Nothing motivates people quite like a little number going up.
+It's about showing up again. And again. And again.
 
-GYMBRO gives you a workout calendar and streak system so you can see when you showed up, when you rested, and when life got in the way.
+GYMBRO helps you build a workout routine by keeping track of the days you train, rest, and take a break.
 
-- 🔥 Workout day
-- 🧊 Freeze day
+- 🏋️ Workout day
+- ❄️ Freeze day
 - 😴 Rest day
-- ⬜ Missed day
+- ❌ Missed day
 
-Because sometimes life happens.
+See your routine take shape over time, keep your streak going, and make consistency a little easier.
 
-And that's where...
+Because you don't need to be perfect.
 
-### ❄️ Freeze Days
+You just need to keep showing up.
 
-...come in.
+And when life gets in the way?
+
+### ❄️ Freeze days.
 
 Missed a day?
 
 Don't panic.
 
-GYMBRO lets you protect your streak with a freeze day.
-
-Think of it as:
+Use a freeze day to protect your streak and get back to your routine.
 
 > *"I didn't skip the gym.*  
 > *I strategically paused my character development."*
 
 You're welcome.
 
-![GYMBRO Streak Calendar](./assets/images/streak-calendar.png)
-
 ---
 
-## 📅 Your Workout History
+## Remember What You Actually Did
 
-### "Can I see what I did last time?"
+### "What did I do last week?"
 
-Absolutely.
+GYMBRO remembers.
 
-GYMBRO keeps your workout history so you can look back at what you actually did.
+Look back at your workouts, weights, reps, volume, and history without relying on **gym-memory™**.
 
-Because we all know what happens:
+Because we all know how that conversation goes:
 
 > *"I definitely did 80 kg last week."*
 
@@ -113,33 +99,30 @@ Awkward.
 
 But useful.
 
-Your history gives you a clearer picture of your training instead of relying on gym-memory™, which mysteriously disappears the moment you need it.
-
-![GYMBRO Workout History](./assets/images/workout-history.png)
-
 ---
 
-## 📊 Your Progress, Without the Spreadsheet Headache
+## See Your Progress
 
-GYMBRO turns your workout data into something you can actually understand.
+Your workout data should tell you something.
 
-Track how much you've trained.
+GYMBRO helps you see:
 
-See how much volume you're moving.
+- 💪 How much you're training
+- 📈 How much volume you're moving
+- 🏆 When you hit a PR
+- 🔥 How consistent you've been
 
-Keep an eye on your PRs.
+No 47 graphs.
 
-Look back at your consistency.
+No data overload.
 
-The goal isn't to give you 47 graphs.
-
-The goal is to answer one simple question:
+Just enough information to answer:
 
 > **"Am I actually making progress?"**
 
 ---
 
-## 📸 Finished Your Workout? Show It.
+## Share the Victory
 
 ### "Can I share my workout?"
 
@@ -147,61 +130,35 @@ Obviously.
 
 You just survived leg day.
 
-The internet deserves to know.
+Someone needs to know.
 
-GYMBRO creates a shareable workout summary with your workout stats so you can:
-
-- Share it with your gym bro
-- Post it
-- Save it
-- Keep it as evidence
-- Quietly admire it yourself
+Create a shareable workout summary, save it, send it to your gym bro, or quietly admire it in your gallery.
 
 No judgment.
 
-![GYMBRO Workout Summary](./assets/images/workout-summary.png)
-
 ---
 
-## 💾 Want to Keep It?
+## Monthly Progress
 
-Yep.
-
-Save your workout summary directly to your device.
-
-Because sometimes you don't want to post it.
-
-You just want that little piece of evidence sitting in your gallery saying:
-
-**"I actually went."**
-
----
-
-## 📄 What About Monthly Progress?
-
-Yep. We've got that too.
+Want the bigger picture?
 
 GYMBRO can generate a monthly workout report with your training statistics.
 
-So instead of wondering:
+So instead of asking:
 
 *"Did I even train this month?"*
 
-you can actually look at the numbers.
+you can actually check.
 
-Because apparently, we need documentation for everything now.
-
-At least this documentation has sets and reps.
+Progress, but documented.
 
 ---
 
-## 🧠 The Idea Behind GYMBRO
+## The Idea Behind GYMBRO
 
-Most workout apps feel like someone took a spreadsheet, put rounded corners on it, and called it a day.
+Most workout apps feel like someone took a spreadsheet, added rounded corners, and called it a day.
 
-GYMBRO is trying something different.
-
-The goal is simple:
+GYMBRO takes a different approach:
 
 > **Track less. Understand more.**
 
@@ -209,61 +166,32 @@ You should be thinking about your next set.
 
 Not:
 
-*"Where the hell did I enter my reps?"*
-
-The interface is designed to stay out of the way while still giving you enough information to understand your training.
+*"Where the hell do I enter my reps?"*
 
 ---
 
-## ✨ What You Can Do
+## What You Can Do
 
 - 🏋️ Track workouts
 - 💪 Log exercises, sets, reps & weight
 - 📈 Track workout volume
 - 🏆 Track personal records
 - 🔥 Build workout streaks
+- ❄️ Use freeze days
 - 📅 View your workout calendar
-- ❄️ Protect your streak with freeze days
-- 😴 Track rest days
-- 🕒 Track workout duration
-- 📊 Review workout statistics
-- 📸 Create shareable workout summaries
+- 📖 Review workout history
+- ⏱️ Track workout duration
+- 📊 Review training statistics
+- 📸 Create workout summaries
 - 💾 Save workout images
-- 🔗 Copy and share workout links
-- 📄 Generate monthly workout reports
-- 👤 Manage your profile and account
+- 🔗 Share workout links
+- 📄 Generate monthly reports
+- 👤 Manage your profile
 - ⚙️ Customize workout preferences
 
 ---
 
-## 🎨 Designed to Stay Out of Your Way
-
-GYMBRO follows one rule:
-
-> **The gym is hard enough. The app shouldn't be.**
-
-The design is:
-
-- Minimal
-- Dark
-- Visual
-- Fast
-- Focused
-- Slightly opinionated
-
-No clutter.
-
-No unnecessary dashboards.
-
-No data dump disguised as a "progress view."
-
-Just the stuff that actually helps you train.
-
----
-
-## 🛠️ Built With
-
-GYMBRO is built with:
+## Built With
 
 - **FlutterFlow** — UI & application development
 - **Flutter / Dart** — custom logic & actions
@@ -276,61 +204,58 @@ GYMBRO is built with:
 
 ---
 
-## 🧪 More Than Just a Workout App
+## More Than a Workout App
 
 GYMBRO is also a product design and development experiment.
 
-It brings together:
-
 **Product design + UX + interaction design + development**
 
-The idea goes something like this:
+The process usually looks something like this:
 
 ```text
 "Wouldn't it be cool if..."
-            ↓
-        UX design
-            ↓
-         prototype
-            ↓
-        development
-            ↓
-         database
-            ↓
-         real app
-            ↓
-    "Why is this broken?"
-            ↓
-        debugging
-            ↓
-          repeat
+          ↓
+       UX design
+          ↓
+       prototype
+          ↓
+      development
+          ↓
+       database
+          ↓
+       real app
+          ↓
+   "Why is this broken?"
+          ↓
+      debugging
+          ↓
+        repeat
 ```
 
-And yes.
+Sometimes it works.
 
-That last part happens more often than we'd like to admit.
+Sometimes it doesn't.
+
+Sometimes it works and then breaks for absolutely no reason.
+
+You know. Software.
 
 ---
 
-## 🚧 Still Building...
+## Still Building...
 
 GYMBRO isn't finished.
 
-And that's intentional.
+And that's the point.
 
-New features are being designed.
-
-Existing ones are being refined.
-
-Things get tested.
-
-Things break.
-
+New ideas are tested.  
+Features are refined.  
+Things break.  
 Things get fixed.
 
-Sometimes they break again.
+Then something else breaks.
 
-*Classic software development.*
+*Classic.*
 
 The goal isn't to build everything.
 
@@ -338,54 +263,42 @@ It's to build what actually makes the product better.
 
 ---
 
-## 👨‍💻 About the Project
+## About the Project
 
 GYMBRO is designed and developed by **Rajan Patra**.
 
-A UI/UX designer who looked at the idea of building an app and thought:
+A UI/UX designer who thought:
 
-> *"Designing it would be enough."*
+> *"Maybe designing the app isn't enough."*
 
-Then immediately did the exact opposite.
+So he decided to build it too.
 
-So now we're here.
+Now we're here.
 
-Designing.
-
-Building.
-
-Debugging.
-
-And occasionally wondering why the database decided to behave differently at 2 AM.
+Designing.  
+Building.  
+Debugging.  
+Repeating.
 
 ---
 
-## 🔗 Links
+## Project Status
 
-- **Portfolio:** https://portfolio.byrajan.design/
-- **Website:** https://thegymbro.club/
+**Active Development**
 
----
-
-## 📌 Project Status
-
-**Active Development 🚀**
-
-GYMBRO is actively being designed, built, tested, and refined.
+GYMBRO is being actively designed, built, tested, and refined.
 
 More features are coming.
 
 More experiments are coming.
 
-And, statistically speaking...
+And yes...
 
-more bugs are coming too.
-
-Probably.
+probably more bugs too.
 
 ---
 
-## ❤️ One Last Thing
+## One Last Thing
 
 If you've ever walked into the gym and thought:
 
@@ -393,21 +306,19 @@ If you've ever walked into the gym and thought:
 
 GYMBRO is for you.
 
-If you've ever forgotten your weights:
+If you've forgotten your weights:
 
 > **GYMBRO.**
 
-If you've ever wondered whether you're actually progressing:
+If you've wondered whether you're actually progressing:
 
 > **GYMBRO.**
 
-If you've ever wanted to look back and see how far you've come:
+If you've wanted to see how far you've come:
 
 > **GYMBRO.**
 
-And if you've ever skipped the gym and blamed the weather...
-
-Well.
+And if you've skipped the gym and blamed the weather...
 
 > *GYMBRO probably can't help you with that one.*
 
@@ -415,6 +326,6 @@ Well.
 
 ---
 
-### ☕ Built with caffeine, questionable decisions, and way too many gym sessions.
+### Made with ♥ by Rajan.
 
-# GYMBRO - Stay consistent. Stay stronger.
+# GYMBRO — Stay consistent. Stay stronger.
