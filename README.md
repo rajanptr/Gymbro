@@ -9,7 +9,7 @@ GYMBRO is a workout tracking app built around one simple idea:
 
 Because going to the gym is already hard enough. You don't need your workout app acting like your accountant.
 
-![GYMBRO](./assets/images/gymbro-logo.png)
+![GYMBRO](./assets/images/logo_dark.png)
 
 ---
 
