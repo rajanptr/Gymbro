@@ -326,6 +326,6 @@ And if you've skipped the gym and blamed the weather...
 
 ---
 
-### Made with ♥ by Rajan.
+### Made with ♥ by RAjan.
 
 # GYMBRO — Stay consistent. Stay stronger.
