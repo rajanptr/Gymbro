@@ -165,83 +165,103 @@ class _WorkoutSettingsWidgetState extends State<WorkoutSettingsWidget> {
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          20.0, 0.0, 10.0, 0.0),
-                                      child: Icon(
-                                        Icons.volume_up_outlined,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                        size: 20.0,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 40.0, 0.0),
-                                      child: Text(
-                                        'Timer Sound',
-                                        style: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .override(
-                                              font: GoogleFonts.urbanist(
-                                                fontWeight:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleSmall
-                                                        .fontWeight,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleSmall
-                                                        .fontStyle,
-                                              ),
-                                              letterSpacing: 0.0,
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .fontStyle,
-                                            ),
-                                      ),
-                                    ),
-                                  ],
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 20.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .primaryBackground,
+                                  borderRadius: BorderRadius.circular(200.0),
                                 ),
-                                Padding(
-                                  padding: EdgeInsets.all(10.0),
-                                  child: Switch.adaptive(
-                                    value: _model.switchValue!,
-                                    onChanged: (newValue) async {
-                                      safeSetState(
-                                          () => _model.switchValue = newValue);
-                                      if (newValue) {
-                                        HapticFeedback.selectionClick();
-                                        FFAppState().restTimerSound = true;
-                                        safeSetState(() {});
-                                      } else {
-                                        HapticFeedback.selectionClick();
-                                        FFAppState().restTimerSound = false;
-                                        safeSetState(() {});
-                                      }
-                                    },
-                                    activeColor: Colors.white,
-                                    activeTrackColor:
-                                        FlutterFlowTheme.of(context).success,
-                                    inactiveTrackColor:
-                                        FlutterFlowTheme.of(context).alternate,
-                                    inactiveThumbColor:
-                                        FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
+                                child: Padding(
+                                  padding: EdgeInsets.all(15.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    15.0, 0.0, 10.0, 0.0),
+                                            child: Icon(
+                                              Icons.volume_up_outlined,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              size: 20.0,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 40.0, 0.0),
+                                            child: Text(
+                                              'Timer Sound',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .titleSmall
+                                                  .override(
+                                                    font: GoogleFonts.urbanist(
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .fontStyle,
+                                                    ),
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontStyle,
+                                                  ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Switch.adaptive(
+                                        value: _model.switchValue!,
+                                        onChanged: (newValue) async {
+                                          safeSetState(() =>
+                                              _model.switchValue = newValue);
+                                          if (newValue) {
+                                            HapticFeedback.selectionClick();
+                                            FFAppState().restTimerSound = true;
+                                            safeSetState(() {});
+                                          } else {
+                                            HapticFeedback.selectionClick();
+                                            FFAppState().restTimerSound = false;
+                                            safeSetState(() {});
+                                          }
+                                        },
+                                        activeColor: Colors.white,
+                                        activeTrackColor:
+                                            FlutterFlowTheme.of(context)
+                                                .success,
+                                        inactiveTrackColor:
+                                            FlutterFlowTheme.of(context)
+                                                .alternate,
+                                        inactiveThumbColor: Colors.white,
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
+                              ),
                             ),
                             Divider(
                               height: 1.0,

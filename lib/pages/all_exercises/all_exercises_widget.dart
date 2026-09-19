@@ -1,4 +1,7 @@
+import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
+import '/components/create_custom_exercise_widget.dart';
+import '/components/delete_custom_exe_widget.dart';
 import '/components/no_result_error_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -55,7 +58,14 @@ class _AllExercisesWidgetState extends State<AllExercisesWidget> {
     return FutureBuilder<List<ExerciseLibraryRow>>(
       future: ExerciseLibraryTable().queryRows(
         queryFn: (q) => q
-            .or("muscle_group.ilike.${'%${_model.searchQuery}%'}, name.ilike.${'%${_model.searchQuery}%'}")
+            .orGroupOrNull(orFilterGroup([
+              orFilterLeaf('muscle_group', 'ilike', '%${_model.searchQuery}%'),
+              orFilterLeaf('name', 'ilike', '%${_model.searchQuery}%'),
+            ], isAnd: false))
+            .orGroupOrNull(orFilterGroup([
+              'is_custom.is.false',
+              orFilterLeaf('created_by', 'eq', currentUserUid),
+            ], isAnd: false))
             .order('name', ascending: true),
       ),
       builder: (context, snapshot) {
@@ -86,6 +96,60 @@ class _AllExercisesWidgetState extends State<AllExercisesWidget> {
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+            floatingActionButton: FloatingActionButton.extended(
+              onPressed: () async {
+                HapticFeedback.selectionClick();
+                await showModalBottomSheet(
+                  isScrollControlled: true,
+                  backgroundColor: Color(0xA6000000),
+                  isDismissible: false,
+                  enableDrag: false,
+                  useSafeArea: true,
+                  context: context,
+                  builder: (context) {
+                    return GestureDetector(
+                      onTap: () {
+                        FocusScope.of(context).unfocus();
+                        FocusManager.instance.primaryFocus?.unfocus();
+                      },
+                      child: Padding(
+                        padding: MediaQuery.viewInsetsOf(context),
+                        child: Container(
+                          height: 456.0,
+                          child: CreateCustomExerciseWidget(
+                            name: '',
+                            muscleprimary: '',
+                            equipment: '',
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ).then((value) => safeSetState(() {}));
+              },
+              backgroundColor: FlutterFlowTheme.of(context).primaryText,
+              icon: Icon(
+                Icons.add,
+                color: FlutterFlowTheme.of(context).primaryBackground,
+                size: 20.0,
+              ),
+              elevation: 8.0,
+              label: Text(
+                'CUSTOM EXERCISE',
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      font: GoogleFonts.urbanist(
+                        fontWeight: FontWeight.w600,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                      ),
+                      color: FlutterFlowTheme.of(context).primaryBackground,
+                      letterSpacing: 0.0,
+                      fontWeight: FontWeight.w600,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                    ),
+              ),
+            ),
             body: SafeArea(
               top: true,
               child: Stack(
@@ -659,71 +723,6 @@ class _AllExercisesWidgetState extends State<AllExercisesWidget> {
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
-                                        _model.searchQuery = 'waist';
-                                        safeSetState(() {});
-                                        HapticFeedback.selectionClick();
-                                      },
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: _model.searchQuery == 'waist'
-                                              ? FlutterFlowTheme.of(context)
-                                                  .primaryText
-                                              : FlutterFlowTheme.of(context)
-                                                  .secondaryBackground,
-                                          borderRadius:
-                                              BorderRadius.circular(120.0),
-                                        ),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  16.0, 8.0, 16.0, 8.0),
-                                          child: Text(
-                                            'Waist',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  font: GoogleFonts.urbanist(
-                                                    fontWeight:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontStyle,
-                                                  ),
-                                                  color: _model.searchQuery ==
-                                                          'waist'
-                                                      ? FlutterFlowTheme.of(
-                                                              context)
-                                                          .secondaryBackground
-                                                      : FlutterFlowTheme.of(
-                                                              context)
-                                                          .primaryText,
-                                                  letterSpacing: 1.0,
-                                                  fontWeight:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontWeight,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontStyle,
-                                                ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
                                         _model.searchQuery = 'shoulder';
                                         safeSetState(() {});
                                         HapticFeedback.selectionClick();
@@ -981,15 +980,19 @@ class _AllExercisesWidgetState extends State<AllExercisesWidget> {
                                           hoverColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
-                                            context.pushNamed(
-                                              SpecificExerciseWidget.routeName,
-                                              queryParameters: {
-                                                'iD': serializeParam(
-                                                  exercisesLibraryItem.id,
-                                                  ParamType.String,
-                                                ),
-                                              }.withoutNulls,
-                                            );
+                                            if (exercisesLibraryItem.isCustom !=
+                                                true) {
+                                              context.pushNamed(
+                                                SpecificExerciseWidget
+                                                    .routeName,
+                                                queryParameters: {
+                                                  'iD': serializeParam(
+                                                    exercisesLibraryItem.id,
+                                                    ParamType.String,
+                                                  ),
+                                                }.withoutNulls,
+                                              );
+                                            }
                                           },
                                           child: Container(
                                             width: double.infinity,
@@ -998,7 +1001,7 @@ class _AllExercisesWidgetState extends State<AllExercisesWidget> {
                                                   FlutterFlowTheme.of(context)
                                                       .secondaryBackground,
                                               borderRadius:
-                                                  BorderRadius.circular(4.0),
+                                                  BorderRadius.circular(8.0),
                                             ),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
@@ -1199,24 +1202,114 @@ class _AllExercisesWidgetState extends State<AllExercisesWidget> {
                                                         SizedBox(height: 5.0)),
                                                   ),
                                                 ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 0.0, 10.0, 0.0),
-                                                  child: Container(
-                                                    width: 36.0,
-                                                    height: 36.0,
-                                                    decoration: BoxDecoration(),
-                                                    child: Icon(
-                                                      Icons.chevron_right_sharp,
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .alternate,
-                                                      size: 20.0,
+                                                if (exercisesLibraryItem
+                                                        .isCustom ==
+                                                    false)
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                10.0, 0.0),
+                                                    child: Container(
+                                                      width: 36.0,
+                                                      height: 36.0,
+                                                      decoration:
+                                                          BoxDecoration(),
+                                                      child: Icon(
+                                                        Icons
+                                                            .chevron_right_sharp,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .alternate,
+                                                        size: 20.0,
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
+                                                if (exercisesLibraryItem
+                                                        .isCustom ==
+                                                    true)
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                10.0, 0.0),
+                                                    child: InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        HapticFeedback
+                                                            .selectionClick();
+                                                        await showModalBottomSheet(
+                                                          isScrollControlled:
+                                                              true,
+                                                          backgroundColor:
+                                                              Colors
+                                                                  .transparent,
+                                                          enableDrag: false,
+                                                          useSafeArea: true,
+                                                          context: context,
+                                                          builder: (context) {
+                                                            return GestureDetector(
+                                                              onTap: () {
+                                                                FocusScope.of(
+                                                                        context)
+                                                                    .unfocus();
+                                                                FocusManager
+                                                                    .instance
+                                                                    .primaryFocus
+                                                                    ?.unfocus();
+                                                              },
+                                                              child: Padding(
+                                                                padding: MediaQuery
+                                                                    .viewInsetsOf(
+                                                                        context),
+                                                                child:
+                                                                    Container(
+                                                                  height: 200.0,
+                                                                  child:
+                                                                      DeleteCustomExeWidget(
+                                                                    exeName:
+                                                                        exercisesLibraryItem
+                                                                            .name,
+                                                                    id: exercisesLibraryItem
+                                                                        .id!,
+                                                                    muclePrimary:
+                                                                        exercisesLibraryItem
+                                                                            .primaryMuscle,
+                                                                    equipment:
+                                                                        exercisesLibraryItem
+                                                                            .equipment,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            );
+                                                          },
+                                                        ).then((value) =>
+                                                            safeSetState(
+                                                                () {}));
+                                                      },
+                                                      child: Container(
+                                                        width: 36.0,
+                                                        height: 36.0,
+                                                        decoration:
+                                                            BoxDecoration(),
+                                                        child: Icon(
+                                                          Icons.more_vert_sharp,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .alternate,
+                                                          size: 20.0,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
                                               ],
                                             ),
                                           ),

@@ -1,8 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'edit_history_widget.dart' show EditHistoryWidget;
+import 'delete_custom_exe_widget.dart' show DeleteCustomExeWidget;
 import 'package:flutter/material.dart';
 
-class EditHistoryModel extends FlutterFlowModel<EditHistoryWidget> {
+class DeleteCustomExeModel extends FlutterFlowModel<DeleteCustomExeWidget> {
   @override
   void initState(BuildContext context) {}
 

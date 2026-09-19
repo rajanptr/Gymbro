@@ -727,7 +727,7 @@ class _CreateTemplatePageWidgetState extends State<CreateTemplatePageWidget> {
                                                         .secondaryBackground,
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            4.0),
+                                                            8.0),
                                                   ),
                                                   child: Padding(
                                                     padding:

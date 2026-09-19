@@ -1,6 +1,5 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
-import '/components/bottom_nav_widget.dart';
 import '/components/edit_bottomsheet_widget.dart';
 import '/components/no_workout_widget.dart';
 import '/components/workout_start_widget.dart';
@@ -557,12 +556,10 @@ class _AddWorkoutWidgetState extends State<AddWorkoutWidget> {
                                                     FlutterFlowTheme.of(context)
                                                         .secondaryBackground,
                                                 borderRadius:
-                                                    BorderRadius.circular(4.0),
+                                                    BorderRadius.circular(16.0),
                                               ),
                                               child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        15.0, 20.0, 15.0, 20.0),
+                                                padding: EdgeInsets.all(20.0),
                                                 child: Column(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
@@ -658,13 +655,15 @@ class _AddWorkoutWidgetState extends State<AddWorkoutWidget> {
                                                                     child:
                                                                         Container(
                                                                       height:
-                                                                          185.0,
+                                                                          220.0,
                                                                       child:
                                                                           EditBottomsheetWidget(
                                                                         templetId:
                                                                             templetCreatedItem.id!,
                                                                         name: templetCreatedItem
                                                                             .name,
+                                                                        notes: templetCreatedItem
+                                                                            .notes,
                                                                       ),
                                                                     ),
                                                                   ),
@@ -1227,24 +1226,6 @@ class _AddWorkoutWidgetState extends State<AddWorkoutWidget> {
                     ),
                   ),
                 ],
-              ),
-              Align(
-                alignment: AlignmentDirectional(0.0, 1.0),
-                child: wrapWithModel(
-                  model: _model.bottomNavModel,
-                  updateCallback: () => safeSetState(() {}),
-                  updateOnChange: true,
-                  child: Hero(
-                    tag: 'line',
-                    transitionOnUserGestures: true,
-                    child: Material(
-                      color: Colors.transparent,
-                      child: BottomNavWidget(
-                        page: 'exercises',
-                      ),
-                    ),
-                  ),
-                ),
               ),
             ],
           ),

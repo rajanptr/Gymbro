@@ -1,5 +1,4 @@
 import '/backend/supabase/supabase.dart';
-import '/components/bottom_nav_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
 import 'add_workout_widget.dart' show AddWorkoutWidget;
@@ -20,16 +19,10 @@ class AddWorkoutModel extends FlutterFlowModel<AddWorkoutWidget> {
   WorkoutExercisesRow? action3;
   // Stores action output result for [Backend Call - Query Rows] action in Button widget.
   List<RoutineSetsRow>? routineSets;
-  // Model for bottomNav component.
-  late BottomNavModel bottomNavModel;
 
   @override
-  void initState(BuildContext context) {
-    bottomNavModel = createModel(context, () => BottomNavModel());
-  }
+  void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    bottomNavModel.dispose();
-  }
+  void dispose() {}
 }

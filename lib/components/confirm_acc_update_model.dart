@@ -1,8 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'bottom_nav_widget.dart' show BottomNavWidget;
+import 'confirm_acc_update_widget.dart' show ConfirmAccUpdateWidget;
 import 'package:flutter/material.dart';
 
-class BottomNavModel extends FlutterFlowModel<BottomNavWidget> {
+class ConfirmAccUpdateModel extends FlutterFlowModel<ConfirmAccUpdateWidget> {
   @override
   void initState(BuildContext context) {}
 

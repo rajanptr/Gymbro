@@ -1,8 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'edit_historysheet_widget.dart' show EditHistorysheetWidget;
+import 'set_filter_widget.dart' show SetFilterWidget;
 import 'package:flutter/material.dart';
 
-class EditHistorysheetModel extends FlutterFlowModel<EditHistorysheetWidget> {
+class SetFilterModel extends FlutterFlowModel<SetFilterWidget> {
   @override
   void initState(BuildContext context) {}
 

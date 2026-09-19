@@ -1,8 +1,11 @@
 import '/backend/supabase/supabase.dart';
 import '/components/rest_timer_widget.dart';
+import '/components/set_filter_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -19,6 +22,7 @@ class SetRowWidget extends StatefulWidget {
     this.reps,
     required this.completed,
     required this.setNumber,
+    required this.onSetTypeChanged,
   });
 
   final String? setId;
@@ -26,6 +30,7 @@ class SetRowWidget extends StatefulWidget {
   final int? reps;
   final bool? completed;
   final int? setNumber;
+  final Future Function(String type)? onSetTypeChanged;
 
   @override
   State<SetRowWidget> createState() => _SetRowWidgetState();
@@ -98,38 +103,120 @@ class _SetRowWidgetState extends State<SetRowWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                width: 48.0,
-                decoration: BoxDecoration(),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 0.0, 0.0),
-                  child: Text(
-                    widget.setNumber == 0
-                        ? 'W'
-                        : formatNumber(
-                            widget.setNumber,
-                            formatType: FormatType.custom,
-                            format: '#',
-                            locale: '',
+              InkWell(
+                splashColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onTap: () async {
+                  HapticFeedback.selectionClick();
+                  await showModalBottomSheet(
+                    isScrollControlled: true,
+                    backgroundColor: Color(0xA5000000),
+                    enableDrag: false,
+                    useSafeArea: true,
+                    context: context,
+                    builder: (context) {
+                      return Padding(
+                        padding: MediaQuery.viewInsetsOf(context),
+                        child: Container(
+                          height: 300.0,
+                          child: SetFilterWidget(
+                            selectedType: rowExerciseSetsRow!.setType!,
+                            onTypeSelected: (type) async {
+                              await ExerciseSetsTable().update(
+                                data: {
+                                  'set_type': type,
+                                },
+                                matchingRows: (rows) => rows.eqOrNull(
+                                  'id',
+                                  rowExerciseSetsRow.id,
+                                ),
+                              );
+                              safeSetState(
+                                  () => _model.requestCompleter = null);
+                              await _model.waitForRequestCompleted();
+                            },
                           ),
-                    textAlign: TextAlign.start,
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          font: GoogleFonts.urbanist(
-                            fontWeight: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontStyle,
-                          ),
-                          color: FlutterFlowTheme.of(context).secondaryText,
-                          letterSpacing: 0.0,
-                          fontWeight: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .fontWeight,
-                          fontStyle:
-                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                         ),
+                      );
+                    },
+                  ).then((value) => safeSetState(() {}));
+                },
+                child: Container(
+                  width: 48.0,
+                  decoration: BoxDecoration(),
+                  alignment: AlignmentDirectional(-1.0, 0.0),
+                  child: Container(
+                    width: 32.0,
+                    height: 32.0,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: () {
+                          if (functions.getSetlabel(rowExerciseSetsRow?.setType,
+                                  rowExerciseSetsRow?.setNumber) ==
+                              'W') {
+                            return FlutterFlowTheme.of(context).success;
+                          } else if (functions.getSetlabel(
+                                  rowExerciseSetsRow?.setType,
+                                  rowExerciseSetsRow?.setNumber) ==
+                              'D') {
+                            return FlutterFlowTheme.of(context).warning;
+                          } else if (functions.getSetlabel(
+                                  rowExerciseSetsRow?.setType,
+                                  rowExerciseSetsRow?.setNumber) ==
+                              'F') {
+                            return FlutterFlowTheme.of(context).primary;
+                          } else {
+                            return FlutterFlowTheme.of(context).alternate;
+                          }
+                        }(),
+                        width: 0.5,
+                      ),
+                    ),
+                    child: Align(
+                      alignment: AlignmentDirectional(0.0, 0.0),
+                      child: Text(
+                        functions.getSetlabel(rowExerciseSetsRow?.setType,
+                            rowExerciseSetsRow?.setNumber),
+                        textAlign: TextAlign.start,
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              font: GoogleFonts.urbanist(
+                                fontWeight: FontWeight.w600,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .fontStyle,
+                              ),
+                              color: () {
+                                if (functions.getSetlabel(
+                                        rowExerciseSetsRow?.setType,
+                                        rowExerciseSetsRow?.setNumber) ==
+                                    'W') {
+                                  return FlutterFlowTheme.of(context).success;
+                                } else if (functions.getSetlabel(
+                                        rowExerciseSetsRow?.setType,
+                                        rowExerciseSetsRow?.setNumber) ==
+                                    'D') {
+                                  return FlutterFlowTheme.of(context).warning;
+                                } else if (functions.getSetlabel(
+                                        rowExerciseSetsRow?.setType,
+                                        rowExerciseSetsRow?.setNumber) ==
+                                    'F') {
+                                  return FlutterFlowTheme.of(context).primary;
+                                } else {
+                                  return FlutterFlowTheme.of(context)
+                                      .secondaryText;
+                                }
+                              }(),
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.w600,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontStyle,
+                            ),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -138,6 +225,22 @@ class _SetRowWidgetState extends State<SetRowWidget> {
                 child: TextFormField(
                   controller: _model.tfWeightTextController,
                   focusNode: _model.tfWeightFocusNode,
+                  onChanged: (_) => EasyDebounce.debounce(
+                    '_model.tfWeightTextController',
+                    Duration(milliseconds: 2000),
+                    () async {
+                      await ExerciseSetsTable().update(
+                        data: {
+                          'weight': double.tryParse(
+                              _model.tfWeightTextController.text),
+                        },
+                        matchingRows: (rows) => rows.eqOrNull(
+                          'id',
+                          widget.setId,
+                        ),
+                      );
+                    },
+                  ),
                   onFieldSubmitted: (_) async {
                     await ExerciseSetsTable().update(
                       data: {
@@ -153,7 +256,6 @@ class _SetRowWidgetState extends State<SetRowWidget> {
                   autofocus: false,
                   enabled: true,
                   textInputAction: TextInputAction.done,
-                  readOnly: rowExerciseSetsRow?.completed == true,
                   obscureText: false,
                   decoration: InputDecoration(
                     isDense: true,
@@ -263,6 +365,22 @@ class _SetRowWidgetState extends State<SetRowWidget> {
                 child: TextFormField(
                   controller: _model.tfRepsTextController,
                   focusNode: _model.tfRepsFocusNode,
+                  onChanged: (_) => EasyDebounce.debounce(
+                    '_model.tfRepsTextController',
+                    Duration(milliseconds: 2000),
+                    () async {
+                      await ExerciseSetsTable().update(
+                        data: {
+                          'reps':
+                              int.tryParse(_model.tfRepsTextController.text),
+                        },
+                        matchingRows: (rows) => rows.eqOrNull(
+                          'id',
+                          widget.setId,
+                        ),
+                      );
+                    },
+                  ),
                   onFieldSubmitted: (_) async {
                     await ExerciseSetsTable().update(
                       data: {
@@ -277,7 +395,6 @@ class _SetRowWidgetState extends State<SetRowWidget> {
                   autofocus: false,
                   enabled: true,
                   textInputAction: TextInputAction.done,
-                  readOnly: rowExerciseSetsRow.completed == true,
                   obscureText: false,
                   decoration: InputDecoration(
                     isDense: true,
@@ -390,18 +507,34 @@ class _SetRowWidgetState extends State<SetRowWidget> {
                   onTap: () async {
                     if ((_model.tfWeightTextController.text == '') ||
                         (_model.tfRepsTextController.text == '')) {
-                      HapticFeedback.vibrate();
+                      HapticFeedback.mediumImpact();
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(
-                            'Fill the text field',
-                            style: TextStyle(
-                              color: FlutterFlowTheme.of(context).primaryText,
-                            ),
+                            'Enter sets and reps before continuing.',
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  font: GoogleFonts.urbanist(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                  ),
+                                  color: Colors.white,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .fontStyle,
+                                ),
                           ),
                           duration: Duration(milliseconds: 4000),
-                          backgroundColor:
-                              FlutterFlowTheme.of(context).secondary,
+                          backgroundColor: FlutterFlowTheme.of(context).error,
                         ),
                       );
                     } else {
@@ -413,6 +546,7 @@ class _SetRowWidgetState extends State<SetRowWidget> {
                           'reps':
                               int.tryParse(_model.tfRepsTextController.text),
                           'completed': true,
+                          'id': widget.setId,
                         },
                         matchingRows: (rows) => rows.eqOrNull(
                           'id',

@@ -40,4 +40,16 @@ class ProfilesRow extends SupabaseDataRow {
 
   DateTime? get createdAt => getField<DateTime>('created_at');
   set createdAt(DateTime? value) => setField<DateTime>('created_at', value);
+
+  List<int> get restDays => getListField<int>('rest_days');
+  set restDays(List<int>? value) => setListField<int>('rest_days', value);
+
+  List<DateTime> get freezeDays => getListField<DateTime>('freeze_days');
+  set freezeDays(List<DateTime>? value) =>
+      setListField<DateTime>('freeze_days', value);
+
+  bool? get monthlyReportSubscribed =>
+      getField<bool>('monthly_report_subscribed');
+  set monthlyReportSubscribed(bool? value) =>
+      setField<bool>('monthly_report_subscribed', value);
 }

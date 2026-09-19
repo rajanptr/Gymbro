@@ -1,4 +1,5 @@
 import '/backend/supabase/supabase.dart';
+import '/components/create_custom_exercise_widget.dart';
 import '/components/specific_exercise_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -542,7 +543,12 @@ class _AddExerciseBottomSheetWidgetState
                       child: FutureBuilder<List<ExerciseLibraryRow>>(
                         future: ExerciseLibraryTable().queryRows(
                           queryFn: (q) => q
-                              .or("muscle_group.ilike.${'%${_model.searchField}%'}, name.ilike.${'%${_model.searchField}%'}")
+                              .orGroupOrNull(orFilterGroup([
+                                orFilterLeaf('muscle_group', 'ilike',
+                                    '%${_model.searchField}%'),
+                                orFilterLeaf(
+                                    'name', 'ilike', '%${_model.searchField}%'),
+                              ], isAnd: false))
                               .order('name', ascending: true),
                         ),
                         builder: (context, snapshot) {
@@ -882,10 +888,27 @@ class _AddExerciseBottomSheetWidgetState
                               ),
                             ),
                             FFButtonWidget(
-                              onPressed: () {
-                                print('Button pressed ...');
+                              onPressed: () async {
+                                HapticFeedback.selectionClick();
+                                await showModalBottomSheet(
+                                  isScrollControlled: true,
+                                  backgroundColor: Color(0xA6000000),
+                                  isDismissible: false,
+                                  enableDrag: false,
+                                  useSafeArea: true,
+                                  context: context,
+                                  builder: (context) {
+                                    return Padding(
+                                      padding: MediaQuery.viewInsetsOf(context),
+                                      child: Container(
+                                        height: 456.0,
+                                        child: CreateCustomExerciseWidget(),
+                                      ),
+                                    );
+                                  },
+                                ).then((value) => safeSetState(() {}));
                               },
-                              text: 'CUSTOM EXERCISES',
+                              text: 'CUSTOM EXERCISE',
                               options: FFButtonOptions(
                                 width: double.infinity,
                                 height: 44.0,

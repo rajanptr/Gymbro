@@ -239,10 +239,13 @@ class _VerifyMailWidgetState extends State<VerifyMailWidget> {
                                       inputFormatters: [
                                         FilteringTextInputFormatter.digitsOnly
                                       ],
+                                      useHapticFeedback: true,
+                                      animationType: AnimationType.fade,
+                                      animationCurve: Curves.linear,
                                       pinTheme: PinTheme(
                                         fieldHeight: 44.0,
                                         fieldWidth: 44.0,
-                                        borderWidth: 2.0,
+                                        borderWidth: 0.5,
                                         borderRadius: BorderRadius.only(
                                           bottomLeft: Radius.circular(12.0),
                                           bottomRight: Radius.circular(12.0),

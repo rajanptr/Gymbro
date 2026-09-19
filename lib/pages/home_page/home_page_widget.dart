@@ -1,11 +1,8 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
-import '/components/bottom_nav_widget.dart';
-import '/components/streakpage_widget.dart';
 import '/components/workout_start_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'dart:async';
@@ -57,11 +54,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               )
               .order('started_at'),
         );
-        _model.streak = await actions.calculateCurrentStreak(
-          _model.completedWorkouts!.toList(),
-        );
-        _model.currentStreak = _model.streak;
-        safeSetState(() {});
       } else {
         context.goNamed(EditProfileWidget.routeName);
       }
@@ -153,136 +145,63 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     ),
                                   ),
                                 ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Align(
-                                      alignment: AlignmentDirectional(0.0, 0.0),
-                                      child: InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          HapticFeedback.lightImpact();
-                                          await showModalBottomSheet(
-                                            isScrollControlled: true,
-                                            backgroundColor: Color(0x99000000),
-                                            isDismissible: false,
-                                            enableDrag: false,
-                                            useSafeArea: true,
-                                            context: context,
-                                            builder: (context) {
-                                              return GestureDetector(
-                                                onTap: () {
-                                                  FocusScope.of(context)
-                                                      .unfocus();
-                                                  FocusManager
-                                                      .instance.primaryFocus
-                                                      ?.unfocus();
-                                                },
-                                                child: Padding(
-                                                  padding:
-                                                      MediaQuery.viewInsetsOf(
-                                                          context),
-                                                  child: Container(
-                                                    height: MediaQuery.sizeOf(
-                                                                context)
-                                                            .height *
-                                                        0.85,
-                                                    child: StreakpageWidget(),
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                          ).then(
-                                              (value) => safeSetState(() {}));
-                                        },
-                                        child: Stack(
-                                          alignment:
-                                              AlignmentDirectional(-1.0, 0.0),
-                                          children: [
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        120.0),
-                                                border: Border.all(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .alternate,
-                                                  width: 0.5,
-                                                ),
-                                              ),
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        36.0, 15.0, 15.0, 15.0),
-                                                child: Text(
-                                                  '${valueOrDefault<String>(
-                                                        formatNumber(
-                                                          _model.streak,
-                                                          formatType:
-                                                              FormatType.custom,
-                                                          format: '0',
-                                                          locale: '',
-                                                        ),
-                                                        '00',
-                                                      ) == '0' ? 'STREAK' : valueOrDefault<String>(
-                                                      formatNumber(
-                                                        _model.streak,
-                                                        formatType:
-                                                            FormatType.custom,
-                                                        format: '0',
-                                                        locale: '',
-                                                      ),
-                                                      '0',
-                                                    )}${functions.capitalize(valueOrDefault<String>(
-                                                        formatNumber(
-                                                          _model.streak,
-                                                          formatType:
-                                                              FormatType.custom,
-                                                          format: '0',
-                                                          locale: '',
-                                                        ),
-                                                        '00',
-                                                      ) == '0' ? '' : ' Day')}',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        font: GoogleFonts
-                                                            .urbanist(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontStyle:
-                                                              FontStyle.italic,
-                                                        ),
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontStyle:
-                                                            FontStyle.italic,
-                                                      ),
-                                                ),
-                                              ),
-                                            ),
-                                            Align(
-                                              alignment: AlignmentDirectional(
-                                                  0.0, 0.0),
-                                              child: Lottie.asset(
-                                                'assets/jsons/6rTPNgPEcH.json',
-                                                width: 40.0,
-                                                height: 40.0,
-                                                fit: BoxFit.contain,
-                                                animate: true,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
+                                InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    HapticFeedback.lightImpact();
+
+                                    context
+                                        .pushNamed(StreaksPageWidget.routeName);
+                                  },
+                                  child: Container(
+                                    height: 44.0,
+                                    decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.circular(120.0),
+                                      border: Border.all(
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
+                                        width: 0.5,
                                       ),
                                     ),
-                                  ],
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 15.0, 0.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Align(
+                                            alignment:
+                                                AlignmentDirectional(0.0, 0.0),
+                                            child: Lottie.asset(
+                                              'assets/jsons/6rTPNgPEcH.json',
+                                              width: 40.0,
+                                              height: 40.0,
+                                              fit: BoxFit.contain,
+                                              animate: true,
+                                            ),
+                                          ),
+                                          Text(
+                                            'STREAK',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  font: GoogleFonts.urbanist(
+                                                    fontWeight: FontWeight.w600,
+                                                    fontStyle: FontStyle.italic,
+                                                  ),
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontStyle: FontStyle.italic,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
@@ -455,7 +374,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                           .secondaryBackground,
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              4.0),
+                                                              16.0),
                                                     ),
                                                     child: FutureBuilder<
                                                         List<
@@ -699,7 +618,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                                 ),
                                                                                 Container(
                                                                                   decoration: BoxDecoration(
-                                                                                    borderRadius: BorderRadius.circular(0.0),
+                                                                                    borderRadius: BorderRadius.circular(4.0),
                                                                                     border: Border.all(
                                                                                       color: FlutterFlowTheme.of(context).alternate,
                                                                                       width: 0.5,
@@ -775,7 +694,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                                       children: [
                                                                                         Container(
                                                                                           decoration: BoxDecoration(
-                                                                                            borderRadius: BorderRadius.circular(0.0),
+                                                                                            borderRadius: BorderRadius.circular(4.0),
                                                                                             border: Border.all(
                                                                                               color: FlutterFlowTheme.of(context).alternate,
                                                                                               width: 0.5,
@@ -1079,495 +998,490 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
                                             Expanded(
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 10.0, 0.0, 0.0),
-                                                child: FutureBuilder<
-                                                    List<CompletedWorkoutsRow>>(
-                                                  future:
-                                                      CompletedWorkoutsTable()
-                                                          .querySingleRow(
-                                                    queryFn: (q) => q
-                                                        .eqOrNull(
-                                                          'user_id',
-                                                          currentUserUid,
-                                                        )
-                                                        .order('created_at'),
-                                                  ),
-                                                  builder: (context, snapshot) {
-                                                    // Customize what your widget looks like when it's loading.
-                                                    if (!snapshot.hasData) {
-                                                      return Center(
-                                                        child: SizedBox(
-                                                          width: 36.0,
-                                                          height: 36.0,
-                                                          child: SpinKitPulse(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .primary,
-                                                            size: 36.0,
-                                                          ),
+                                              child: FutureBuilder<
+                                                  List<CompletedWorkoutsRow>>(
+                                                future: CompletedWorkoutsTable()
+                                                    .querySingleRow(
+                                                  queryFn: (q) => q
+                                                      .eqOrNull(
+                                                        'user_id',
+                                                        currentUserUid,
+                                                      )
+                                                      .order('created_at'),
+                                                ),
+                                                builder: (context, snapshot) {
+                                                  // Customize what your widget looks like when it's loading.
+                                                  if (!snapshot.hasData) {
+                                                    return Center(
+                                                      child: SizedBox(
+                                                        width: 36.0,
+                                                        height: 36.0,
+                                                        child: SpinKitPulse(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                          size: 36.0,
                                                         ),
-                                                      );
-                                                    }
-                                                    List<CompletedWorkoutsRow>
-                                                        containerCompletedWorkoutsRowList =
-                                                        snapshot.data!;
-
-                                                    final containerCompletedWorkoutsRow =
-                                                        containerCompletedWorkoutsRowList
-                                                                .isNotEmpty
-                                                            ? containerCompletedWorkoutsRowList
-                                                                .first
-                                                            : null;
-
-                                                    return Container(
-                                                      width: double.infinity,
-                                                      decoration: BoxDecoration(
-                                                        color: FlutterFlowTheme
-                                                                .of(context)
-                                                            .secondaryBackground,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(4.0),
                                                       ),
-                                                      child: Stack(
-                                                        children: [
-                                                          if (containerCompletedWorkoutsRow
-                                                                      ?.workoutId !=
-                                                                  null &&
-                                                              containerCompletedWorkoutsRow
-                                                                      ?.workoutId !=
-                                                                  '')
-                                                            Align(
-                                                              alignment:
-                                                                  AlignmentDirectional(
-                                                                      0.0, 0.0),
-                                                              child: Padding(
-                                                                padding: EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        20.0,
-                                                                        0.0,
-                                                                        20.0,
-                                                                        0.0),
-                                                                child: Column(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: [
-                                                                    Column(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                      children:
-                                                                          [
-                                                                        Text(
-                                                                          valueOrDefault<
-                                                                              String>(
-                                                                            containerCompletedWorkoutsRow?.workoutName != null && containerCompletedWorkoutsRow?.workoutName != ''
-                                                                                ? functions.capitalize(containerCompletedWorkoutsRow!.workoutName)
-                                                                                : functions.capitalize('Workout Title'),
-                                                                            'Workout Title',
-                                                                          ),
-                                                                          textAlign:
-                                                                              TextAlign.start,
-                                                                          maxLines:
-                                                                              2,
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .titleLarge
-                                                                              .override(
-                                                                                font: GoogleFonts.urbanist(
-                                                                                  fontWeight: FlutterFlowTheme.of(context).titleLarge.fontWeight,
-                                                                                  fontStyle: FlutterFlowTheme.of(context).titleLarge.fontStyle,
-                                                                                ),
-                                                                                letterSpacing: 0.0,
+                                                    );
+                                                  }
+                                                  List<CompletedWorkoutsRow>
+                                                      containerCompletedWorkoutsRowList =
+                                                      snapshot.data!;
+
+                                                  final containerCompletedWorkoutsRow =
+                                                      containerCompletedWorkoutsRowList
+                                                              .isNotEmpty
+                                                          ? containerCompletedWorkoutsRowList
+                                                              .first
+                                                          : null;
+
+                                                  return Container(
+                                                    width: double.infinity,
+                                                    decoration: BoxDecoration(
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .secondaryBackground,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              16.0),
+                                                    ),
+                                                    child: Stack(
+                                                      children: [
+                                                        if (containerCompletedWorkoutsRow
+                                                                    ?.workoutId !=
+                                                                null &&
+                                                            containerCompletedWorkoutsRow
+                                                                    ?.workoutId !=
+                                                                '')
+                                                          Align(
+                                                            alignment:
+                                                                AlignmentDirectional(
+                                                                    0.0, 0.0),
+                                                            child: Padding(
+                                                              padding:
+                                                                  EdgeInsets
+                                                                      .all(
+                                                                          20.0),
+                                                              child: Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Column(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .start,
+                                                                    children: [
+                                                                      Text(
+                                                                        valueOrDefault<
+                                                                            String>(
+                                                                          containerCompletedWorkoutsRow?.workoutName != null && containerCompletedWorkoutsRow?.workoutName != ''
+                                                                              ? functions.capitalize(containerCompletedWorkoutsRow!.workoutName)
+                                                                              : functions.capitalize('Workout Title'),
+                                                                          'Workout Title',
+                                                                        ),
+                                                                        textAlign:
+                                                                            TextAlign.start,
+                                                                        maxLines:
+                                                                            2,
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .titleLarge
+                                                                            .override(
+                                                                              font: GoogleFonts.urbanist(
                                                                                 fontWeight: FlutterFlowTheme.of(context).titleLarge.fontWeight,
                                                                                 fontStyle: FlutterFlowTheme.of(context).titleLarge.fontStyle,
+                                                                              ),
+                                                                              letterSpacing: 0.0,
+                                                                              fontWeight: FlutterFlowTheme.of(context).titleLarge.fontWeight,
+                                                                              fontStyle: FlutterFlowTheme.of(context).titleLarge.fontStyle,
+                                                                            ),
+                                                                        overflow:
+                                                                            TextOverflow.ellipsis,
+                                                                      ),
+                                                                      if (containerCompletedWorkoutsRow?.notes !=
+                                                                              null &&
+                                                                          containerCompletedWorkoutsRow?.notes !=
+                                                                              '')
+                                                                        Text(
+                                                                          'Note: ${containerCompletedWorkoutsRow?.notes}',
+                                                                          maxLines:
+                                                                              3,
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .labelLarge
+                                                                              .override(
+                                                                                font: GoogleFonts.urbanist(
+                                                                                  fontWeight: FontWeight.w500,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).labelLarge.fontStyle,
+                                                                                ),
+                                                                                letterSpacing: 0.0,
+                                                                                fontWeight: FontWeight.w500,
+                                                                                fontStyle: FlutterFlowTheme.of(context).labelLarge.fontStyle,
                                                                               ),
                                                                           overflow:
                                                                               TextOverflow.ellipsis,
                                                                         ),
-                                                                        if (containerCompletedWorkoutsRow?.notes !=
-                                                                                null &&
-                                                                            containerCompletedWorkoutsRow?.notes !=
-                                                                                '')
-                                                                          Text(
-                                                                            'Note: ${containerCompletedWorkoutsRow?.notes}',
-                                                                            maxLines:
-                                                                                3,
-                                                                            style: FlutterFlowTheme.of(context).labelLarge.override(
-                                                                                  font: GoogleFonts.urbanist(
-                                                                                    fontWeight: FontWeight.w500,
-                                                                                    fontStyle: FlutterFlowTheme.of(context).labelLarge.fontStyle,
-                                                                                  ),
-                                                                                  letterSpacing: 0.0,
-                                                                                  fontWeight: FontWeight.w500,
-                                                                                  fontStyle: FlutterFlowTheme.of(context).labelLarge.fontStyle,
-                                                                                ),
-                                                                            overflow:
-                                                                                TextOverflow.ellipsis,
-                                                                          ),
-                                                                      ].divide(SizedBox(
-                                                                              height: 1.0)),
-                                                                    ),
-                                                                    Divider(
-                                                                      height:
-                                                                          1.0,
-                                                                      thickness:
-                                                                          0.5,
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .alternate,
-                                                                    ),
-                                                                    Row(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceBetween,
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                      children:
-                                                                          [
-                                                                        Expanded(
-                                                                          child:
-                                                                              Container(
-                                                                            decoration:
-                                                                                BoxDecoration(
-                                                                              borderRadius: BorderRadius.circular(0.0),
-                                                                              border: Border.all(
-                                                                                color: FlutterFlowTheme.of(context).alternate,
-                                                                                width: 0.5,
-                                                                              ),
-                                                                            ),
-                                                                            child:
-                                                                                Padding(
-                                                                              padding: EdgeInsets.all(10.0),
-                                                                              child: Column(
-                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                children: [
-                                                                                  Icon(
-                                                                                    Icons.access_time,
-                                                                                    color: FlutterFlowTheme.of(context).primaryText,
-                                                                                    size: 20.0,
-                                                                                  ),
-                                                                                  Text(
-                                                                                    valueOrDefault<String>(
-                                                                                      functions.formatWorkoutDuration(containerCompletedWorkoutsRow?.durationSeconds),
-                                                                                      'Duration',
-                                                                                    ),
-                                                                                    style: FlutterFlowTheme.of(context).bodyLarge.override(
-                                                                                          font: GoogleFonts.urbanist(
-                                                                                            fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
-                                                                                            fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
-                                                                                          ),
-                                                                                          letterSpacing: 0.0,
-                                                                                          fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
-                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
-                                                                                        ),
-                                                                                  ),
-                                                                                ].divide(SizedBox(height: 6.0)),
-                                                                              ),
+                                                                    ].divide(SizedBox(
+                                                                        height:
+                                                                            1.0)),
+                                                                  ),
+                                                                  Divider(
+                                                                    height: 1.0,
+                                                                    thickness:
+                                                                        0.5,
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .alternate,
+                                                                  ),
+                                                                  Row(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceBetween,
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .start,
+                                                                    children: [
+                                                                      Expanded(
+                                                                        child:
+                                                                            Container(
+                                                                          decoration:
+                                                                              BoxDecoration(
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(4.0),
+                                                                            border:
+                                                                                Border.all(
+                                                                              color: FlutterFlowTheme.of(context).alternate,
+                                                                              width: 0.5,
                                                                             ),
                                                                           ),
-                                                                        ),
-                                                                        Expanded(
                                                                           child:
-                                                                              Container(
-                                                                            decoration:
-                                                                                BoxDecoration(
-                                                                              borderRadius: BorderRadius.circular(0.0),
-                                                                              border: Border.all(
-                                                                                color: FlutterFlowTheme.of(context).alternate,
-                                                                                width: 0.5,
-                                                                              ),
-                                                                            ),
-                                                                            child:
-                                                                                Padding(
-                                                                              padding: EdgeInsets.all(10.0),
-                                                                              child: Column(
-                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                children: [
-                                                                                  Icon(
-                                                                                    Icons.calendar_month_outlined,
-                                                                                    color: FlutterFlowTheme.of(context).primaryText,
-                                                                                    size: 20.0,
-                                                                                  ),
-                                                                                  Text(
-                                                                                    dateTimeFormat(
-                                                                                      "E, dd MMMM",
-                                                                                      containerCompletedWorkoutsRow!.createdAt!,
-                                                                                      locale: FFLocalizations.of(context).languageCode,
-                                                                                    ),
-                                                                                    maxLines: 1,
-                                                                                    style: FlutterFlowTheme.of(context).bodyLarge.override(
-                                                                                          font: GoogleFonts.urbanist(
-                                                                                            fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
-                                                                                            fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
-                                                                                          ),
-                                                                                          letterSpacing: 0.0,
-                                                                                          fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
-                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
-                                                                                        ),
-                                                                                    overflow: TextOverflow.ellipsis,
-                                                                                  ),
-                                                                                ].divide(SizedBox(height: 6.0)),
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ].divide(SizedBox(
-                                                                              width: 10.0)),
-                                                                    ),
-                                                                    Row(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceBetween,
-                                                                      children:
-                                                                          [
-                                                                        Expanded(
-                                                                          child:
-                                                                              Container(
-                                                                            height:
-                                                                                64.0,
-                                                                            decoration:
-                                                                                BoxDecoration(),
+                                                                              Padding(
+                                                                            padding:
+                                                                                EdgeInsets.all(10.0),
                                                                             child:
                                                                                 Column(
                                                                               mainAxisSize: MainAxisSize.max,
                                                                               crossAxisAlignment: CrossAxisAlignment.start,
                                                                               children: [
+                                                                                Icon(
+                                                                                  Icons.access_time,
+                                                                                  color: FlutterFlowTheme.of(context).primaryText,
+                                                                                  size: 20.0,
+                                                                                ),
                                                                                 Text(
-                                                                                  'Total Volume',
+                                                                                  valueOrDefault<String>(
+                                                                                    functions.formatWorkoutDuration(containerCompletedWorkoutsRow?.durationSeconds),
+                                                                                    'Duration',
+                                                                                  ),
                                                                                   style: FlutterFlowTheme.of(context).bodyLarge.override(
                                                                                         font: GoogleFonts.urbanist(
                                                                                           fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
                                                                                           fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                                                                         ),
-                                                                                        color: FlutterFlowTheme.of(context).secondaryText,
                                                                                         letterSpacing: 0.0,
                                                                                         fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
                                                                                         fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                                                                       ),
                                                                                 ),
-                                                                                Container(
-                                                                                  width: double.infinity,
-                                                                                  height: 40.0,
-                                                                                  decoration: BoxDecoration(
-                                                                                    borderRadius: BorderRadius.circular(0.0),
-                                                                                    border: Border.all(
-                                                                                      color: FlutterFlowTheme.of(context).alternate,
-                                                                                      width: 0.5,
-                                                                                    ),
-                                                                                  ),
-                                                                                  alignment: AlignmentDirectional(0.0, 0.0),
-                                                                                  child: Text(
-                                                                                    valueOrDefault<String>(
-                                                                                      containerCompletedWorkoutsRow.totalVolume?.toString(),
-                                                                                      '00',
-                                                                                    ),
-                                                                                    style: FlutterFlowTheme.of(context).titleMedium.override(
-                                                                                          font: GoogleFonts.urbanist(
-                                                                                            fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
-                                                                                            fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
-                                                                                          ),
-                                                                                          letterSpacing: 0.0,
-                                                                                          fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
-                                                                                          fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
-                                                                                        ),
-                                                                                  ),
-                                                                                ),
-                                                                              ].divide(SizedBox(height: 5.0)),
+                                                                              ].divide(SizedBox(height: 6.0)),
                                                                             ),
                                                                           ),
                                                                         ),
-                                                                        Expanded(
+                                                                      ),
+                                                                      Expanded(
+                                                                        child:
+                                                                            Container(
+                                                                          decoration:
+                                                                              BoxDecoration(
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(4.0),
+                                                                            border:
+                                                                                Border.all(
+                                                                              color: FlutterFlowTheme.of(context).alternate,
+                                                                              width: 0.5,
+                                                                            ),
+                                                                          ),
                                                                           child:
-                                                                              Container(
-                                                                            height:
-                                                                                64.0,
-                                                                            decoration:
-                                                                                BoxDecoration(),
+                                                                              Padding(
+                                                                            padding:
+                                                                                EdgeInsets.all(10.0),
                                                                             child:
                                                                                 Column(
                                                                               mainAxisSize: MainAxisSize.max,
                                                                               crossAxisAlignment: CrossAxisAlignment.start,
                                                                               children: [
-                                                                                AutoSizeText(
-                                                                                  'Total Exercises',
+                                                                                Icon(
+                                                                                  Icons.calendar_month_outlined,
+                                                                                  color: FlutterFlowTheme.of(context).primaryText,
+                                                                                  size: 20.0,
+                                                                                ),
+                                                                                Text(
+                                                                                  dateTimeFormat(
+                                                                                    "E, dd MMMM",
+                                                                                    containerCompletedWorkoutsRow!.createdAt!,
+                                                                                    locale: FFLocalizations.of(context).languageCode,
+                                                                                  ),
                                                                                   maxLines: 1,
-                                                                                  minFontSize: 14.0,
                                                                                   style: FlutterFlowTheme.of(context).bodyLarge.override(
                                                                                         font: GoogleFonts.urbanist(
                                                                                           fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
                                                                                           fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                                                                         ),
-                                                                                        color: FlutterFlowTheme.of(context).secondaryText,
                                                                                         letterSpacing: 0.0,
                                                                                         fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
                                                                                         fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                                                                       ),
                                                                                   overflow: TextOverflow.ellipsis,
                                                                                 ),
-                                                                                Container(
-                                                                                  width: double.infinity,
-                                                                                  height: 40.0,
-                                                                                  decoration: BoxDecoration(
-                                                                                    borderRadius: BorderRadius.circular(0.0),
-                                                                                    border: Border.all(
-                                                                                      color: FlutterFlowTheme.of(context).alternate,
-                                                                                      width: 0.5,
-                                                                                    ),
-                                                                                  ),
-                                                                                  alignment: AlignmentDirectional(0.0, 0.0),
-                                                                                  child: Text(
-                                                                                    valueOrDefault<String>(
-                                                                                      containerCompletedWorkoutsRow.totalExercises?.toString(),
-                                                                                      '00',
-                                                                                    ),
-                                                                                    style: FlutterFlowTheme.of(context).titleMedium.override(
-                                                                                          font: GoogleFonts.urbanist(
-                                                                                            fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
-                                                                                            fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
-                                                                                          ),
-                                                                                          letterSpacing: 0.0,
-                                                                                          fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
-                                                                                          fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
-                                                                                        ),
-                                                                                  ),
-                                                                                ),
-                                                                              ].divide(SizedBox(height: 5.0)),
+                                                                              ].divide(SizedBox(height: 6.0)),
                                                                             ),
                                                                           ),
                                                                         ),
-                                                                        Expanded(
+                                                                      ),
+                                                                    ].divide(SizedBox(
+                                                                        width:
+                                                                            10.0)),
+                                                                  ),
+                                                                  Row(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceBetween,
+                                                                    children: [
+                                                                      Expanded(
+                                                                        child:
+                                                                            Container(
+                                                                          height:
+                                                                              64.0,
+                                                                          decoration:
+                                                                              BoxDecoration(),
                                                                           child:
-                                                                              Container(
-                                                                            height:
-                                                                                64.0,
-                                                                            decoration:
-                                                                                BoxDecoration(),
-                                                                            child:
-                                                                                Column(
-                                                                              mainAxisSize: MainAxisSize.max,
-                                                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                                                              children: [
-                                                                                Text(
-                                                                                  'Total Sets',
-                                                                                  style: FlutterFlowTheme.of(context).bodyLarge.override(
-                                                                                        font: GoogleFonts.urbanist(
-                                                                                          fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
-                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
-                                                                                        ),
-                                                                                        color: FlutterFlowTheme.of(context).secondaryText,
-                                                                                        letterSpacing: 0.0,
+                                                                              Column(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.max,
+                                                                            crossAxisAlignment:
+                                                                                CrossAxisAlignment.start,
+                                                                            children:
+                                                                                [
+                                                                              Text(
+                                                                                'Total Volume',
+                                                                                style: FlutterFlowTheme.of(context).bodyLarge.override(
+                                                                                      font: GoogleFonts.urbanist(
                                                                                         fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
                                                                                         fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                                                                       ),
-                                                                                ),
-                                                                                Container(
-                                                                                  width: double.infinity,
-                                                                                  height: 40.0,
-                                                                                  decoration: BoxDecoration(
-                                                                                    borderRadius: BorderRadius.circular(0.0),
-                                                                                    border: Border.all(
-                                                                                      color: FlutterFlowTheme.of(context).alternate,
-                                                                                      width: 0.5,
+                                                                                      color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                      letterSpacing: 0.0,
+                                                                                      fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                                                                                     ),
+                                                                              ),
+                                                                              Container(
+                                                                                width: double.infinity,
+                                                                                height: 40.0,
+                                                                                decoration: BoxDecoration(
+                                                                                  borderRadius: BorderRadius.circular(4.0),
+                                                                                  border: Border.all(
+                                                                                    color: FlutterFlowTheme.of(context).alternate,
+                                                                                    width: 0.5,
                                                                                   ),
-                                                                                  alignment: AlignmentDirectional(0.0, 0.0),
-                                                                                  child: Text(
-                                                                                    valueOrDefault<String>(
-                                                                                      containerCompletedWorkoutsRow.totalSets?.toString(),
-                                                                                      '00',
-                                                                                    ),
-                                                                                    style: FlutterFlowTheme.of(context).titleMedium.override(
-                                                                                          font: GoogleFonts.urbanist(
-                                                                                            fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
-                                                                                            fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
-                                                                                          ),
-                                                                                          letterSpacing: 0.0,
+                                                                                ),
+                                                                                alignment: AlignmentDirectional(0.0, 0.0),
+                                                                                child: Text(
+                                                                                  valueOrDefault<String>(
+                                                                                    containerCompletedWorkoutsRow.totalVolume?.toString(),
+                                                                                    '00',
+                                                                                  ),
+                                                                                  style: FlutterFlowTheme.of(context).titleMedium.override(
+                                                                                        font: GoogleFonts.urbanist(
                                                                                           fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
                                                                                           fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
                                                                                         ),
-                                                                                  ),
+                                                                                        letterSpacing: 0.0,
+                                                                                        fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
+                                                                                        fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
+                                                                                      ),
                                                                                 ),
-                                                                              ].divide(SizedBox(height: 5.0)),
-                                                                            ),
+                                                                              ),
+                                                                            ].divide(SizedBox(height: 5.0)),
                                                                           ),
                                                                         ),
-                                                                      ].divide(SizedBox(
-                                                                              width: 10.0)),
-                                                                    ),
-                                                                  ]
-                                                                      .divide(SizedBox(
+                                                                      ),
+                                                                      Expanded(
+                                                                        child:
+                                                                            Container(
                                                                           height:
-                                                                              15.0))
-                                                                      .addToStart(SizedBox(
+                                                                              64.0,
+                                                                          decoration:
+                                                                              BoxDecoration(),
+                                                                          child:
+                                                                              Column(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.max,
+                                                                            crossAxisAlignment:
+                                                                                CrossAxisAlignment.start,
+                                                                            children:
+                                                                                [
+                                                                              AutoSizeText(
+                                                                                'Total Exercises',
+                                                                                maxLines: 1,
+                                                                                minFontSize: 14.0,
+                                                                                style: FlutterFlowTheme.of(context).bodyLarge.override(
+                                                                                      font: GoogleFonts.urbanist(
+                                                                                        fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
+                                                                                      ),
+                                                                                      color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                      letterSpacing: 0.0,
+                                                                                      fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
+                                                                                    ),
+                                                                                overflow: TextOverflow.ellipsis,
+                                                                              ),
+                                                                              Container(
+                                                                                width: double.infinity,
+                                                                                height: 40.0,
+                                                                                decoration: BoxDecoration(
+                                                                                  borderRadius: BorderRadius.circular(4.0),
+                                                                                  border: Border.all(
+                                                                                    color: FlutterFlowTheme.of(context).alternate,
+                                                                                    width: 0.5,
+                                                                                  ),
+                                                                                ),
+                                                                                alignment: AlignmentDirectional(0.0, 0.0),
+                                                                                child: Text(
+                                                                                  valueOrDefault<String>(
+                                                                                    containerCompletedWorkoutsRow.totalExercises?.toString(),
+                                                                                    '00',
+                                                                                  ),
+                                                                                  style: FlutterFlowTheme.of(context).titleMedium.override(
+                                                                                        font: GoogleFonts.urbanist(
+                                                                                          fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
+                                                                                          fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
+                                                                                        ),
+                                                                                        letterSpacing: 0.0,
+                                                                                        fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
+                                                                                        fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
+                                                                                      ),
+                                                                                ),
+                                                                              ),
+                                                                            ].divide(SizedBox(height: 5.0)),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                      Expanded(
+                                                                        child:
+                                                                            Container(
                                                                           height:
-                                                                              20.0))
-                                                                      .addToEnd(SizedBox(
-                                                                          height:
-                                                                              20.0)),
-                                                                ),
+                                                                              64.0,
+                                                                          decoration:
+                                                                              BoxDecoration(),
+                                                                          child:
+                                                                              Column(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.max,
+                                                                            crossAxisAlignment:
+                                                                                CrossAxisAlignment.start,
+                                                                            children:
+                                                                                [
+                                                                              Text(
+                                                                                'Total Sets',
+                                                                                style: FlutterFlowTheme.of(context).bodyLarge.override(
+                                                                                      font: GoogleFonts.urbanist(
+                                                                                        fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
+                                                                                      ),
+                                                                                      color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                      letterSpacing: 0.0,
+                                                                                      fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
+                                                                                    ),
+                                                                              ),
+                                                                              Container(
+                                                                                width: double.infinity,
+                                                                                height: 40.0,
+                                                                                decoration: BoxDecoration(
+                                                                                  borderRadius: BorderRadius.circular(4.0),
+                                                                                  border: Border.all(
+                                                                                    color: FlutterFlowTheme.of(context).alternate,
+                                                                                    width: 0.5,
+                                                                                  ),
+                                                                                ),
+                                                                                alignment: AlignmentDirectional(0.0, 0.0),
+                                                                                child: Text(
+                                                                                  valueOrDefault<String>(
+                                                                                    containerCompletedWorkoutsRow.totalSets?.toString(),
+                                                                                    '00',
+                                                                                  ),
+                                                                                  style: FlutterFlowTheme.of(context).titleMedium.override(
+                                                                                        font: GoogleFonts.urbanist(
+                                                                                          fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
+                                                                                          fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
+                                                                                        ),
+                                                                                        letterSpacing: 0.0,
+                                                                                        fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
+                                                                                        fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
+                                                                                      ),
+                                                                                ),
+                                                                              ),
+                                                                            ].divide(SizedBox(height: 5.0)),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ].divide(SizedBox(
+                                                                        width:
+                                                                            10.0)),
+                                                                  ),
+                                                                ].divide(SizedBox(
+                                                                    height:
+                                                                        15.0)),
                                                               ),
                                                             ),
-                                                          if (containerCompletedWorkoutsRow
-                                                                      ?.workoutId ==
-                                                                  null ||
-                                                              containerCompletedWorkoutsRow
-                                                                      ?.workoutId ==
-                                                                  '')
-                                                            Container(
-                                                              width: double
-                                                                  .infinity,
-                                                              height: 240.0,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            4.0),
-                                                              ),
-                                                              child: Column(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: [
-                                                                  Text(
-                                                                    'NO WORKOUT DATA ',
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyLarge
-                                                                        .override(
-                                                                          font:
-                                                                              GoogleFonts.urbanist(
-                                                                            fontWeight:
-                                                                                FlutterFlowTheme.of(context).bodyLarge.fontWeight,
-                                                                            fontStyle:
-                                                                                FlutterFlowTheme.of(context).bodyLarge.fontStyle,
-                                                                          ),
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).secondaryText,
-                                                                          letterSpacing:
-                                                                              0.0,
+                                                          ),
+                                                        if (containerCompletedWorkoutsRow
+                                                                    ?.workoutId ==
+                                                                null ||
+                                                            containerCompletedWorkoutsRow
+                                                                    ?.workoutId ==
+                                                                '')
+                                                          Container(
+                                                            width:
+                                                                double.infinity,
+                                                            height: 240.0,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          4.0),
+                                                            ),
+                                                            child: Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Text(
+                                                                  'NO WORKOUT DATA ',
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyLarge
+                                                                      .override(
+                                                                        font: GoogleFonts
+                                                                            .urbanist(
                                                                           fontWeight: FlutterFlowTheme.of(context)
                                                                               .bodyLarge
                                                                               .fontWeight,
@@ -1575,15 +1489,25 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                               .bodyLarge
                                                                               .fontStyle,
                                                                         ),
-                                                                  ),
-                                                                ],
-                                                              ),
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondaryText,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        fontWeight: FlutterFlowTheme.of(context)
+                                                                            .bodyLarge
+                                                                            .fontWeight,
+                                                                        fontStyle: FlutterFlowTheme.of(context)
+                                                                            .bodyLarge
+                                                                            .fontStyle,
+                                                                      ),
+                                                                ),
+                                                              ],
                                                             ),
-                                                        ],
-                                                      ),
-                                                    );
-                                                  },
-                                                ),
+                                                          ),
+                                                      ],
+                                                    ),
+                                                  );
+                                                },
                                               ),
                                             ),
                                           ].divide(SizedBox(width: 15.0)),
@@ -1922,24 +1846,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           ),
                         ),
                       ],
-                    ),
-                    Align(
-                      alignment: AlignmentDirectional(0.0, 1.0),
-                      child: wrapWithModel(
-                        model: _model.bottomNavModel,
-                        updateCallback: () => safeSetState(() {}),
-                        updateOnChange: true,
-                        child: Hero(
-                          tag: 'line',
-                          transitionOnUserGestures: true,
-                          child: Material(
-                            color: Colors.transparent,
-                            child: BottomNavWidget(
-                              page: 'home',
-                            ),
-                          ),
-                        ),
-                      ),
                     ),
                   ],
                 ),

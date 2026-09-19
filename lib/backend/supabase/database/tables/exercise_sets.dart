@@ -44,4 +44,7 @@ class ExerciseSetsRow extends SupabaseDataRow {
 
   DateTime? get createdAt => getField<DateTime>('created_at');
   set createdAt(DateTime? value) => setField<DateTime>('created_at', value);
+
+  String? get setType => getField<String>('set_type');
+  set setType(String? value) => setField<String>('set_type', value);
 }

@@ -50,6 +50,7 @@ class _LogoutAccountWidgetState extends State<LogoutAccountWidget> {
       ),
       child: Column(
         mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
@@ -97,7 +98,7 @@ class _LogoutAccountWidgetState extends State<LogoutAccountWidget> {
             ),
           ),
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0.0, 36.0, 0.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(0.0, 36.0, 0.0, 20.0),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               children: [

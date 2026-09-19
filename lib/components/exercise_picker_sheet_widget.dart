@@ -558,69 +558,6 @@ class _ExercisePickerSheetWidgetState extends State<ExercisePickerSheetWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                _model.searchQuery = 'waist';
-                                safeSetState(() {});
-                                HapticFeedback.selectionClick();
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: _model.searchQuery == 'waist'
-                                      ? FlutterFlowTheme.of(context).primaryText
-                                      : FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                  borderRadius: BorderRadius.circular(120.0),
-                                  border: Border.all(
-                                    color: _model.searchQuery == 'waist'
-                                        ? FlutterFlowTheme.of(context)
-                                            .secondaryBackground
-                                        : FlutterFlowTheme.of(context)
-                                            .alternate,
-                                    width: 0.5,
-                                  ),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      16.0, 8.0, 16.0, 8.0),
-                                  child: Text(
-                                    'Waist',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          font: GoogleFonts.urbanist(
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
-                                          ),
-                                          color: _model.searchQuery == 'waist'
-                                              ? FlutterFlowTheme.of(context)
-                                                  .secondaryBackground
-                                              : FlutterFlowTheme.of(context)
-                                                  .primaryText,
-                                          letterSpacing: 1.0,
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
-                                        ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
                                 _model.searchQuery = 'shoulder';
                                 safeSetState(() {});
                                 HapticFeedback.selectionClick();
@@ -761,7 +698,12 @@ class _ExercisePickerSheetWidgetState extends State<ExercisePickerSheetWidget> {
                 child: FutureBuilder<List<ExerciseLibraryRow>>(
                   future: ExerciseLibraryTable().queryRows(
                     queryFn: (q) => q
-                        .or("muscle_group.ilike.${'%${_model.searchQuery}%'}, name.ilike.${'%${_model.searchQuery}%'}")
+                        .orGroupOrNull(orFilterGroup([
+                          orFilterLeaf('muscle_group', 'ilike',
+                              '%${_model.searchQuery}%'),
+                          orFilterLeaf(
+                              'name', 'ilike', '%${_model.searchQuery}%'),
+                        ], isAnd: false))
                         .order('name', ascending: true),
                   ),
                   builder: (context, snapshot) {

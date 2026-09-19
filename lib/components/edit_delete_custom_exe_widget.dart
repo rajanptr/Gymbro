@@ -5,11 +5,11 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'edit_history_model.dart';
-export 'edit_history_model.dart';
+import 'edit_delete_custom_exe_model.dart';
+export 'edit_delete_custom_exe_model.dart';
 
-class EditHistoryWidget extends StatefulWidget {
-  const EditHistoryWidget({
+class EditDeleteCustomExeWidget extends StatefulWidget {
+  const EditDeleteCustomExeWidget({
     super.key,
     required this.id,
   });
@@ -17,11 +17,12 @@ class EditHistoryWidget extends StatefulWidget {
   final String? id;
 
   @override
-  State<EditHistoryWidget> createState() => _EditHistoryWidgetState();
+  State<EditDeleteCustomExeWidget> createState() =>
+      _EditDeleteCustomExeWidgetState();
 }
 
-class _EditHistoryWidgetState extends State<EditHistoryWidget> {
-  late EditHistoryModel _model;
+class _EditDeleteCustomExeWidgetState extends State<EditDeleteCustomExeWidget> {
+  late EditDeleteCustomExeModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -32,7 +33,7 @@ class _EditHistoryWidgetState extends State<EditHistoryWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => EditHistoryModel());
+    _model = createModel(context, () => EditDeleteCustomExeModel());
   }
 
   @override
@@ -53,6 +54,7 @@ class _EditHistoryWidgetState extends State<EditHistoryWidget> {
       ),
       child: Column(
         mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
@@ -62,7 +64,7 @@ class _EditHistoryWidgetState extends State<EditHistoryWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Delete History?',
+                  'Delete Exercise?',
                   style: FlutterFlowTheme.of(context).titleMedium.override(
                         font: GoogleFonts.urbanist(
                           fontWeight: FlutterFlowTheme.of(context)
@@ -80,7 +82,7 @@ class _EditHistoryWidgetState extends State<EditHistoryWidget> {
                       ),
                 ),
                 Text(
-                  'This history will be permanently deleted.',
+                  'Are you sure you want to delete ? This action can’t be undone.',
                   style: FlutterFlowTheme.of(context).bodyLarge.override(
                         font: GoogleFonts.urbanist(
                           fontWeight:
@@ -100,7 +102,7 @@ class _EditHistoryWidgetState extends State<EditHistoryWidget> {
             ),
           ),
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0.0, 36.0, 0.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(0.0, 36.0, 0.0, 20.0),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -108,7 +110,7 @@ class _EditHistoryWidgetState extends State<EditHistoryWidget> {
                   child: FFButtonWidget(
                     onPressed: () async {
                       HapticFeedback.heavyImpact();
-                      await CompletedWorkoutsTable().delete(
+                      await ExerciseLibraryTable().delete(
                         matchingRows: (rows) => rows.eqOrNull(
                           'id',
                           widget.id,
@@ -117,7 +119,7 @@ class _EditHistoryWidgetState extends State<EditHistoryWidget> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(
-                            'Histiry deleted successfully.',
+                            'Exercise deleted successfully',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -183,6 +185,8 @@ class _EditHistoryWidgetState extends State<EditHistoryWidget> {
                 Expanded(
                   child: FFButtonWidget(
                     onPressed: () async {
+                      HapticFeedback.lightImpact();
+                      Navigator.pop(context);
                       Navigator.pop(context);
                     },
                     text: 'CANCEL',

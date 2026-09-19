@@ -1,6 +1,6 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
-import '/components/bottom_nav_widget.dart';
+import '/components/monthly_report_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
@@ -66,31 +66,28 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).primaryBackground,
                       ),
-                      child: Column(
+                      child: Row(
                         mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Expanded(
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  child: Image.asset(
-                                    Theme.of(context).brightness ==
-                                            Brightness.dark
-                                        ? 'assets/images/logo_dark.png'
-                                        : 'assets/images/logo_light.png',
-                                    height: 36.0,
-                                    fit: BoxFit.contain,
-                                  ),
+                            child: Align(
+                              alignment: AlignmentDirectional(-1.0, 0.0),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8.0),
+                                child: Image.asset(
+                                  Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? 'assets/images/logo_dark.png'
+                                      : 'assets/images/logo_light.png',
+                                  height: 36.0,
+                                  fit: BoxFit.contain,
                                 ),
-                              ]
-                                  .divide(SizedBox(width: 15.0))
-                                  .around(SizedBox(width: 15.0)),
+                              ),
                             ),
                           ),
-                        ],
+                        ]
+                            .divide(SizedBox(width: 15.0))
+                            .around(SizedBox(width: 15.0)),
                       ),
                     ),
                   ),
@@ -138,11 +135,10 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
-                                    borderRadius: BorderRadius.circular(4.0),
+                                    borderRadius: BorderRadius.circular(16.0),
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        20.0, 0.0, 20.0, 0.0),
+                                    padding: EdgeInsets.all(20.0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
@@ -419,7 +415,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                                       decoration: BoxDecoration(
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(0.0),
+                                                                .circular(4.0),
                                                         border: Border.all(
                                                           color: FlutterFlowTheme
                                                                   .of(context)
@@ -443,10 +439,10 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                                                       FormatType
                                                                           .custom,
                                                                   format:
-                                                                      '### cm',
+                                                                      '00.00 cm',
                                                                   locale: '',
                                                                 ),
-                                                          '00 cm',
+                                                          '00.00 cm',
                                                         ),
                                                         style:
                                                             FlutterFlowTheme.of(
@@ -535,7 +531,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                                       decoration: BoxDecoration(
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(0.0),
+                                                                .circular(4.0),
                                                         border: Border.all(
                                                           color: FlutterFlowTheme
                                                                   .of(context)
@@ -562,7 +558,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                                                       '##.## kg',
                                                                   locale: '',
                                                                 ),
-                                                          '00 Kg',
+                                                          '00.00 Kg',
                                                         ),
                                                         style:
                                                             FlutterFlowTheme.of(
@@ -600,9 +596,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                             ),
                                           ].divide(SizedBox(width: 10.0)),
                                         ),
-                                      ]
-                                          .divide(SizedBox(height: 20.0))
-                                          .around(SizedBox(height: 20.0)),
+                                      ].divide(SizedBox(height: 20.0)),
                                     ),
                                   ),
                                 ),
@@ -701,7 +695,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                         color: FlutterFlowTheme.of(context)
                                             .secondaryBackground,
                                         borderRadius:
-                                            BorderRadius.circular(4.0),
+                                            BorderRadius.circular(8.0),
                                       ),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -929,7 +923,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryBackground,
                                           borderRadius:
-                                              BorderRadius.circular(4.0),
+                                              BorderRadius.circular(8.0),
                                         ),
                                         child: Padding(
                                           padding: EdgeInsets.all(20.0),
@@ -939,7 +933,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Icon(
-                                                  Icons.person_outline,
+                                                  Icons.settings_outlined,
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .primaryText,
@@ -947,7 +941,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    'Account Settings',
+                                                    'Settings',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyLarge
@@ -1084,12 +1078,142 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         15.0, 10.0, 15.0, 0.0),
                                     child: Container(
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            20.0, 0.0, 20.0, 0.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                HapticFeedback.lightImpact();
+                                                await showModalBottomSheet(
+                                                  isScrollControlled: true,
+                                                  backgroundColor:
+                                                      Color(0x99000000),
+                                                  enableDrag: false,
+                                                  useSafeArea: true,
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return GestureDetector(
+                                                      onTap: () {
+                                                        FocusScope.of(context)
+                                                            .unfocus();
+                                                        FocusManager.instance
+                                                            .primaryFocus
+                                                            ?.unfocus();
+                                                      },
+                                                      child: Padding(
+                                                        padding: MediaQuery
+                                                            .viewInsetsOf(
+                                                                context),
+                                                        child: Container(
+                                                          height: 220.0,
+                                                          child:
+                                                              MonthlyReportWidget(),
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                ).then((value) =>
+                                                    safeSetState(() {}));
+                                              },
+                                              child: Container(
+                                                width: double.infinity,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          0.0),
+                                                ),
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 20.0, 0.0, 20.0),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Icon(
+                                                        Icons
+                                                            .insert_drive_file_outlined,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryText,
+                                                        size: 20.0,
+                                                      ),
+                                                      Expanded(
+                                                        child: Text(
+                                                          'Monthly Report',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyLarge
+                                                              .override(
+                                                                font: GoogleFonts
+                                                                    .urbanist(
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyLarge
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyLarge
+                                                                      .fontStyle,
+                                                                ),
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyLarge
+                                                                    .fontWeight,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyLarge
+                                                                    .fontStyle,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                      Icon(
+                                                        Icons
+                                                            .chevron_right_sharp,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
+                                                        size: 20.0,
+                                                      ),
+                                                    ].divide(
+                                                        SizedBox(width: 10.0)),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        15.0, 0.0, 15.0, 0.0),
+                                    child: Container(
                                       width: double.infinity,
                                       decoration: BoxDecoration(
                                         color: FlutterFlowTheme.of(context)
                                             .secondaryBackground,
                                         borderRadius:
-                                            BorderRadius.circular(4.0),
+                                            BorderRadius.circular(8.0),
                                       ),
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -1265,8 +1389,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                                         MainAxisSize.max,
                                                     children: [
                                                       Icon(
-                                                        Icons
-                                                            .contact_page_outlined,
+                                                        Icons.mail_outlined,
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -1350,6 +1473,8 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
                                       children: [
                                         Text(
                                           'Made with',
@@ -1426,31 +1551,13 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                               ),
                             ]
                                 .divide(SizedBox(height: 20.0))
-                                .addToEnd(SizedBox(height: 156.0)),
+                                .addToEnd(SizedBox(height: 120.0)),
                           ),
                         );
                       },
                     ),
                   ),
                 ],
-              ),
-              Align(
-                alignment: AlignmentDirectional(0.0, 1.0),
-                child: wrapWithModel(
-                  model: _model.bottomNavModel,
-                  updateCallback: () => safeSetState(() {}),
-                  updateOnChange: true,
-                  child: Hero(
-                    tag: 'line',
-                    transitionOnUserGestures: true,
-                    child: Material(
-                      color: Colors.transparent,
-                      child: BottomNavWidget(
-                        page: 'profile',
-                      ),
-                    ),
-                  ),
-                ),
               ),
             ],
           ),

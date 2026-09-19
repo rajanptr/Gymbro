@@ -1,13 +1,15 @@
+import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
 import 'edit_profile_widget.dart' show EditProfileWidget;
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class EditProfileModel extends FlutterFlowModel<EditProfileWidget> {
   ///  Local state fields for this page.
 
   String? gender;
+
+  DateTime? selectedDOB;
 
   ///  State fields for stateful widgets in this page.
 
@@ -20,8 +22,10 @@ class EditProfileModel extends FlutterFlowModel<EditProfileWidget> {
   FocusNode? nameFocusNode;
   TextEditingController? nameTextController;
   String? Function(BuildContext, String?)? nameTextControllerValidator;
-  DateTime? datePicked1;
-  DateTime? datePicked2;
+  // Stores action output result for [Bottom Sheet - dobPicker] action in Row widget.
+  DateTime? dateGot;
+  // Stores action output result for [Backend Call - Upsert Row] action in Create widget.
+  ProfilesRow? update;
 
   @override
   void initState(BuildContext context) {}

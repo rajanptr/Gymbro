@@ -1,5 +1,4 @@
 import '/backend/supabase/supabase.dart';
-import '/components/bottom_nav_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
 import 'dart:async';
@@ -17,25 +16,19 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   List<ProfilesRow>? currenUser;
   // Stores action output result for [Backend Call - Query Rows] action in HomePage widget.
   List<CompletedWorkoutsRow>? completedWorkouts;
-  // Stores action output result for [Custom Action - calculateCurrentStreak] action in HomePage widget.
-  int? streak;
   // State field(s) for Column widget.
   ScrollController? columnController;
   Completer<List<ProfilesRow>>? requestCompleter2;
   Completer<List<WaterTodaySummaryRow>>? requestCompleter1;
-  // Model for bottomNav component.
-  late BottomNavModel bottomNavModel;
 
   @override
   void initState(BuildContext context) {
     columnController = ScrollController();
-    bottomNavModel = createModel(context, () => BottomNavModel());
   }
 
   @override
   void dispose() {
     columnController?.dispose();
-    bottomNavModel.dispose();
   }
 
   /// Additional helper methods.

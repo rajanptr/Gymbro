@@ -91,7 +91,9 @@ class _StrengthExerciseCardWidgetState
           constraints: BoxConstraints(
             maxHeight: double.infinity,
           ),
-          decoration: BoxDecoration(),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(0.0),
+          ),
           child: FutureBuilder<List<ExerciseLibraryRow>>(
             future: ExerciseLibraryTable().querySingleRow(
               queryFn: (q) => q
@@ -132,6 +134,7 @@ class _StrengthExerciseCardWidgetState
                 ),
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).secondaryBackground,
+                  borderRadius: BorderRadius.circular(16.0),
                 ),
                 child: FutureBuilder<List<ExerciseSetsRow>>(
                   future: ExerciseSetsTable().queryRows(
@@ -823,6 +826,7 @@ class _StrengthExerciseCardWidgetState
                                               weight: setRepsItem.weight,
                                               reps: setRepsItem.reps,
                                               completed: setRepsItem.completed!,
+                                              onSetTypeChanged: (type) async {},
                                             ),
                                           ),
                                         ],

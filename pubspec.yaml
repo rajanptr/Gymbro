@@ -38,6 +38,11 @@ dependencies:
   collection: 1.19.1
   cross_file: 0.3.5+1
   csslib: 1.0.2
+  dropdown_button2: 
+    git:
+      url: https://github.com/FlutterFlow/dropdown_button2.git
+      ref: 514178337dfbea442f617daed39c704b57593fc9
+      path: packages/dropdown_button2
   dropdown_search: ^6.0.1
   easy_debounce: 2.0.1
   equatable: 2.0.7
@@ -52,12 +57,14 @@ dependencies:
   font_awesome_flutter: 10.7.0
   from_css_color: 2.0.0
   functions_client: 2.4.2
+  gal: ^2.3.3
   go_router: 12.1.3
   google_fonts: 6.3.3
   gotrue: 2.12.0
   hive: 2.2.3
   html: 0.15.6
   http: 1.4.0
+  image: ^4.3.0
   image_picker: 1.1.2
   image_picker_android: 0.8.12+23
   image_picker_for_web: 3.0.6
@@ -88,6 +95,7 @@ dependencies:
   provider: 6.1.5
   realtime_client: 2.5.0
   rxdart: 0.27.7
+  share_plus: ^11.1.0
   shared_preferences: 2.5.3
   shared_preferences_android: 2.4.10
   shared_preferences_foundation: 2.5.4
@@ -98,6 +106,7 @@ dependencies:
   sign_in_with_apple: 7.0.1
   sign_in_with_apple_platform_interface: 2.0.0
   sign_in_with_apple_web: 3.0.0
+  smooth_page_indicator: 1.1.0
   sqflite: 2.3.3+1
   sqflite_common: 2.5.4+3
   stop_watch_timer: 3.0.2
@@ -139,7 +148,6 @@ dependency_overrides:
 dev_dependencies:
   flutter_launcher_icons: 0.13.1
   flutter_lints: 4.0.0
-  image: 4.2.0
   lints: 4.0.0
   flutter_test:
     sdk: flutter

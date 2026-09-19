@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
+import '/flutter_flow/flutter_flow_util.dart';
 import 'api_manager.dart';
 
 export 'api_manager.dart' show ApiCallResponse;
@@ -54,6 +55,75 @@ class DeleteAccountCall {
       },
       params: {},
       bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class CalculateFreezePointsCall {
+  static Future<ApiCallResponse> call({
+    String? apikey = 'sb_publishable_qFtzJXge7JQyupfT6qNeXw_baOhcZ_3',
+    String? authToken = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'calculateFreezePoints',
+      apiUrl:
+          'https://cbrmueolexoleftxqtqo.supabase.co/functions/v1/calculate-freeze-points',
+      callType: ApiCallType.POST,
+      headers: {
+        'Authorization': 'Bearer ${authToken}',
+        'apikey': '${apikey}',
+      },
+      params: {},
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static dynamic availablefreezes(dynamic response) => getJsonField(
+        response,
+        r'''$.available_freezes''',
+      );
+  static List? freezedays(dynamic response) => getJsonField(
+        response,
+        r'''$.freeze_days''',
+        true,
+      ) as List?;
+}
+
+class ManageMonthlyReportCall {
+  static Future<ApiCallResponse> call({
+    String? aPIkey = 'sb_publishable_qFtzJXge7JQyupfT6qNeXw_baOhcZ_3',
+    String? authToken = '',
+    String? action = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "action": "${action}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'ManageMonthlyReport',
+      apiUrl:
+          'https://cbrmueolexoleftxqtqo.supabase.co/functions/v1/manage-monthly-report',
+      callType: ApiCallType.POST,
+      headers: {
+        'Authorization': 'Bearer ${authToken}',
+        'apikey': '${aPIkey}',
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.TEXT,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,

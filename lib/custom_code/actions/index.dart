@@ -1,6 +1,4 @@
 export '/custom_code/actions/reindex_sets.dart' show reindexSets;
-export '/custom_code/actions/generate_calendar_days.dart'
-    show generateCalendarDays;
 export '/custom_code/actions/calculate_current_streak.dart'
     show calculateCurrentStreak;
 export '/custom_code/actions/mark_workout_days.dart' show markWorkoutDays;
@@ -12,7 +10,6 @@ export '/custom_code/actions/verify_email_with_token.dart'
 export '/custom_code/actions/reorder_exercises.dart' show reorderExercises;
 export '/custom_code/actions/reorder_workout_exercises.dart'
     show reorderWorkoutExercises;
-export '/custom_code/actions/sign_in_with_otp.dart' show signInWithOtp;
 export '/custom_code/actions/show_local_workout_notification.dart'
     show showLocalWorkoutNotification;
 export '/custom_code/actions/initialize_one_signal.dart'
@@ -21,3 +18,8 @@ export '/custom_code/actions/login_one_signal_user.dart'
     show loginOneSignalUser;
 export '/custom_code/actions/logout_one_signal_user.dart'
     show logoutOneSignalUser;
+export '/custom_code/actions/save_workout_image_to_gallery.dart'
+    show saveWorkoutImageToGallery;
+export '/custom_code/actions/capture_volume_share_card.dart'
+    show captureVolumeShareCard;
+export '/custom_code/actions/share_workout_image.dart' show shareWorkoutImage;

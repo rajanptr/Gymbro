@@ -22,3 +22,4 @@ export '/pages/specific_exercise/specific_exercise_widget.dart'
     show SpecificExerciseWidget;
 export '/pages/account_settings/account_settings_widget.dart'
     show AccountSettingsWidget;
+export '/pages/streaks_page/streaks_page_widget.dart' show StreaksPageWidget;

@@ -8,6 +8,7 @@ import '/backend/schema/structs/index.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
+import '/main.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 import '/index.dart';
@@ -78,19 +79,20 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? HomePageWidget() : AuthenticationWidget(),
+          appStateNotifier.loggedIn ? NavBarPage() : AuthenticationWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => appStateNotifier.loggedIn
-              ? HomePageWidget()
-              : AuthenticationWidget(),
+          builder: (context, _) =>
+              appStateNotifier.loggedIn ? NavBarPage() : AuthenticationWidget(),
           routes: [
             FFRoute(
               name: HistoryPageWidget.routeName,
               path: HistoryPageWidget.routePath,
-              builder: (context, params) => HistoryPageWidget(),
+              builder: (context, params) => params.isEmpty
+                  ? NavBarPage(initialPage: 'HistoryPage')
+                  : HistoryPageWidget(),
             ),
             FFRoute(
               name: HabitPageWidget.routeName,
@@ -136,7 +138,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: ProfilePageWidget.routeName,
               path: ProfilePageWidget.routePath,
-              builder: (context, params) => ProfilePageWidget(),
+              builder: (context, params) => params.isEmpty
+                  ? NavBarPage(initialPage: 'profilePage')
+                  : ProfilePageWidget(),
             ),
             FFRoute(
               name: EditProfileWidget.routeName,
@@ -161,12 +165,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: AddWorkoutWidget.routeName,
               path: AddWorkoutWidget.routePath,
-              builder: (context, params) => AddWorkoutWidget(),
+              builder: (context, params) => params.isEmpty
+                  ? NavBarPage(initialPage: 'addWorkout')
+                  : AddWorkoutWidget(),
             ),
             FFRoute(
               name: HomePageWidget.routeName,
               path: HomePageWidget.routePath,
-              builder: (context, params) => HomePageWidget(),
+              builder: (context, params) => params.isEmpty
+                  ? NavBarPage(initialPage: 'HomePage')
+                  : HomePageWidget(),
             ),
             FFRoute(
               name: CreateTemplatePageWidget.routeName,
@@ -205,11 +213,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: AccountSettingsWidget.routeName,
               path: AccountSettingsWidget.routePath,
               builder: (context, params) => AccountSettingsWidget(),
+            ),
+            FFRoute(
+              name: StreaksPageWidget.routeName,
+              path: StreaksPageWidget.routePath,
+              builder: (context, params) => StreaksPageWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
-      observers: [routeObserver],
+      observers: ffNavigatorObservers,
     );
 
 extension NavParamExtensions on Map<String, String?> {

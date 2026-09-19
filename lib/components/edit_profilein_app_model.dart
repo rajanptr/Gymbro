@@ -7,6 +7,8 @@ class EditProfileinAppModel extends FlutterFlowModel<EditProfileinAppWidget> {
   ///  State fields for stateful widgets in this component.
 
   DateTime? datePicked;
+  // State field(s) for Column widget.
+  ScrollController? columnController;
   bool isDataUploading_profilePicture = false;
   FFUploadedFile uploadedLocalFile_profilePicture =
       FFUploadedFile(bytes: Uint8List.fromList([]), originalFilename: '');
@@ -26,10 +28,13 @@ class EditProfileinAppModel extends FlutterFlowModel<EditProfileinAppWidget> {
   String? Function(BuildContext, String?)? weightTextControllerValidator;
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    columnController = ScrollController();
+  }
 
   @override
   void dispose() {
+    columnController?.dispose();
     nameFocusNode?.dispose();
     nameTextController?.dispose();
 

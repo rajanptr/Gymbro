@@ -53,6 +53,7 @@ class _EditDeleteWidgetState extends State<EditDeleteWidget> {
       ),
       child: Column(
         mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
@@ -100,7 +101,7 @@ class _EditDeleteWidgetState extends State<EditDeleteWidget> {
             ),
           ),
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0.0, 36.0, 0.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(0.0, 36.0, 0.0, 20.0),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -183,6 +184,8 @@ class _EditDeleteWidgetState extends State<EditDeleteWidget> {
                 Expanded(
                   child: FFButtonWidget(
                     onPressed: () async {
+                      HapticFeedback.lightImpact();
+                      Navigator.pop(context);
                       Navigator.pop(context);
                     },
                     text: 'CANCEL',

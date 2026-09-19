@@ -1,5 +1,6 @@
 import '/backend/supabase/supabase.dart';
 import '/components/add_exercise_bottom_sheet_widget.dart';
+import '/components/dismiss_workout_widget.dart';
 import '/components/empty_exercise_widget.dart';
 import '/components/finish_workout_widget.dart';
 import '/components/strength_exercise_card_widget.dart';
@@ -748,8 +749,30 @@ class _ActiveWorkoutPageWidgetState extends State<ActiveWorkoutPageWidget> {
                                   alignment: AlignmentDirectional(0.0, 1.0),
                                   child: FFButtonWidget(
                                     onPressed: () async {
-                                      HapticFeedback.heavyImpact();
-                                      context.safePop();
+                                      HapticFeedback.lightImpact();
+                                      await showModalBottomSheet(
+                                        isScrollControlled: true,
+                                        backgroundColor: Color(0xA7000000),
+                                        enableDrag: false,
+                                        context: context,
+                                        builder: (context) {
+                                          return GestureDetector(
+                                            onTap: () {
+                                              FocusScope.of(context).unfocus();
+                                              FocusManager.instance.primaryFocus
+                                                  ?.unfocus();
+                                            },
+                                            child: Padding(
+                                              padding: MediaQuery.viewInsetsOf(
+                                                  context),
+                                              child: Container(
+                                                height: 220.0,
+                                                child: DismissWorkoutWidget(),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ).then((value) => safeSetState(() {}));
                                     },
                                     text: 'DISMISS',
                                     icon: Icon(

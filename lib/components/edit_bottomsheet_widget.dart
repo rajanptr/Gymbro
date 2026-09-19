@@ -1,4 +1,6 @@
 import '/components/edit_delete_widget.dart';
+import '/components/edit_notes_widget.dart';
+import '/components/edit_title_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -12,10 +14,12 @@ class EditBottomsheetWidget extends StatefulWidget {
     super.key,
     required this.templetId,
     required this.name,
+    this.notes,
   });
 
   final String? templetId;
   final String? name;
+  final String? notes;
 
   @override
   State<EditBottomsheetWidget> createState() => _EditBottomsheetWidgetState();
@@ -57,15 +61,122 @@ class _EditBottomsheetWidgetState extends State<EditBottomsheetWidget> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 10.0),
-              child: InkWell(
+            Builder(
+              builder: (context) => Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                child: InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    HapticFeedback.lightImpact();
+                    await showDialog(
+                      barrierColor: Color(0xA7000000),
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (dialogContext) {
+                        return Dialog(
+                          elevation: 0,
+                          insetPadding: EdgeInsets.zero,
+                          backgroundColor: Colors.transparent,
+                          alignment: AlignmentDirectional(0.0, 0.0)
+                              .resolve(Directionality.of(context)),
+                          child: Container(
+                            height: 220.0,
+                            width: MediaQuery.sizeOf(context).width * 0.9,
+                            child: EditTitleWidget(
+                              titleName: widget.name!,
+                              id: widget.templetId!,
+                            ),
+                          ),
+                        );
+                      },
+                    );
+
+                    Navigator.pop(context);
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(),
+                    child: Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 10.0, 15.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.title,
+                            color: FlutterFlowTheme.of(context).primaryText,
+                            size: 20.0,
+                          ),
+                          Expanded(
+                            child: Text(
+                              'Edit Title',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyLarge
+                                  .override(
+                                    font: GoogleFonts.urbanist(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
+                                    ),
+                                    letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontStyle,
+                                  ),
+                            ),
+                          ),
+                        ].divide(SizedBox(width: 10.0)),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Divider(
+              height: 1.0,
+              thickness: 0.5,
+              color: FlutterFlowTheme.of(context).alternate,
+            ),
+            Builder(
+              builder: (context) => InkWell(
                 splashColor: Colors.transparent,
                 focusColor: Colors.transparent,
                 hoverColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onTap: () async {
                   HapticFeedback.lightImpact();
+                  await showDialog(
+                    barrierColor: Color(0xA7000000),
+                    barrierDismissible: false,
+                    context: context,
+                    builder: (dialogContext) {
+                      return Dialog(
+                        elevation: 0,
+                        insetPadding: EdgeInsets.zero,
+                        backgroundColor: Colors.transparent,
+                        alignment: AlignmentDirectional(0.0, 0.0)
+                            .resolve(Directionality.of(context)),
+                        child: Container(
+                          height: 256.0,
+                          width: MediaQuery.sizeOf(context).width * 0.9,
+                          child: EditNotesWidget(
+                            notes: widget.notes!,
+                            id: widget.templetId!,
+                          ),
+                        ),
+                      );
+                    },
+                  );
+
+                  Navigator.pop(context);
                 },
                 child: Container(
                   decoration: BoxDecoration(),

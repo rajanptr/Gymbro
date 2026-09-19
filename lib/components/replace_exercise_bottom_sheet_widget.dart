@@ -723,7 +723,11 @@ class _ReplaceExerciseBottomSheetWidgetState
             child: FutureBuilder<List<ExerciseLibraryRow>>(
               future: ExerciseLibraryTable().queryRows(
                 queryFn: (q) => q
-                    .or("name.ilike.${'%${_model.searchQuery}%'}, muscle_group.ilike.${'%${_model.searchQuery}%'}")
+                    .orGroupOrNull(orFilterGroup([
+                      orFilterLeaf('name', 'ilike', '%${_model.searchQuery}%'),
+                      orFilterLeaf(
+                          'muscle_group', 'ilike', '%${_model.searchQuery}%'),
+                    ], isAnd: false))
                     .order('name', ascending: true),
               ),
               builder: (context, snapshot) {

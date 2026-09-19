@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 class SetRowModel extends FlutterFlowModel<SetRowWidget> {
   ///  State fields for stateful widgets in this component.
 
+  Completer<List<ExerciseSetsRow>>? requestCompleter;
   // State field(s) for tf_weight widget.
   FocusNode? tfWeightFocusNode;
   TextEditingController? tfWeightTextController;
@@ -17,7 +18,6 @@ class SetRowModel extends FlutterFlowModel<SetRowWidget> {
   String? Function(BuildContext, String?)? tfRepsTextControllerValidator;
   // Stores action output result for [Backend Call - Update Row(s)] action in Stack widget.
   List<ExerciseSetsRow>? setTimer;
-  Completer<List<ExerciseSetsRow>>? requestCompleter;
 
   @override
   void initState(BuildContext context) {}

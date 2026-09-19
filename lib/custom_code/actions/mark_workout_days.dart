@@ -35,7 +35,7 @@ Future<List<CalendarDayStruct>> markWorkoutDays(
     final key =
         '${d.year}-${d.month.toString().padLeft(2, '0')}-${d.day.toString().padLeft(2, '0')}';
 
-    day.hasWorkout = workoutDates.contains(key);
+    day.status = workoutDates.contains(key) ? 'workout' : 'empty';
   }
 
   return calendarDays;

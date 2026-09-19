@@ -10,17 +10,13 @@ class CalendarDayStruct extends BaseStruct {
     int? dayNumber,
     bool? isCurrentMonth,
     bool? isToday,
-    bool? hasWorkout,
-    bool? isRestDay,
     DateTime? date,
-    bool? isEmpty,
+    String? status,
   })  : _dayNumber = dayNumber,
         _isCurrentMonth = isCurrentMonth,
         _isToday = isToday,
-        _hasWorkout = hasWorkout,
-        _isRestDay = isRestDay,
         _date = date,
-        _isEmpty = isEmpty;
+        _status = status;
 
   // "dayNumber" field.
   int? _dayNumber;
@@ -45,20 +41,6 @@ class CalendarDayStruct extends BaseStruct {
 
   bool hasIsToday() => _isToday != null;
 
-  // "hasWorkout" field.
-  bool? _hasWorkout;
-  bool get hasWorkout => _hasWorkout ?? false;
-  set hasWorkout(bool? val) => _hasWorkout = val;
-
-  bool hasHasWorkout() => _hasWorkout != null;
-
-  // "isRestDay" field.
-  bool? _isRestDay;
-  bool get isRestDay => _isRestDay ?? false;
-  set isRestDay(bool? val) => _isRestDay = val;
-
-  bool hasIsRestDay() => _isRestDay != null;
-
   // "date" field.
   DateTime? _date;
   DateTime? get date => _date;
@@ -66,22 +48,20 @@ class CalendarDayStruct extends BaseStruct {
 
   bool hasDate() => _date != null;
 
-  // "isEmpty" field.
-  bool? _isEmpty;
-  bool get isEmpty => _isEmpty ?? false;
-  set isEmpty(bool? val) => _isEmpty = val;
+  // "status" field.
+  String? _status;
+  String get status => _status ?? '';
+  set status(String? val) => _status = val;
 
-  bool hasIsEmpty() => _isEmpty != null;
+  bool hasStatus() => _status != null;
 
   static CalendarDayStruct fromMap(Map<String, dynamic> data) =>
       CalendarDayStruct(
         dayNumber: castToType<int>(data['dayNumber']),
         isCurrentMonth: data['isCurrentMonth'] as bool?,
         isToday: data['isToday'] as bool?,
-        hasWorkout: data['hasWorkout'] as bool?,
-        isRestDay: data['isRestDay'] as bool?,
         date: data['date'] as DateTime?,
-        isEmpty: data['isEmpty'] as bool?,
+        status: data['status'] as String?,
       );
 
   static CalendarDayStruct? maybeFromMap(dynamic data) => data is Map
@@ -92,10 +72,8 @@ class CalendarDayStruct extends BaseStruct {
         'dayNumber': _dayNumber,
         'isCurrentMonth': _isCurrentMonth,
         'isToday': _isToday,
-        'hasWorkout': _hasWorkout,
-        'isRestDay': _isRestDay,
         'date': _date,
-        'isEmpty': _isEmpty,
+        'status': _status,
       }.withoutNulls;
 
   @override
@@ -112,21 +90,13 @@ class CalendarDayStruct extends BaseStruct {
           _isToday,
           ParamType.bool,
         ),
-        'hasWorkout': serializeParam(
-          _hasWorkout,
-          ParamType.bool,
-        ),
-        'isRestDay': serializeParam(
-          _isRestDay,
-          ParamType.bool,
-        ),
         'date': serializeParam(
           _date,
           ParamType.DateTime,
         ),
-        'isEmpty': serializeParam(
-          _isEmpty,
-          ParamType.bool,
+        'status': serializeParam(
+          _status,
+          ParamType.String,
         ),
       }.withoutNulls;
 
@@ -147,24 +117,14 @@ class CalendarDayStruct extends BaseStruct {
           ParamType.bool,
           false,
         ),
-        hasWorkout: deserializeParam(
-          data['hasWorkout'],
-          ParamType.bool,
-          false,
-        ),
-        isRestDay: deserializeParam(
-          data['isRestDay'],
-          ParamType.bool,
-          false,
-        ),
         date: deserializeParam(
           data['date'],
           ParamType.DateTime,
           false,
         ),
-        isEmpty: deserializeParam(
-          data['isEmpty'],
-          ParamType.bool,
+        status: deserializeParam(
+          data['status'],
+          ParamType.String,
           false,
         ),
       );
@@ -178,39 +138,26 @@ class CalendarDayStruct extends BaseStruct {
         dayNumber == other.dayNumber &&
         isCurrentMonth == other.isCurrentMonth &&
         isToday == other.isToday &&
-        hasWorkout == other.hasWorkout &&
-        isRestDay == other.isRestDay &&
         date == other.date &&
-        isEmpty == other.isEmpty;
+        status == other.status;
   }
 
   @override
-  int get hashCode => const ListEquality().hash([
-        dayNumber,
-        isCurrentMonth,
-        isToday,
-        hasWorkout,
-        isRestDay,
-        date,
-        isEmpty
-      ]);
+  int get hashCode => const ListEquality()
+      .hash([dayNumber, isCurrentMonth, isToday, date, status]);
 }
 
 CalendarDayStruct createCalendarDayStruct({
   int? dayNumber,
   bool? isCurrentMonth,
   bool? isToday,
-  bool? hasWorkout,
-  bool? isRestDay,
   DateTime? date,
-  bool? isEmpty,
+  String? status,
 }) =>
     CalendarDayStruct(
       dayNumber: dayNumber,
       isCurrentMonth: isCurrentMonth,
       isToday: isToday,
-      hasWorkout: hasWorkout,
-      isRestDay: isRestDay,
       date: date,
-      isEmpty: isEmpty,
+      status: status,
     );

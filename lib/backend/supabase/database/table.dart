@@ -16,6 +16,21 @@ abstract class SupabaseTable<T extends SupabaseDataRow> {
     return query.select().then((rows) => rows.map(createRow).toList());
   }
 
+  /// Fetches one page of rows, starting at row [offset] and returning at most
+  /// [pageSize] rows. A page shorter than [pageSize] means the query is
+  /// exhausted.
+  Future<List<T>> queryRowsPage({
+    required PostgrestTransformBuilder Function(PostgrestFilterBuilder) queryFn,
+    required int offset,
+    required int pageSize,
+  }) {
+    final select = _select();
+    return queryFn(select)
+        .range(offset, offset + pageSize - 1)
+        .select()
+        .then((rows) => rows.map(createRow).toList());
+  }
+
   Future<List<T>> querySingleRow({
     required PostgrestTransformBuilder Function(PostgrestFilterBuilder) queryFn,
   }) =>
@@ -175,6 +190,91 @@ extension NullSafeSupabaseStreamFilters on SupabaseStreamFilterBuilder {
   SupabaseStreamBuilder inFilterOrNull(String column, List<Object>? values) {
     return values != null ? inFilter(column, values) : this;
   }
+}
+
+/// Escapes one scalar value for use inside a raw PostgREST logic-tree filter
+/// string (`or=(...)`, and any nested `and(...)` / `or(...)` inside it).
+///
+/// Inside a logic tree PostgREST treats `,` `.` `(` `)` `:` and leading or
+/// trailing whitespace as structural. Double quotes make all of them literal;
+/// inside the quotes only `"` and `\` need escaping. Numbers and booleans are
+/// emitted bare so the server casts them exactly as on the chained-builder
+/// path. Never pass an IS / IS NOT token through here: `is."null"` is invalid.
+String orFilterValue(Object? value) {
+  if (value == null) return '""';
+  if (value is bool || value is num) return '$value';
+  if (value is DateTime) return orFilterValue(value.toIso8601String());
+  final escaped = '$value'.replaceAll(r'\', r'\\').replaceAll('"', r'\"');
+  return '"$escaped"';
+}
+
+/// `{a,b,c}` array body for the `cs` / `ov` operators inside a logic tree.
+String orFilterArrayBody(Object? value) => value is Iterable
+    ? '{${value.map(orFilterValue).join(',')}}'
+    : '{${orFilterValue(value)}}';
+
+/// One `column.operator.value` term, or null when the term must be dropped
+/// because its runtime value is null. Dropping mirrors the chained-builder
+/// path, where eqOrNull skips a null-valued predicate: a leaf with no value is
+/// not authored right now, so it contributes nothing.
+String? orFilterLeaf(String column, String operator, Object? value) =>
+    value == null ? null : '$column.$operator.${orFilterValue(value)}';
+
+String? orFilterInLeaf(String column, Iterable<Object?>? values) =>
+    values == null
+        ? null
+        : '$column.in.(${values.map(orFilterValue).join(',')})';
+
+String? orFilterArrayLeaf(String column, String operator, Object? value) =>
+    value == null ? null : '$column.$operator.${orFilterArrayBody(value)}';
+
+/// Full-text search inside a logic tree. Dropped when the query is blank, the
+/// same way textSearchOrNull skips an empty search box on the chained path: an
+/// empty tsquery matches no rows, which would silently annihilate the AND group
+/// it sits in. On update/delete matching-rows queries the drop is what makes
+/// orFilterGroup collapse the whole AND group to its noMatch contradiction, so
+/// mutations still fail closed.
+String? orFilterTextSearchLeaf(String column, String operator, String? query) =>
+    query == null || query.trim().isEmpty
+        ? null
+        : '$column.$operator.${ftsOrFilterValue(query)}';
+
+/// A predicate that matches no rows on any column, nullable or not. PostgREST
+/// has no constant-false literal, and a value cannot be both null and not null.
+String orFilterNoMatch(String column) =>
+    'and($column.is.null,$column.not.is.null)';
+
+/// Joins [terms] into a logic-tree body.
+///
+/// Reads (noMatch == null): null terms are dropped; an empty group disappears
+/// entirely, because `and()` / `or()` with an empty body is a 400.
+///
+/// Update/delete matching-rows queries (noMatch != null): a dropped conjunct
+/// would WIDEN an AND group and mutate rows the user did not select, so any
+/// dropped term collapses the whole AND group to [noMatch]. Dropping a
+/// disjunct from an OR group only narrows, so it stays safe.
+String? orFilterGroup(
+  List<String?> terms, {
+  required bool isAnd,
+  String? noMatch,
+}) {
+  if (isAnd && noMatch != null && terms.any((t) => t == null)) return noMatch;
+  final kept = terms.whereType<String>().toList();
+  if (kept.isEmpty) return noMatch;
+  if (kept.length == 1) return kept.single;
+  return '${isAnd ? 'and' : 'or'}(${kept.join(',')})';
+}
+
+extension RawPostgrestGroupFilters on PostgrestFilterBuilder {
+  /// Applies a logic-tree body. A null body means every leaf was dropped, i.e.
+  /// no constraint - correct for a read query.
+  PostgrestFilterBuilder orGroupOrNull(String? body) =>
+      body == null ? this : or(body);
+
+  /// Fail-closed variant for update/delete matching-rows queries: a fully
+  /// dropped group must never widen the mutation to every visible row.
+  PostgrestFilterBuilder requiredOrGroup(String? body, String noMatch) =>
+      or(body ?? noMatch);
 }
 
 class PostgresTime {

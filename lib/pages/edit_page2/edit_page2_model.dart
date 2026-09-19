@@ -6,14 +6,10 @@ import 'package:flutter/material.dart';
 class EditPage2Model extends FlutterFlowModel<EditPage2Widget> {
   ///  State fields for stateful widgets in this page.
 
-  // State field(s) for Name widget.
-  FocusNode? nameFocusNode1;
-  TextEditingController? nameTextController1;
-  String? Function(BuildContext, String?)? nameTextController1Validator;
-  // State field(s) for Name widget.
-  FocusNode? nameFocusNode2;
-  TextEditingController? nameTextController2;
-  String? Function(BuildContext, String?)? nameTextController2Validator;
+  // Stores action output result for [Bottom Sheet - heightPicker] action in Row widget.
+  double? heightGot;
+  // Stores action output result for [Bottom Sheet - weightPicker] action in Row widget.
+  double? weightGot;
   // State field(s) for Checkbox widget.
   bool? checkboxValue;
 
@@ -21,11 +17,5 @@ class EditPage2Model extends FlutterFlowModel<EditPage2Widget> {
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    nameFocusNode1?.dispose();
-    nameTextController1?.dispose();
-
-    nameFocusNode2?.dispose();
-    nameTextController2?.dispose();
-  }
+  void dispose() {}
 }
